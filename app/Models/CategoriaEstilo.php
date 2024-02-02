@@ -11,4 +11,8 @@ class CategoriaEstilo extends Model
 
     protected $table = 'categoria_estilos';
     // ... otras propiedades y métodos del modelo ...
+    public function categoriaCliente()
+    {
+        return $this->belongsTo(CategoriaCliente::class, 'categoria_cliente_id');
+    }
 }
