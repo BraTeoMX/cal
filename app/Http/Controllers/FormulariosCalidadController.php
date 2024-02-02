@@ -14,6 +14,7 @@ use App\Models\CategoriaTipoDefecto;
 use App\Models\ReporteAuditoriaEtiqueta;
 
 use App\Exports\DatosExport;
+use App\Models\DatoAX;
 use Maatwebsite\Excel\Facades\Excel;
 use Carbon\Carbon; // Asegúrate de importar la clase Carbon
 
@@ -35,6 +36,8 @@ class FormulariosCalidadController extends Controller
             'CategoriaTamañoMuestra' => CategoriaTamañoMuestra::where('estado', 1)->get(),
             'CategoriaDefecto' => CategoriaDefecto::where('estado', 1)->get(),
             'CategoriaTipoDefecto' => CategoriaTipoDefecto::where('estado', 1)->get(),
+            'CategoriaAuditor' => CategoriaAuditor::where('estado', 1)->get(),
+            'DatoAX' => DatoAX::all(),
         ];
     }
 
@@ -148,16 +151,7 @@ class FormulariosCalidadController extends Controller
     public function auditoriaCortes()
     {
         $activePage ='';
-        $CategoriaAuditor = CategoriaAuditor::where('estado', 1)->get();
-        $CategoriaCliente = CategoriaCliente::where('estado', 1)->get();
-        $CategoriaEstilo = CategoriaEstilo::where('estado', 1)->get();
-        $CategoriaNoRecibo = CategoriaNoRecibo::where('estado', 1)->get();
-        $CategoriaTallaCantidad = CategoriaTallaCantidad::where('estado', 1)->get();
-        $CategoriaTamañoMuestra = CategoriaTamañoMuestra::where('estado', 1)->get();
-        $CategoriaDefecto = CategoriaDefecto::where('estado', 1)->get();
-        $CategoriaTipoDefecto = CategoriaTipoDefecto::where('estado', 1)->get();
-
-
+        $categorias = $this->cargarCategorias();
 
 
         $mesesEnEspanol = [
@@ -165,9 +159,7 @@ class FormulariosCalidadController extends Controller
         ];
 
 
-        return view('formulariosCalidad.auditoriaCortes', compact('mesesEnEspanol', 'CategoriaCliente',
-                'CategoriaEstilo', 'CategoriaNoRecibo', 'CategoriaTallaCantidad', 'CategoriaTamañoMuestra',
-                'CategoriaDefecto', 'CategoriaTipoDefecto', 'CategoriaAuditor','activePage'));
+        return view('formulariosCalidad.auditoriaCortes', array_merge($categorias, ['mesesEnEspanol' => $mesesEnEspanol, 'activePage' => $activePage]));
     }
 
     public function formAuditoriaCortes(Request $request)

@@ -46,19 +46,19 @@
                                 <div class="col-md-6 mb-3">
                                     <label for="orden" class="col-sm-3 col-form-label">ORDEN</label>
                                     <div class="col-sm-12">
-                                        <input type="number" class="form-control" name="orden" id="orden" placeholder="..." required />
+                                        <select name="orden" id="orden" class="form-control" required title="Por favor, selecciona una opción">
+                                            <option value="">Selecciona una opción</option>
+                                            @foreach ($DatoAX as $orden)
+                                                <option value="{{ $orden->id }}" data-estilo="{{ $orden->estilo }}">{{ $orden->orden }}</option>
+                                            @endforeach
+                                        </select>
                                     </div>
                                 </div>
                                 <div class="col-md-6 mb-3">
-                                    <!--Este apartado debe ser modificado despues -->
+
                                     <label for="estilo" class="col-sm-3 col-form-label">ESTILO</label>
                                     <div class="col-sm-12">
-                                        <select name="nombre" id="nombre" class="form-control" required title="Por favor, selecciona una opción">
-                                            <option value="">Selecciona una opción</option>
-                                            @foreach ($CategoriaEstilo as $estilo)
-                                                <option value="{{ $estilo->id }}">{{ $estilo->nombre }}</option>
-                                            @endforeach
-                                        </select>
+                                        <p id="estilo"></p> <!-- Elemento <p> para mostrar el estilo -->
                                     </div>
                                 </div>
                                 <div class="col-md-6 mb-3">
@@ -795,4 +795,22 @@
         margin-right: 10px;
     }
 </style>
+
+<script>
+    $(document).ready(function() {
+    // Cuando se selecciona una opción en el primer select
+    $('#orden').change(function() {
+        var selectedOption = $(this).find('option:selected');
+        var estilo = selectedOption.data('estilo');
+        
+        console.log("Valor seleccionado: " + selectedOption.val());
+        console.log("Estilo obtenido: " + estilo);
+        
+        // Actualiza el contenido del elemento <p> con el estilo correspondiente
+        $('#estilo').text(estilo);
+    });
+});
+
+</script>
+
 @endsection
