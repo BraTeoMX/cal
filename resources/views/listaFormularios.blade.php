@@ -19,7 +19,7 @@
                                         <div class="card-body">
                                             <h5 class="card-title">REPORTE AUDITORIA DE ETIQUETAS <br>FCC-014</h5>
                                             <a href="{{ route('formulariosCalidad.auditoriaEtiquetas') }}"
-                                                class="btn btn-info" target="_blank">INICIAR</a>
+                                                class="btn btn-info"  >INICIAR</a>
                                         </div>
                                     </div>
                                 </div>
@@ -31,7 +31,7 @@
                                         <div class="card-body">
                                             <h5 class="card-title">CONTROL DE CALIDAD EN CORTE <br>FCC-010</h5>
                                             <a href="{{ route('formulariosCalidad.auditoriaCortes') }}" class="btn btn-info"
-                                                target="_blank">INICIAR</a>
+                                                 >INICIAR</a>
                                         </div>
                                     </div>
                                 </div>
@@ -42,7 +42,7 @@
                                         <div class="card-body">
                                             <h5 class="card-title">EVALUACION DE CORTE CONTRA PATRON <br>F-4</h5>
                                             <a href="{{ route('formulariosCalidad.evaluacionCorte') }}" class="btn btn-info"
-                                                target="_blank">INICIAR</a>
+                                                 >INICIAR</a>
                                         </div>
                                     </div>
                                 </div>
@@ -54,7 +54,7 @@
                                             <h5 class="card-title">CHECK LIST DE AUDITORIA DE LIMPIEZA Y PPP <br>FAP-003
                                             </h5>
                                             <a href="{{ route('formulariosCalidad.auditoriaLimpieza') }}"
-                                                class="btn btn-info" target="_blank">INICIAR</a>
+                                                class="btn btn-info"  >INICIAR</a>
                                         </div>
                                     </div>
                                 </div>
@@ -65,7 +65,7 @@
                                         <div class="card-body">
                                             <h5 class="card-title">AUDITORIA FINAL A.Q.L <br>FCC-009-B</h5>
                                             <a href="{{ route('formulariosCalidad.auditoriaFinalAQL') }}"
-                                                class="btn btn-info" target="_blank">INICIAR</a>
+                                                class="btn btn-info"  >INICIAR</a>
                                         </div>
                                     </div>
                                 </div>
@@ -76,7 +76,7 @@
                                         <div class="card-body">
                                             <h5 class="card-title">INTIMARK CONTROL DE CALIDAD EMPAQUE<br>FCC-008</h5>
                                             <a href="{{ route('formulariosCalidad.controlCalidadEmpaque') }}"
-                                                class="btn btn-info" target="_blank">INICIAR</a>
+                                                class="btn btn-info"  >INICIAR</a>
                                         </div>
                                     </div>
                                 </div>
@@ -85,8 +85,9 @@
                                         <img src="{{ asset('material') }}/img/Intimark.png" class="card-img-top"
                                             alt="...">
                                         <div class="card-body">
-                                            <h5 class="card-title">Pedir Accesos</h5>
-
+                                            <h5 class="card-title">ASEGURAMIENTO DE CALIDAD<br>FCC-004(1)(5)(11)</h5>
+                                            <a href="{{ route('formulariosCalidad.aseguramientoCalidad') }}"
+                                                class="btn btn-info"  >INICIAR</a>
                                         </div>
                                     </div>
                                 </div>
@@ -107,7 +108,7 @@
                                         <div class="card-body">
                                             <h5 class="card-title">Mostrar Datos de Auditorias (TEST) </h5>
                                             <a href="{{ route('formulariosCalidad.mostrarAuditoriaEtiquetas') }}"
-                                                class="btn btn-success" target="_blank">INICIAR</a>
+                                                class="btn btn-success"  >INICIAR</a>
                                         </div>
                                     </div>
                                 </div>

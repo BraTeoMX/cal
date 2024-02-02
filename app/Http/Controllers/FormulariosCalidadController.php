@@ -448,4 +448,71 @@ class FormulariosCalidadController extends Controller
     }
 
 
+    public function aseguramientoCalidad()
+    {
+        $activePage ='';
+        $CategoriaAuditor = CategoriaAuditor::where('estado', 1)->get();
+        $CategoriaCliente = CategoriaCliente::where('estado', 1)->get();
+        $CategoriaEstilo = CategoriaEstilo::where('estado', 1)->get();
+        $CategoriaNoRecibo = CategoriaNoRecibo::where('estado', 1)->get();
+        $CategoriaTallaCantidad = CategoriaTallaCantidad::where('estado', 1)->get();
+        $CategoriaTamañoMuestra = CategoriaTamañoMuestra::where('estado', 1)->get();
+        $CategoriaDefecto = CategoriaDefecto::where('estado', 1)->get();
+        $CategoriaTipoDefecto = CategoriaTipoDefecto::where('estado', 1)->get();
+
+        // Obtén la fecha actual
+        $fechaActual = Carbon::now();
+
+        // Array de nombres de días de la semana en español
+        $diasSemana = [
+            'Sunday' => 'Domingo',
+            'Monday' => 'Lunes',
+            'Tuesday' => 'Martes',
+            'Wednesday' => 'Miércoles',
+            'Thursday' => 'Jueves',
+            'Friday' => 'Viernes',
+            'Saturday' => 'Sábado',
+        ];
+
+        // Obtén el nombre del día de la semana en español
+        $nombreDia = $diasSemana[$fechaActual->format('l')];
+
+        $mesesEnEspanol = [
+            'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'
+        ];
+
+
+        return view('formulariosCalidad.aseguramientoCalidad', compact('mesesEnEspanol', 'CategoriaCliente',
+                'CategoriaEstilo', 'CategoriaNoRecibo', 'CategoriaTallaCantidad', 'CategoriaTamañoMuestra',
+                'CategoriaDefecto', 'CategoriaTipoDefecto', 'CategoriaAuditor',
+                'nombreDia','activePage'));
+    }
+
+    public function formAseguramientoCalidad(Request $request)
+    {
+        $activePage ='';
+        $auditoriaEtiqueta = new ReporteAuditoriaEtiqueta();
+        $defecto = $request->input('defecto', ''); // Obtener el valor del campo 'defecto'
+        // Asignacion con relacion de modelos
+
+        $auditoriaEtiqueta->categoriaCliente()->associate(CategoriaCliente::find($request->input('cliente')));
+        $auditoriaEtiqueta->categoriaEstilo()->associate(CategoriaEstilo::find($request->input('estilo')));
+        $auditoriaEtiqueta->categoriaNoRecibo()->associate(CategoriaNoRecibo::find($request->input('no_recibo')));
+        $auditoriaEtiqueta->talla_cantidad_id = $request->input('talla_cantidad');
+        $auditoriaEtiqueta->tamaño_muestra_id = $request->input('muestra');
+        // Verificar si el valor es nulo o está en blanco
+        if ($defecto === null || $defecto === '') {
+            $auditoriaEtiqueta->defecto_id = '0'; // Establecer '0' como valor predeterminado
+        } else {
+            $auditoriaEtiqueta->defecto_id = $defecto; // Usar el valor ingresado
+        }
+        $auditoriaEtiqueta->categoriaTipoDefecto()->associate(CategoriaTipoDefecto::find($request->input('tipo_defecto')));
+        $auditoriaEtiqueta->estado = $request->input('estado');
+        // Guarda el registro en la base de datos
+        $auditoriaEtiqueta->save();
+        // Redirecciona de vuelta a la página con un mensaje de éxito o lo que consideres necesario
+        return back()->with('success', 'Datos guardados correctamente.')->with('activePage', $activePage);
+    }
+
+
 }
