@@ -21,6 +21,16 @@
             {{ session('status') }}
         </div>
     @endif
+    <style>
+        .alerta-exito {
+            background-color: #28a745; /* Color de fondo verde */
+            color: white; /* Color de texto blanco */
+            font-weight: bold;
+            padding: 20px;
+            border-radius: 15px;
+            font-size: 20px;
+        }
+        </style>
     {{-- ... el resto de tu vista ... --}}
     <div class="content">
         <div class="container-fluid">
@@ -86,9 +96,13 @@
                             <div class="row mb-3">
                                 <label for="talla_cantidad" class="col-sm-3 col-form-label">TALLA/CANTIDAD</label>
                                 <div class="col-sm-9">
-                                    <input type="text" class="form-control" name="talla_cantidad" id="talla_cantidad"
-                                        placeholder="Ingresa talla " required title="Por favor, selecciona una opción"
-                                        oninput="this.value = this.value.toUpperCase()">
+                                    <select name="talla_cantidad" id="talla_cantidad" class="form-control" required
+                                        title="Por favor, selecciona una opción">
+                                        <option value="">Selecciona una opción</option>
+                                        @foreach ($CategoriaTallaCantidad as $talla_cantidad)
+                                            <option value="{{ $talla_cantidad->id }}">{{ $talla_cantidad->nombre }}</option>
+                                        @endforeach
+                                    </select>
                                 </div>
                             </div>
                             <div class="row mb-3">

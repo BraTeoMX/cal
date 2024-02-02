@@ -61,7 +61,7 @@ class FormulariosCalidadController extends Controller
         $auditoriaEtiqueta->categoriaCliente()->associate(CategoriaCliente::find($request->input('cliente')));
         $auditoriaEtiqueta->categoriaEstilo()->associate(CategoriaEstilo::find($request->input('estilo')));
         $auditoriaEtiqueta->categoriaNoRecibo()->associate(CategoriaNoRecibo::find($request->input('no_recibo')));
-        $auditoriaEtiqueta->talla_cantidad_id = $request->input('talla_cantidad');
+        $auditoriaEtiqueta->categoriaTallaCantidad()->associate(categoriaTallaCantidad::find($request->input('talla_cantidad')));
         $auditoriaEtiqueta->tamaño_muestra_id = $request->input('muestra');
         // Verificar si el valor es nulo o está en blanco
         if ($defecto === null || $defecto === '') {
