@@ -95,38 +95,6 @@
                         <!-- Fin del acordeón -->
                         <div class="row">
                             <div class="col-lg-3 col-md-6 col-sm-6 col-12 mb-3">
-                                <label for="orden" class="col-sm-6 col-form-label">ORDEN</label>
-                                <div class="col-sm-12">
-                                    <select name="orden" id="orden" class="form-control js-example-basic-single" required
-                                        title="Por favor, selecciona una opción">
-                                        <option value="">Selecciona una opción</option>
-                                        @foreach ($DatoAX as $dato)
-                                            <option value="{{ $dato->id }}" data-estilo="{{ $dato->estilo }}"
-                                                data-cliente="{{ $dato->cliente }}" data-color="{{ $dato->color }}"
-                                                data-material="{{ $dato->material }}">{{ $dato->orden }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-lg-3 col-md-6 col-sm-6 col-12 mb-3">
-                                <label for="estilo" class="col-sm-6 col-form-label">ESTILO</label>
-                                <div class="col-sm-12">
-                                    <p id="estilo-p"></p>
-                                </div>
-                            </div>
-                            <div class="col-lg-3 col-md-6 col-sm-6 col-12 mb-3">
-                                <label for="cliente" class="col-sm-6 col-form-label">CLIENTE</label>
-                                <div class="col-sm-12">
-                                    <p id="cliente-p"></p>
-                                </div>
-                            </div>
-                            <div class="col-lg-3 col-md-6 col-sm-6 col-12 mb-3">
-                                <label for="material" class="col-sm-6 col-form-label">MATERIAL</label>
-                                <div class="col-sm-12">
-                                    <p id="material-p"></p>
-                                </div>
-                            </div>
-                            <div class="col-lg-3 col-md-6 col-sm-6 col-12 mb-3">
                                 <label for="color" class="col-sm-6 col-form-label">COLOR</label>
                                 <div class="col-sm-12 d-flex align-items-center">
                                     <select name="color" id="color" class="form-control" required
@@ -160,6 +128,7 @@
                                 </div>
                             </div>
                         </div>
+                    </form>
                         <hr>
                         <div style="background: #db8036a2">
                             <h4 style="text-align: center">AUDITORIA DE MARCADA</h4>
@@ -963,7 +932,6 @@
                         <button type="submit" class="btn btn-primary">Guardar Cambios</button>
                         <!--Fin de la edicion del codigo para mostrar el contenido-->
                     </div>
-                    <form>
             </div>
         </div>
     </div>
