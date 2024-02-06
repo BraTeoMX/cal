@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\CategoriaAuditor;
 use App\Models\CategoriaCliente;
+use App\Models\CategoriaColor;
 use App\Models\CategoriaEstilo;
 use App\Models\CategoriaNoRecibo;
 use App\Models\CategoriaTallaCantidad;
@@ -30,6 +31,7 @@ class FormulariosCalidadController extends Controller
     private function cargarCategorias() {
         return [
             'CategoriaCliente' => CategoriaCliente::where('estado', 1)->get(),
+            'CategoriaColor' => CategoriaColor::where('estado', 1)->get(),
             'CategoriaEstilo' => CategoriaEstilo::where('estado', 1)->get(),
             'CategoriaNoRecibo' => CategoriaNoRecibo::where('estado', 1)->get(),
             'CategoriaTallaCantidad' => CategoriaTallaCantidad::where('estado', 1)->get(),

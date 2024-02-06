@@ -43,49 +43,59 @@
                         <div class="card-body">
                             <!--Desde aqui inicia la edicion del codigo para mostrar el contenido-->
                             <div class="row">
-                                <div class="col-md-6 mb-3">
+                                <div class="col-lg-4 col-md-6 mb-3">
                                     <label for="orden" class="col-sm-3 col-form-label">ORDEN</label>
                                     <div class="col-sm-12">
                                         <select name="orden" id="orden" class="form-control" required title="Por favor, selecciona una opción">
                                             <option value="">Selecciona una opción</option>
-                                            @foreach ($DatoAX as $orden)
-                                                <option value="{{ $orden->id }}" data-estilo="{{ $orden->estilo }}">{{ $orden->orden }}</option>
+                                            @foreach ($DatoAX as $dato)
+                                            <option value="{{ $dato->id }}" data-estilo="{{ $dato->estilo }}" data-cliente="{{ $dato->cliente }}" data-color="{{ $dato->color }}" data-material="{{ $dato->material }}">{{ $dato->orden }}</option>
                                             @endforeach
                                         </select>
                                     </div>
                                 </div>
-                                <div class="col-md-6 mb-3">
-
+                                <div class="col-lg-4 col-md-6 mb-3">
                                     <label for="estilo" class="col-sm-3 col-form-label">ESTILO</label>
                                     <div class="col-sm-12">
-                                        <p id="estilo"></p> <!-- Elemento <p> para mostrar el estilo -->
+                                        <p id="estilo-p"></p>
                                     </div>
                                 </div>
-                                <div class="col-md-6 mb-3">
+                                <div class="col-lg-4 col-md-6 mb-3">
+                                    <label for="cliente" class="col-sm-3 col-form-label">CLIENTE</label>
+                                    <div class="col-sm-12">
+                                        <p id="cliente-p"></p>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-md-6 mb-3">
+                                    <label for="material" class="col-sm-3 col-form-label">MATERIAL</label>
+                                    <div class="col-sm-12">
+                                        <p id="material-p"></p>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-md-6 mb-3">
+                                    <label for="color" class="col-sm-3 col-form-label">COLOR</label>
+                                    <div class="col-sm-12 d-flex align-items-center">
+                                        <select name="color" id="color" class="form-control" required title="Por favor, selecciona una opción">
+                                            <option value="">Selecciona una opción</option>
+                                            @foreach ($CategoriaColor as $color)
+                                                <option value="{{ $color->id }}">{{ $color->nombre }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-md-6 mb-3">
                                     <label for="pieza" class="col-sm-3 col-form-label">PIEZAS</label>
                                     <div class="col-sm-12">
                                         <input type="number" class="form-control" name="pieza" id="pieza" placeholder="..." required />
                                     </div>
                                 </div>
-                                <div class="col-md-6 mb-3">
+                                <div class="col-lg-4 col-md-6 mb-3">
                                     <label for="trazo" class="col-sm-3 col-form-label">TRAZO</label>
                                     <div class="col-sm-12">
                                         <input type="number" class="form-control" name="trazo" id="trazo" placeholder="..." required />
                                     </div>
                                 </div>
-                                <div class="col-md-6 mb-3">
-                                    <label for="color" class="col-sm-3 col-form-label">COLOR</label>
-                                    <div class="col-sm-12">
-                                        <input type="number" class="form-control" name="color" id="color" placeholder="..." required />
-                                    </div>
-                                </div>
-                                <div class="col-md-6 mb-3">
-                                    <label for="material" class="col-sm-3 col-form-label">MATERIAL</label>
-                                    <div class="col-sm-12">
-                                        <input type="number" class="form-control" name="material" id="material" placeholder="..." required />
-                                    </div>
-                                </div>
-                                <div class="col-md-6 mb-3">
+                                <div class="col-lg-4 col-md-6 mb-3">
                                     <label for="lienzo" class="col-sm-3 col-form-label">LIENZOS</label>
                                     <div class="col-sm-12">
                                         <input type="text" class="form-control" name="lienzo" id="lienzo" placeholder="..." required />
@@ -796,21 +806,21 @@
     }
 </style>
 
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
     $(document).ready(function() {
-    // Cuando se selecciona una opción en el primer select
-    $('#orden').change(function() {
-        var selectedOption = $(this).find('option:selected');
-        var estilo = selectedOption.data('estilo');
-        
-        console.log("Valor seleccionado: " + selectedOption.val());
-        console.log("Estilo obtenido: " + estilo);
-        
-        // Actualiza el contenido del elemento <p> con el estilo correspondiente
-        $('#estilo').text(estilo);
+        $('#orden').change(function() {
+            var estilo = $('option:selected', this).data('estilo');
+            var cliente = $('option:selected', this).data('cliente');
+            var color = $('option:selected', this).data('color');
+            var material = $('option:selected', this).data('material');
+            
+            $('#estilo-p').text(estilo);
+            $('#cliente-p').text(cliente);
+            $('#color-p').text(color);
+            $('#material-p').text(material);
+        });
     });
-});
-
 </script>
 
 @endsection
