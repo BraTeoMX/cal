@@ -56,19 +56,23 @@
                                         </button>
                                     </h2>
                                 </div>
-
-                                <div id="collapseOne" class="collapse" aria-labelledby="headingOne"
+                        
+                                <div id="collapseOne" class="collapse show" aria-labelledby="headingOne"
                                     data-parent="#accordionExample">
                                     <div class="card-body">
                                         <!-- Desde aquí inicia la edición del código para mostrar el contenido -->
-                                        <div class="table-responsive">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <input type="text" id="busquedaOrden" class="form-control" placeholder="Buscar por orden">
+                                            </div>
+                                        </div>
+                                        <div class="table-responsive" id="tablaDatos" style="display:none;">
                                             <table class="table table-striped">
                                                 <thead>
                                                     <tr>
                                                         <th>Orden</th>
                                                         <th>Estilo</th>
                                                         <th>Cliente</th>
-                                                        <th>Color</th>
                                                         <th>Material</th>
                                                     </tr>
                                                 </thead>
@@ -78,7 +82,6 @@
                                                         <td>{{ $dato->orden }}</td>
                                                         <td>{{ $dato->estilo }}</td>
                                                         <td>{{ $dato->cliente }}</td>
-                                                        <td>{{ $dato->color }}</td>
                                                         <td>{{ $dato->material }}</td>
                                                     </tr>
                                                     @endforeach
@@ -1022,6 +1025,35 @@
                 $('#cliente-p').text(cliente);
                 $('#color-p').text(color);
                 $('#material-p').text(material);
+            });
+        });
+    </script>
+    <script>
+        document.getElementById('busquedaOrden').addEventListener('keyup', function() {
+            var searchText = this.value.toLowerCase();
+            var rows = document.querySelectorAll('tbody tr');
+            var tablaDatos = document.getElementById('tablaDatos');
+    
+            if (searchText.trim() !== '') {
+                tablaDatos.style.display = 'block';
+            } else {
+                tablaDatos.style.display = 'none';
+            }
+    
+            rows.forEach(function(row) {
+                var cells = row.querySelectorAll('td');
+                var found = false;
+                cells.forEach(function(cell, index) {
+                    if (index === 0 && cell.textContent.toLowerCase().includes(searchText)) {
+                        found = true;
+                    }
+                });
+    
+                if (found) {
+                    row.style.display = '';
+                } else {
+                    row.style.display = 'none';
+                }
             });
         });
     </script>
