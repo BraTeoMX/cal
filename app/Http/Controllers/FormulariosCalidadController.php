@@ -167,28 +167,27 @@ class FormulariosCalidadController extends Controller
     public function formAuditoriaCortes(Request $request)
     {
         $activePage ='';
-        $auditoriaEtiqueta = new ReporteAuditoriaEtiqueta();
-        $defecto = $request->input('defecto', ''); // Obtener el valor del campo 'defecto'
-        // Asignacion con relacion de modelos
+        // Validar los datos del formulario si es necesario
+        $request->validate([
+            'seleccion' => 'required',
+            'color' => 'required',
+            'pieza' => 'required|numeric',
+            'trazo' => 'required|numeric',
+            'lienzo' => 'required',
+        ]);
 
-        $auditoriaEtiqueta->categoriaCliente()->associate(CategoriaCliente::find($request->input('cliente')));
-        $auditoriaEtiqueta->categoriaEstilo()->associate(CategoriaEstilo::find($request->input('estilo')));
-        $auditoriaEtiqueta->categoriaNoRecibo()->associate(CategoriaNoRecibo::find($request->input('no_recibo')));
-        $auditoriaEtiqueta->talla_cantidad_id = $request->input('talla_cantidad');
-        $auditoriaEtiqueta->tamaño_muestra_id = $request->input('muestra');
-        // Verificar si el valor es nulo o está en blanco
-        if ($defecto === null || $defecto === '') {
-            $auditoriaEtiqueta->defecto_id = '0'; // Establecer '0' como valor predeterminado
-        } else {
-            $auditoriaEtiqueta->defecto_id = $defecto; // Usar el valor ingresado
+        // Obtener el ID seleccionado
+        $idSeleccionado = $request->input('seleccion');
+
+        // Realizar la actualización en la base de datos
+        $auditoria = DatoAX::find($idSeleccionado);
+        $auditoria->color = $request->input('color');
+        $auditoria->pieza = $request->input('pieza');
+        $auditoria->trazo = $request->input('trazo');
+        $auditoria->lienzo = $request->input('lienzo');
+        $auditoria->save();
+            return back()->with('success', 'Datos guardados correctamente.')->with('activePage', $activePage);
         }
-        $auditoriaEtiqueta->categoriaTipoDefecto()->associate(CategoriaTipoDefecto::find($request->input('tipo_defecto')));
-        $auditoriaEtiqueta->estado = $request->input('estado');
-        // Guarda el registro en la base de datos
-        $auditoriaEtiqueta->save();
-        // Redirecciona de vuelta a la página con un mensaje de éxito o lo que consideres necesario
-        return back()->with('success', 'Datos guardados correctamente.')->with('activePage', $activePage);
-    }
 
 
     public function evaluacionCorte()

@@ -70,6 +70,7 @@
                                             <table class="table table-striped">
                                                 <thead>
                                                     <tr>
+                                                        <th>Seleccionar</th> <!-- Nuevo -->
                                                         <th>Orden</th>
                                                         <th>Estilo</th>
                                                         <th>Cliente</th>
@@ -79,6 +80,7 @@
                                                 <tbody>
                                                     @foreach ($DatoAX as $dato)
                                                     <tr>
+                                                        <td><input type="radio" name="seleccion" value="{{ $dato->id }}"></td> <!-- Nuevo -->
                                                         <td>{{ $dato->orden }}</td>
                                                         <td>{{ $dato->estilo }}</td>
                                                         <td>{{ $dato->cliente }}</td>
@@ -97,7 +99,7 @@
                             <div class="col-lg-3 col-md-6 col-sm-6 col-12 mb-3">
                                 <label for="color" class="col-sm-6 col-form-label">COLOR</label>
                                 <div class="col-sm-12 d-flex align-items-center">
-                                    <select name="color" id="color" class="form-control" required
+                                    <select name="color" id="color" class="form-control"  
                                         title="Por favor, selecciona una opción">
                                         <option value="">Selecciona una opción</option>
                                         @foreach ($CategoriaColor as $color)
@@ -110,24 +112,25 @@
                                 <label for="pieza" class="col-sm-6 col-form-label">PIEZAS</label>
                                 <div class="col-sm-12">
                                     <input type="number" class="form-control" name="pieza" id="pieza"
-                                        placeholder="..." required />
+                                        placeholder="..."   />
                                 </div>
                             </div>
                             <div class="col-lg-3 col-md-6 col-sm-6 col-12 mb-3">
                                 <label for="trazo" class="col-sm-6 col-form-label">TRAZO</label>
                                 <div class="col-sm-12">
                                     <input type="number" class="form-control" name="trazo" id="trazo"
-                                        placeholder="..." required />
+                                        placeholder="..."   />
                                 </div>
                             </div>
                             <div class="col-lg-3 col-md-6 col-sm-6 col-12 mb-3">
                                 <label for="lienzo" class="col-sm-6 col-form-label">LIENZOS</label>
                                 <div class="col-sm-12">
                                     <input type="text" class="form-control" name="lienzo" id="lienzo"
-                                        placeholder="..." required />
+                                        placeholder="..."   />
                                 </div>
                             </div>
                         </div>
+                        <button type="submit" class="btn btn-success">Guardar</button>
                     </form>
                         <hr>
                         <div style="background: #db8036a2">
@@ -139,16 +142,16 @@
                                 <div class="col-sm-12 d-flex align-items-center">
                                     <div class="form-check form-check-inline">
                                         <input type="number" class="form-control me-2" name="yOrden" id="yOrden"
-                                            placeholder="..." required />
+                                            placeholder="..."   />
                                     </div>
                                     <div class="form-check form-check-inline">
                                         <input class="quitar-espacio" type="radio" name="estado" id="estado1"
-                                            value="1" required>
+                                            value="1"  >
                                         <label class="label-paloma" for="estado1">✔ </label>
                                     </div>
                                     <div class="form-check form-check-inline">
                                         <input class="quitar-espacio" type="radio" name="estado" id="estado2"
-                                            value="0" required>
+                                            value="0"  >
                                         <label class="label-tache" for="estado2">✖ </label>
                                     </div>
                                 </div>
@@ -158,16 +161,16 @@
                                 <div class="col-sm-12 d-flex align-items-center">
                                     <div class="form-check form-check-inline">
                                         <input type="number" class="form-control me-2" name="yOrden" id="yOrden"
-                                            placeholder="..." required />
+                                            placeholder="..."   />
                                     </div>
                                     <div class="form-check form-check-inline">
                                         <input class="quitar-espacio" type="radio" name="estado" id="estado1"
-                                            value="1" required>
+                                            value="1"  >
                                         <label class="label-paloma" for="estado1">✔ </label>
                                     </div>
                                     <div class="form-check form-check-inline">
                                         <input class="quitar-espacio" type="radio" name="estado" id="estado2"
-                                            value="0" required>
+                                            value="0"  >
                                         <label class="label-tache" for="estado2">✖ </label>
                                     </div>
                                 </div>
@@ -177,16 +180,16 @@
                                 <div class="col-sm-12 d-flex align-items-center">
                                     <div class="form-check form-check-inline">
                                         <input type="number" class="form-control me-2" name="yOrden" id="yOrden"
-                                            placeholder="..." required />
+                                            placeholder="..."   />
                                     </div>
                                     <div class="form-check form-check-inline">
                                         <input class="quitar-espacio" type="radio" name="estado" id="estado1"
-                                            value="1" required>
+                                            value="1"  >
                                         <label class="label-paloma" for="estado1">✔ </label>
                                     </div>
                                     <div class="form-check form-check-inline">
                                         <input class="quitar-espacio" type="radio" name="estado" id="estado2"
-                                            value="0" required>
+                                            value="0"  >
                                         <label class="label-tache" for="estado2">✖ </label>
                                     </div>
                                 </div>
@@ -196,14 +199,14 @@
                                 <label for="pieza_bulto" class="col-sm-3 col-form-label">Piezas X Bulto </label>
                                 <div class="col-sm-12 d-flex align-items-center">
                                     <input type="number" class="form-control me-2" name="pieza_bulto" id="pieza_bulto"
-                                        placeholder="..." required />
+                                        placeholder="..."   />
                                 </div>
                             </div>
                             <div class="col-md-6 mb-3">
                                 <label for="pieza_total" class="col-sm-3 col-form-label">Piezas Totales</label>
                                 <div class="col-sm-12 d-flex align-items-center">
                                     <input type="number" class="form-control me-2" name="pieza_total" id="pieza_total"
-                                        placeholder="..." required />
+                                        placeholder="..."   />
                                 </div>
                             </div>
                             <hr>
@@ -211,61 +214,61 @@
                                 <label for="talla" class="col-sm-3 col-form-label">Tallas</label>
                                 <div class="col-sm-12 d-flex align-items-center">
                                     <input type="number" class="form-control me-2" name="talla" id="talla"
-                                        placeholder="..." required />
+                                        placeholder="..."   />
                                     <input type="number" class="form-control me-2" name="talla" id="talla"
-                                        placeholder="..." required />
+                                        placeholder="..."   />
                                     <input type="number" class="form-control me-2" name="talla" id="talla"
-                                        placeholder="..." required />
+                                        placeholder="..."   />
                                     <input type="number" class="form-control me-2" name="talla" id="talla"
-                                        placeholder="..." required />
+                                        placeholder="..."   />
                                     <input type="number" class="form-control me-2" name="talla" id="talla"
-                                        placeholder="..." required />
+                                        placeholder="..."   />
                                     <input type="number" class="form-control me-2" name="talla" id="talla"
-                                        placeholder="..." required />
+                                        placeholder="..."   />
                                 </div>
                             </div>
                             <div class="col-md-6 mb-3">
                                 <label for="bulto" class="col-sm-3 col-form-label"># Bultos</label>
                                 <div class="col-sm-12 d-flex align-items-center">
                                     <input type="number" class="form-control me-2" name="bulto" id="bulto"
-                                        placeholder="..." required />
+                                        placeholder="..."   />
                                     <input type="number" class="form-control me-2" name="bulto" id="bulto"
-                                        placeholder="..." required />
+                                        placeholder="..."   />
                                     <input type="number" class="form-control me-2" name="bulto" id="bulto"
-                                        placeholder="..." required />
+                                        placeholder="..."   />
                                     <input type="number" class="form-control me-2" name="bulto" id="bulto"
-                                        placeholder="..." required />
+                                        placeholder="..."   />
                                     <input type="number" class="form-control me-2" name="bulto" id="bulto"
-                                        placeholder="..." required />
+                                        placeholder="..."   />
                                 </div>
                             </div>
                             <div class="col-md-6 mb-3">
                                 <label for="total_pieza" class="col-sm-3 col-form-label">Total piezas</label>
                                 <div class="col-sm-12 d-flex align-items-center">
                                     <input type="number" class="form-control me-2" name="total_pieza" id="total_pieza"
-                                        placeholder="..." required />
+                                        placeholder="..."   />
                                     <input type="number" class="form-control me-2" name="total_pieza" id="total_pieza"
-                                        placeholder="..." required />
+                                        placeholder="..."   />
                                     <input type="number" class="form-control me-2" name="total_pieza" id="total_pieza"
-                                        placeholder="..." required />
+                                        placeholder="..."   />
                                     <input type="number" class="form-control me-2" name="total_pieza" id="total_pieza"
-                                        placeholder="..." required />
+                                        placeholder="..."   />
                                     <input type="number" class="form-control me-2" name="total_pieza" id="total_pieza"
-                                        placeholder="..." required />
+                                        placeholder="..."   />
                                 </div>
                             </div>
                             <div class="col-md-6 mb-3">
                                 <label for="largo_trazo" class="col-sm-3 col-form-label">Largo Trazo </label>
                                 <div class="col-sm-12 d-flex align-items-center">
                                     <input type="number" class="form-control me-2" name="largo_trazo" id="largo_trazo"
-                                        placeholder="..." required />
+                                        placeholder="..."   />
                                 </div>
                             </div>
                             <div class="col-md-6 mb-3">
                                 <label for="ancho_trazo" class="col-sm-3 col-form-label">Ancho Trazo </label>
                                 <div class="col-sm-12 d-flex align-items-center">
                                     <input type="number" class="form-control me-2" name="ancho_trazo" id="ancho_trazo"
-                                        placeholder="..." required />
+                                        placeholder="..."   />
                                 </div>
                             </div>
                         </div>
@@ -277,7 +280,7 @@
                             <div class="col-md-6 mb-3">
                                 <label for="nombre" class="col-sm-3 col-form-label">NOMBRE</label>
                                 <div class="col-sm-12 d-flex align-items-center">
-                                    <select name="nombre" id="nombre" class="form-control" required
+                                    <select name="nombre" id="nombre" class="form-control"  
                                         title="Por favor, selecciona una opción">
                                         <option value="">Selecciona una opción</option>
                                         @foreach ($CategoriaAuditor as $auditor)
@@ -295,7 +298,7 @@
                             <div class="col-md-6 mb-3">
                                 <label for="mesa" class="col-sm-3 col-form-label">MESA</label>
                                 <div class="col-sm-12 d-flex align-items-center">
-                                    <select name="mesa" id="mesa" class="form-control" required
+                                    <select name="mesa" id="mesa" class="form-control"  
                                         title="Por favor, selecciona una opción">
                                         <option value="">Selecciona una opción</option>
                                         @foreach ($CategoriaAuditor as $auditor)
@@ -307,7 +310,7 @@
                             <div class="col-md-6 mb-3">
                                 <label for="nombre" class="col-sm-3 col-form-label">NOMBRE</label>
                                 <div class="col-sm-12 d-flex align-items-center">
-                                    <select name="nombre" id="nombre" class="form-control" required
+                                    <select name="nombre" id="nombre" class="form-control"  
                                         title="Por favor, selecciona una opción">
                                         <option value="">Selecciona una opción</option>
                                         @foreach ($CategoriaAuditor as $auditor)
@@ -322,16 +325,16 @@
                                 <div class="col-sm-12 d-flex align-items-center" style="margin-right: -5px;">
                                     <div class="form-check form-check-inline">
                                         <input class="quitar-espacio" type="radio" name="estado" id="estado1"
-                                            value="1" required>
+                                            value="1"  >
                                         <label class="label-paloma" for="estado1"> ✔ </label>
                                     </div>
                                     <div class="form-check form-check-inline" style="margin-right: -5px;">
                                         <input class="quitar-espacio" type="radio" name="estado" id="estado2"
-                                            value="0" required>
+                                            value="0"  >
                                         <label class="label-tache" for="estado1"> ✖ </label>
                                     </div>
                                     <input type="text" class="form-control me-2" name="codigo_material"
-                                        id="codigo_material" placeholder=" COMENTARIOS" required />
+                                        id="codigo_material" placeholder=" COMENTARIOS"   />
                                 </div>
                             </div>
                             <div class="col-md-6 mb-3">
@@ -339,16 +342,16 @@
                                 <div class="col-sm-12 d-flex align-items-center">
                                     <div class="form-check form-check-inline">
                                         <input class="quitar-espacio" type="radio" name="estado" id="estado1"
-                                            value="1" required>
+                                            value="1"  >
                                         <label class="label-paloma" for="estado1"> ✔ </label>
                                     </div>
                                     <div class="form-check form-check-inline">
                                         <input class="quitar-espacio" type="radio" name="estado" id="estado2"
-                                            value="0" required>
+                                            value="0"  >
                                         <label class="label-tache" for="estado1"> ✖ </label>
                                     </div>
                                     <input type="text" class="form-control me-2" name="codigo_color"
-                                        id="codigo_color" placeholder=" COMENTARIOS" required />
+                                        id="codigo_color" placeholder=" COMENTARIOS"   />
                                 </div>
                             </div>
                             <div class="col-md-6 mb-3">
@@ -356,16 +359,16 @@
                                 <div class="col-sm-12 d-flex align-items-center">
                                     <div class="form-check form-check-inline">
                                         <input class="quitar-espacio" type="radio" name="estado" id="estado1"
-                                            value="1" required>
+                                            value="1"  >
                                         <label class="label-paloma" for="estado1"> ✔ </label>
                                     </div>
                                     <div class="form-check form-check-inline">
                                         <input class="quitar-espacio" type="radio" name="estado" id="estado2"
-                                            value="0" required>
+                                            value="0"  >
                                         <label class="label-tache" for="estado1"> ✖ </label>
                                     </div>
                                     <input type="text" class="form-control me-2" name="info_trazo" id="info_trazo"
-                                        placeholder=" COMENTARIOS" required />
+                                        placeholder=" COMENTARIOS"   />
                                 </div>
                             </div>
                             <div class="col-md-6 mb-3">
@@ -374,16 +377,16 @@
                                 <div class="col-sm-12 d-flex align-items-center">
                                     <div class="form-check form-check-inline">
                                         <input class="quitar-espacio" type="radio" name="estado" id="estado1"
-                                            value="1" required>
+                                            value="1"  >
                                         <label class="label-paloma" for="estado1"> ✔ </label>
                                     </div>
                                     <div class="form-check form-check-inline">
                                         <input class="quitar-espacio" type="radio" name="estado" id="estado2"
-                                            value="0" required>
+                                            value="0"  >
                                         <label class="label-tache" for="estado1"> ✖ </label>
                                     </div>
                                     <input type="text" class="form-control me-2" name="cantidad_lienzo"
-                                        id="cantidad_lienzo" placeholder=" COMENTARIOS" required />
+                                        id="cantidad_lienzo" placeholder=" COMENTARIOS"   />
                                 </div>
                             </div>
                             <div class="col-md-6 mb-3">
@@ -392,16 +395,16 @@
                                 <div class="col-sm-12 d-flex align-items-center">
                                     <div class="form-check form-check-inline">
                                         <input class="quitar-espacio" type="radio" name="estado" id="estado1"
-                                            value="1" required>
+                                            value="1"  >
                                         <label class="label-paloma" for="estado1"> ✔ </label>
                                     </div>
                                     <div class="form-check form-check-inline">
                                         <input class="quitar-espacio" type="radio" name="estado" id="estado2"
-                                            value="0" required>
+                                            value="0"  >
                                         <label class="label-tache" for="estado1"> ✖ </label>
                                     </div>
                                     <input type="text" class="form-control me-2" name="longitud_tendido"
-                                        id="longitud_tendido" placeholder=" COMENTARIOS" required />
+                                        id="longitud_tendido" placeholder=" COMENTARIOS"   />
                                 </div>
                             </div>
                             <div class="col-md-6 mb-3">
@@ -409,16 +412,16 @@
                                 <div class="col-sm-12 d-flex align-items-center">
                                     <div class="form-check form-check-inline">
                                         <input class="quitar-espacio" type="radio" name="estado" id="estado1"
-                                            value="1" required>
+                                            value="1"  >
                                         <label class="label-paloma" for="estado1"> ✔ </label>
                                     </div>
                                     <div class="form-check form-check-inline">
                                         <input class="quitar-espacio" type="radio" name="estado" id="estado2"
-                                            value="0" required>
+                                            value="0"  >
                                         <label class="label-tache" for="estado1"> ✖ </label>
                                     </div>
                                     <input type="text" class="form-control me-2" name="ancho_tendido"
-                                        id="ancho_tendido" placeholder=" COMENTARIOS" required />
+                                        id="ancho_tendido" placeholder=" COMENTARIOS"   />
                                 </div>
                             </div>
                             <div class="col-md-6 mb-3">
@@ -427,23 +430,23 @@
                                 <div class="col-sm-12 d-flex align-items-center">
                                     <div class="form-check form-check-inline">
                                         <input class="quitar-espacio" type="radio" name="estado" id="estado1"
-                                            value="1" required>
+                                            value="1"  >
                                         <label class="label-paloma" for="estado1"> ✔ </label>
                                     </div>
                                     <div class="form-check form-check-inline">
                                         <input class="quitar-espacio" type="radio" name="estado" id="estado2"
-                                            value="0" required>
+                                            value="0"  >
                                         <label class="label-tache" for="estado1"> ✖ </label>
                                     </div>
                                     <input type="text" class="form-control me-2" name="material_relajado"
-                                        id="material_relajado" placeholder=" COMENTARIOS" required />
+                                        id="material_relajado" placeholder=" COMENTARIOS"   />
                                 </div>
                             </div>
                             <div class="col-md-6 mb-3">
                                 <label for="material_relajado" class="col-sm-6 col-form-label">Accion correctiva </label>
                                 <div class="col-sm-12 d-flex align-items-center">
                                     <input type="text" class="form-control me-2" name="material_relajado"
-                                        id="material_relajado" placeholder=" COMENTARIOS" required />
+                                        id="material_relajado" placeholder=" COMENTARIOS"   />
                                 </div>
                             </div>
                             <hr>
@@ -452,16 +455,16 @@
                                 <div class="col-sm-12 d-flex align-items-center">
                                     <div class="form-check form-check-inline">
                                         <input class="quitar-espacio" type="radio" name="estado" id="estado1"
-                                            value="1" required>
+                                            value="1"  >
                                         <label class="label-paloma" for="estado1"> ✔ </label>
                                     </div>
                                     <div class="form-check form-check-inline">
                                         <input class="quitar-espacio" type="radio" name="estado" id="estado2"
-                                            value="0" required>
+                                            value="0"  >
                                         <label class="label-tache" for="estado1"> ✖ </label>
                                     </div>
                                     <input type="text" class="form-control me-2" name="emplame" id="emplame"
-                                        placeholder=" COMENTARIOS" required />
+                                        placeholder=" COMENTARIOS"   />
                                 </div>
                             </div>
                             <div class="col-md-6 mb-3">
@@ -469,16 +472,16 @@
                                 <div class="col-sm-12 d-flex align-items-center">
                                     <div class="form-check form-check-inline">
                                         <input class="quitar-espacio" type="radio" name="estado" id="estado1"
-                                            value="1" required>
+                                            value="1"  >
                                         <label class="label-paloma" for="estado1"> ✔ </label>
                                     </div>
                                     <div class="form-check form-check-inline">
                                         <input class="quitar-espacio" type="radio" name="estado" id="estado2"
-                                            value="0" required>
+                                            value="0"  >
                                         <label class="label-tache" for="estado1"> ✖ </label>
                                     </div>
                                     <input type="text" class="form-control me-2" name="cara_material"
-                                        id="cara_material" placeholder=" COMENTARIOS" required />
+                                        id="cara_material" placeholder=" COMENTARIOS"   />
                                 </div>
                             </div>
                             <div class="col-md-6 mb-3">
@@ -486,16 +489,16 @@
                                 <div class="col-sm-12 d-flex align-items-center">
                                     <div class="form-check form-check-inline">
                                         <input class="quitar-espacio" type="radio" name="estado" id="estado1"
-                                            value="1" required>
+                                            value="1"  >
                                         <label class="label-paloma" for="estado1"> ✔ </label>
                                     </div>
                                     <div class="form-check form-check-inline">
                                         <input class="quitar-espacio" type="radio" name="estado" id="estado2"
-                                            value="0" required>
+                                            value="0"  >
                                         <label class="label-tache" for="estado1"> ✖ </label>
                                     </div>
                                     <input type="text" class="form-control me-2" name="tono" id="tono"
-                                        placeholder=" COMENTARIOS" required />
+                                        placeholder=" COMENTARIOS"   />
                                 </div>
                             </div>
                             <div class="col-md-6 mb-3">
@@ -504,16 +507,16 @@
                                 <div class="col-sm-12 d-flex align-items-center">
                                     <div class="form-check form-check-inline">
                                         <input class="quitar-espacio" type="radio" name="estado" id="estado1"
-                                            value="1" required>
+                                            value="1"  >
                                         <label class="label-paloma" for="estado1"> ✔ </label>
                                     </div>
                                     <div class="form-check form-check-inline">
                                         <input class="quitar-espacio" type="radio" name="estado" id="estado2"
-                                            value="0" required>
+                                            value="0"  >
                                         <label class="label-tache" for="estado1"> ✖ </label>
                                     </div>
                                     <input type="text" class="form-control me-2" name="alineacion_tendido"
-                                        id="alineacion_tendido" placeholder=" COMENTARIOS" required />
+                                        id="alineacion_tendido" placeholder=" COMENTARIOS"   />
                                 </div>
                             </div>
                             <div class="col-md-6 mb-3">
@@ -521,16 +524,16 @@
                                 <div class="col-sm-12 d-flex align-items-center">
                                     <div class="form-check form-check-inline">
                                         <input class="quitar-espacio" type="radio" name="estado" id="estado1"
-                                            value="1" required>
+                                            value="1"  >
                                         <label class="label-paloma" for="estado1"> ✔ </label>
                                     </div>
                                     <div class="form-check form-check-inline">
                                         <input class="quitar-espacio" type="radio" name="estado" id="estado2"
-                                            value="0" required>
+                                            value="0"  >
                                         <label class="label-tache" for="estado1"> ✖ </label>
                                     </div>
                                     <input type="text" class="form-control me-2" name="arruga_tendido"
-                                        id="arruga_tendido" placeholder=" COMENTARIOS" required />
+                                        id="arruga_tendido" placeholder=" COMENTARIOS"   />
                                 </div>
                             </div>
                             <div class="col-md-6 mb-3">
@@ -539,16 +542,16 @@
                                 <div class="col-sm-12 d-flex align-items-center">
                                     <div class="form-check form-check-inline">
                                         <input class="quitar-espacio" type="radio" name="estado" id="estado1"
-                                            value="1" required>
+                                            value="1"  >
                                         <label class="label-paloma" for="estado1"> ✔ </label>
                                     </div>
                                     <div class="form-check form-check-inline">
                                         <input class="quitar-espacio" type="radio" name="estado" id="estado2"
-                                            value="0" required>
+                                            value="0"  >
                                         <label class="label-tache" for="estado1"> ✖ </label>
                                     </div>
                                     <input type="text" class="form-control me-2" name="defecto_material"
-                                        id="defecto_material" placeholder=" COMENTARIOS" required />
+                                        id="defecto_material" placeholder=" COMENTARIOS"   />
                                 </div>
                             </div>
                             <div class="col-md-6 mb-3">
@@ -556,7 +559,7 @@
                                     tendido?</label>
                                 <div class="col-sm-12 d-flex align-items-center">
                                     <input type="text" class="form-control me-2" name="material_relajado"
-                                        id="material_relajado" placeholder=" COMENTARIOS" required />
+                                        id="material_relajado" placeholder=" COMENTARIOS"   />
                                 </div>
                             </div>
                             <hr>
@@ -568,7 +571,7 @@
                             <div class="col-md-6 mb-3">
                                 <label for="nombre" class="col-sm-3 col-form-label">NOMBRE</label>
                                 <div class="col-sm-12 d-flex align-items-center">
-                                    <select name="nombre" id="nombre" class="form-control" required
+                                    <select name="nombre" id="nombre" class="form-control"  
                                         title="Por favor, selecciona una opción">
                                         <option value="">Selecciona una opción</option>
                                         @foreach ($CategoriaAuditor as $auditor)
@@ -586,7 +589,7 @@
                             <div class="col-md-6 mb-3">
                                 <label for="mesa" class="col-sm-3 col-form-label">MESA</label>
                                 <div class="col-sm-12 d-flex align-items-center">
-                                    <select name="mesa" id="mesa" class="form-control" required
+                                    <select name="mesa" id="mesa" class="form-control"  
                                         title="Por favor, selecciona una opción">
                                         <option value="">Selecciona una opción</option>
                                         @foreach ($CategoriaAuditor as $auditor)
@@ -598,7 +601,7 @@
                             <div class="col-md-6 mb-3">
                                 <label for="nombre" class="col-sm-3 col-form-label">NOMBRE</label>
                                 <div class="col-sm-12 d-flex align-items-center">
-                                    <select name="nombre" id="nombre" class="form-control" required
+                                    <select name="nombre" id="nombre" class="form-control"  
                                         title="Por favor, selecciona una opción">
                                         <option value="">Selecciona una opción</option>
                                         @foreach ($CategoriaAuditor as $auditor)
@@ -613,18 +616,18 @@
                                 <div class="col-sm-12 d-flex align-items-center">
                                     <div class="form-check form-check-inline">
                                         <input class="quitar-espacio" type="radio" name="estado" id="estado1"
-                                            value="1" required>
+                                            value="1"  >
                                         <label class="label-paloma" for="estado1"> ✔ </label>
                                     </div>
                                     <div class="form-check form-check-inline">
                                         <input class="quitar-espacio" type="radio" name="estado" id="estado2"
-                                            value="0" required>
+                                            value="0"  >
                                         <label class="label-tache" for="estado1"> ✖ </label>
                                     </div>
                                     <input type="text" class="form-control me-2" name="simetria_pieza_pcs"
-                                        id="simetria_pieza_pcs" placeholder="Pcs." required />
+                                        id="simetria_pieza_pcs" placeholder="Pcs."   />
                                     <input type="text" class="form-control me-2" name="simetria_pieza"
-                                        id="simetria_pieza" placeholder=" COMENTARIOS" required />
+                                        id="simetria_pieza" placeholder=" COMENTARIOS"   />
                                 </div>
                             </div>
                             <div class="col-md-6 mb-3">
@@ -632,18 +635,18 @@
                                 <div class="col-sm-12 d-flex align-items-center">
                                     <div class="form-check form-check-inline">
                                         <input class="quitar-espacio" type="radio" name="estado" id="estado1"
-                                            value="1" required>
+                                            value="1"  >
                                         <label class="label-paloma" for="estado1"> ✔ </label>
                                     </div>
                                     <div class="form-check form-check-inline">
                                         <input class="quitar-espacio" type="radio" name="estado" id="estado2"
-                                            value="0" required>
+                                            value="0"  >
                                         <label class="label-tache" for="estado1"> ✖ </label>
                                     </div>
                                     <input type="text" class="form-control me-2" name="codigo_material"
-                                        id="codigo_material" placeholder="Pcs." required />
+                                        id="codigo_material" placeholder="Pcs."   />
                                     <input type="text" class="form-control me-2" name="codigo_material"
-                                        id="codigo_material" placeholder=" COMENTARIOS" required />
+                                        id="codigo_material" placeholder=" COMENTARIOS"   />
                                 </div>
                             </div>
                             <div class="col-md-6 mb-3">
@@ -652,18 +655,18 @@
                                 <div class="col-sm-12 d-flex align-items-center">
                                     <div class="form-check form-check-inline">
                                         <input class="quitar-espacio" type="radio" name="estado" id="estado1"
-                                            value="1" required>
+                                            value="1"  >
                                         <label class="label-paloma" for="estado1"> ✔ </label>
                                     </div>
                                     <div class="form-check form-check-inline">
                                         <input class="quitar-espacio" type="radio" name="estado" id="estado2"
-                                            value="0" required>
+                                            value="0"  >
                                         <label class="label-tache" for="estado1"> ✖ </label>
                                     </div>
                                     <input type="text" class="form-control me-2" name="codigo_material"
-                                        id="codigo_material" placeholder="Pcs." required />
+                                        id="codigo_material" placeholder="Pcs."   />
                                     <input type="text" class="form-control me-2" name="codigo_material"
-                                        id="codigo_material" placeholder=" COMENTARIOS" required />
+                                        id="codigo_material" placeholder=" COMENTARIOS"   />
                                 </div>
                             </div>
                             <div class="col-md-6 mb-3">
@@ -672,46 +675,46 @@
                                 <div class="col-sm-12 d-flex align-items-center">
                                     <div class="form-check form-check-inline">
                                         <input class="quitar-espacio" type="radio" name="estado" id="estado1"
-                                            value="1" required>
+                                            value="1"  >
                                         <label class="label-paloma" for="estado1"> ✔ </label>
                                     </div>
                                     <div class="form-check form-check-inline">
                                         <input class="quitar-espacio" type="radio" name="estado" id="estado2"
-                                            value="0" required>
+                                            value="0"  >
                                         <label class="label-tache" for="estado1"> ✖ </label>
                                     </div>
                                     <input type="text" class="form-control me-2" name="codigo_material"
-                                        id="codigo_material" placeholder="Pcs." required />
+                                        id="codigo_material" placeholder="Pcs."   />
                                     <input type="text" class="form-control me-2" name="codigo_material"
-                                        id="codigo_material" placeholder=" COMENTARIOS" required />
+                                        id="codigo_material" placeholder=" COMENTARIOS"   />
                                 </div>
                             </div>
                             <div class="col-md-6 mb-3">
                                 <label for="codigo_material" class="col-sm-6 col-form-label">Piezas inspeccionadas</label>
                                 <div class="col-sm-12 d-flex align-items-center">
                                     <input type="text" class="form-control me-2" name="codigo_material"
-                                        id="codigo_material" placeholder=" COMENTARIOS" required />
+                                        id="codigo_material" placeholder=" COMENTARIOS"   />
                                 </div>
                             </div>
                             <div class="col-md-6 mb-3">
                                 <label for="codigo_material" class="col-sm-6 col-form-label">Defectos</label>
                                 <div class="col-sm-12 d-flex align-items-center">
                                     <input type="text" class="form-control me-2" name="codigo_material"
-                                        id="codigo_material" placeholder=" COMENTARIOS" required />
+                                        id="codigo_material" placeholder=" COMENTARIOS"   />
                                 </div>
                             </div>
                             <div class="col-md-6 mb-3">
                                 <label for="codigo_material" class="col-sm-6 col-form-label">Porcentaje</label>
                                 <div class="col-sm-12 d-flex align-items-center">
                                     <input type="text" class="form-control me-2" name="codigo_material"
-                                        id="codigo_material" placeholder=" COMENTARIOS" required />
+                                        id="codigo_material" placeholder=" COMENTARIOS"   />
                                 </div>
                             </div>
                             <div class="col-md-6 mb-3">
                                 <label for="codigo_material" class="col-sm-6 col-form-label">Firma de Aprobado</label>
                                 <div class="col-sm-12 d-flex align-items-center">
                                     <input type="text" class="form-control me-2" name="codigo_material"
-                                        id="codigo_material" placeholder=" COMENTARIOS" required />
+                                        id="codigo_material" placeholder=" COMENTARIOS"   />
                                 </div>
                             </div>
                         </div>
@@ -723,7 +726,7 @@
                             <div class="col-md-6 mb-3">
                                 <label for="nombre" class="col-sm-3 col-form-label">NOMBRE</label>
                                 <div class="col-sm-12 d-flex align-items-center">
-                                    <select name="nombre" id="nombre" class="form-control" required
+                                    <select name="nombre" id="nombre" class="form-control"  
                                         title="Por favor, selecciona una opción">
                                         <option value="">Selecciona una opción</option>
                                         @foreach ($CategoriaAuditor as $auditor)
@@ -741,7 +744,7 @@
                             <div class="col-md-6 mb-3">
                                 <label for="mesa" class="col-sm-3 col-form-label">MESA</label>
                                 <div class="col-sm-12 d-flex align-items-center">
-                                    <select name="mesa" id="mesa" class="form-control" required
+                                    <select name="mesa" id="mesa" class="form-control"  
                                         title="Por favor, selecciona una opción">
                                         <option value="">Selecciona una opción</option>
                                         @foreach ($CategoriaAuditor as $auditor)
@@ -753,7 +756,7 @@
                             <div class="col-md-6 mb-3">
                                 <label for="nombre" class="col-sm-3 col-form-label">NOMBRE</label>
                                 <div class="col-sm-12 d-flex align-items-center">
-                                    <select name="nombre" id="nombre" class="form-control" required
+                                    <select name="nombre" id="nombre" class="form-control"  
                                         title="Por favor, selecciona una opción">
                                         <option value="">Selecciona una opción</option>
                                         @foreach ($CategoriaAuditor as $auditor)
@@ -768,18 +771,18 @@
                                 <div class="col-sm-12 d-flex align-items-center">
                                     <div class="form-check form-check-inline">
                                         <input class="quitar-espacio" type="radio" name="estado" id="estado1"
-                                            value="1" required>
+                                            value="1"  >
                                         <label class="label-paloma" for="estado1"> ✔ </label>
                                     </div>
                                     <div class="form-check form-check-inline">
                                         <input class="quitar-espacio" type="radio" name="estado" id="estado2"
-                                            value="0" required>
+                                            value="0"  >
                                         <label class="label-tache" for="estado1"> ✖ </label>
                                     </div>
                                     <input type="text" class="form-control me-2" name="simetria_pieza_pcs"
-                                        id="simetria_pieza_pcs" placeholder="Pcs." required />
+                                        id="simetria_pieza_pcs" placeholder="Pcs."   />
                                     <input type="text" class="form-control me-2" name="simetria_pieza"
-                                        id="simetria_pieza" placeholder=" COMENTARIOS" required />
+                                        id="simetria_pieza" placeholder=" COMENTARIOS"   />
                                 </div>
                             </div>
                             <div class="col-md-6 mb-3">
@@ -787,18 +790,18 @@
                                 <div class="col-sm-12 d-flex align-items-center">
                                     <div class="form-check form-check-inline">
                                         <input class="quitar-espacio" type="radio" name="estado" id="estado1"
-                                            value="1" required>
+                                            value="1"  >
                                         <label class="label-paloma" for="estado1"> ✔ </label>
                                     </div>
                                     <div class="form-check form-check-inline">
                                         <input class="quitar-espacio" type="radio" name="estado" id="estado2"
-                                            value="0" required>
+                                            value="0"  >
                                         <label class="label-tache" for="estado1"> ✖ </label>
                                     </div>
                                     <input type="text" class="form-control me-2" name="codigo_material"
-                                        id="codigo_material" placeholder="Pcs." required />
+                                        id="codigo_material" placeholder="Pcs."   />
                                     <input type="text" class="form-control me-2" name="codigo_material"
-                                        id="codigo_material" placeholder=" COMENTARIOS" required />
+                                        id="codigo_material" placeholder=" COMENTARIOS"   />
                                 </div>
                             </div>
                             <div class="col-md-6 mb-3">
@@ -806,18 +809,18 @@
                                 <div class="col-sm-12 d-flex align-items-center">
                                     <div class="form-check form-check-inline">
                                         <input class="quitar-espacio" type="radio" name="estado" id="estado1"
-                                            value="1" required>
+                                            value="1"  >
                                         <label class="label-paloma" for="estado1"> ✔ </label>
                                     </div>
                                     <div class="form-check form-check-inline">
                                         <input class="quitar-espacio" type="radio" name="estado" id="estado2"
-                                            value="0" required>
+                                            value="0"  >
                                         <label class="label-tache" for="estado1"> ✖ </label>
                                     </div>
                                     <input type="text" class="form-control me-2" name="codigo_material"
-                                        id="codigo_material" placeholder="Pcs." required />
+                                        id="codigo_material" placeholder="Pcs."   />
                                     <input type="text" class="form-control me-2" name="codigo_material"
-                                        id="codigo_material" placeholder=" COMENTARIOS" required />
+                                        id="codigo_material" placeholder=" COMENTARIOS"   />
                                 </div>
                             </div>
                             <div class="col-md-6 mb-3">
@@ -825,18 +828,18 @@
                                 <div class="col-sm-12 d-flex align-items-center">
                                     <div class="form-check form-check-inline">
                                         <input class="quitar-espacio" type="radio" name="estado" id="estado1"
-                                            value="1" required>
+                                            value="1"  >
                                         <label class="label-paloma" for="estado1"> ✔ </label>
                                     </div>
                                     <div class="form-check form-check-inline">
                                         <input class="quitar-espacio" type="radio" name="estado" id="estado2"
-                                            value="0" required>
+                                            value="0"  >
                                         <label class="label-tache" for="estado1"> ✖ </label>
                                     </div>
                                     <input type="text" class="form-control me-2" name="codigo_material"
-                                        id="codigo_material" placeholder="Pcs." required />
+                                        id="codigo_material" placeholder="Pcs."   />
                                     <input type="text" class="form-control me-2" name="codigo_material"
-                                        id="codigo_material" placeholder=" COMENTARIOS" required />
+                                        id="codigo_material" placeholder=" COMENTARIOS"   />
                                 </div>
                             </div>
                             <div class="col-md-6 mb-3">
@@ -844,28 +847,28 @@
                                     inspeccionadas</label>
                                 <div class="col-sm-12 d-flex align-items-center">
                                     <input type="text" class="form-control me-2" name="codigo_material"
-                                        id="codigo_material" placeholder=" COMENTARIOS" required />
+                                        id="codigo_material" placeholder=" COMENTARIOS"   />
                                 </div>
                             </div>
                             <div class="col-md-6 mb-3">
                                 <label for="codigo_material" class="col-sm-6 col-form-label">Defectos</label>
                                 <div class="col-sm-12 d-flex align-items-center">
                                     <input type="text" class="form-control me-2" name="codigo_material"
-                                        id="codigo_material" placeholder=" COMENTARIOS" required />
+                                        id="codigo_material" placeholder=" COMENTARIOS"   />
                                 </div>
                             </div>
                             <div class="col-md-6 mb-3">
                                 <label for="codigo_material" class="col-sm-6 col-form-label">Porcentaje</label>
                                 <div class="col-sm-12 d-flex align-items-center">
                                     <input type="text" class="form-control me-2" name="codigo_material"
-                                        id="codigo_material" placeholder=" COMENTARIOS" required />
+                                        id="codigo_material" placeholder=" COMENTARIOS"   />
                                 </div>
                             </div>
                             <div class="col-md-6 mb-3">
                                 <label for="codigo_material" class="col-sm-6 col-form-label">Firma de Aprobado</label>
                                 <div class="col-sm-12 d-flex align-items-center">
                                     <input type="text" class="form-control me-2" name="codigo_material"
-                                        id="codigo_material" placeholder=" COMENTARIOS" required />
+                                        id="codigo_material" placeholder=" COMENTARIOS"   />
                                 </div>
                             </div>
                         </div>
@@ -877,7 +880,7 @@
                             <div class="col-md-6 mb-3">
                                 <label for="nombre" class="col-sm-3 col-form-label">AUDTORIA FINAL</label>
                                 <div class="col-sm-12 d-flex align-items-center">
-                                    <select name="nombre" id="nombre" class="form-control" required
+                                    <select name="nombre" id="nombre" class="form-control"  
                                         title="Por favor, selecciona una opción">
                                         <option value="">Selecciona una opción</option>
                                         @foreach ($CategoriaAuditor as $auditor)
@@ -892,13 +895,13 @@
                                     <div class="form-check">
                                         <label class="form-check-label" for="estado1">APROBADO </label>
                                         <input class="quitar-espacio" type="radio" name="estado" id="estado1"
-                                            value="1" required>
+                                            value="1"  >
 
                                     </div>
                                     <div class="form-check ">
                                         <label class="form-check-label" for="estado2"> RECHAZADO </label>
                                         <input class="quitar-espacio" type="radio" name="estado" id="estado2"
-                                            value="0" required>
+                                            value="0"  >
 
                                     </div>
                                 </div>
@@ -906,7 +909,7 @@
                             <div class="col-md-6 mb-3">
                                 <label for="nombre" class="col-sm-6 col-form-label">SUPERVUSOR DE CORTE</label>
                                 <div class="col-sm-12 d-flex align-items-center">
-                                    <select name="nombre" id="nombre" class="form-control" required
+                                    <select name="nombre" id="nombre" class="form-control"  
                                         title="Por favor, selecciona una opción">
                                         <option value="">Selecciona una opción</option>
                                         @foreach ($CategoriaAuditor as $auditor)
@@ -918,7 +921,7 @@
                             <div class="col-md-6 mb-3">
                                 <label for="nombre" class="col-sm-6 col-form-label">SUPERVUSOR DE LINEA</label>
                                 <div class="col-sm-12 d-flex align-items-center">
-                                    <select name="nombre" id="nombre" class="form-control" required
+                                    <select name="nombre" id="nombre" class="form-control"  
                                         title="Por favor, selecciona una opción">
                                         <option value="">Selecciona una opción</option>
                                         @foreach ($CategoriaAuditor as $auditor)
@@ -1012,7 +1015,7 @@
                 var cells = row.querySelectorAll('td');
                 var found = false;
                 cells.forEach(function(cell, index) {
-                    if (index === 0 && cell.textContent.toLowerCase().includes(searchText)) {
+                    if (index === 1 && cell.textContent.toLowerCase().includes(searchText)) {
                         found = true;
                     }
                 });
