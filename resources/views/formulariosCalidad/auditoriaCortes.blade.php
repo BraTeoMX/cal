@@ -45,11 +45,56 @@
                     <hr>
                     <div class="card-body">
                         <!--Desde aqui inicia la edicion del codigo para mostrar el contenido-->
+                        {{--Inicio de Acordeon --}}
+                        <div class="accordion" id="accordionExample">
+                            <div class="card">
+                                <div class="card-header" id="headingOne">
+                                    <h2 class="mb-0">
+                                        <button class="btn btn-primary" type="button" data-toggle="collapse"
+                                            data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                            ORDEN
+                                        </button>
+                                    </h2>
+                                </div>
+
+                                <div id="collapseOne" class="collapse" aria-labelledby="headingOne"
+                                    data-parent="#accordionExample">
+                                    <div class="card-body">
+                                        <!-- Desde aquí inicia la edición del código para mostrar el contenido -->
+                                        <div class="table-responsive">
+                                            <table class="table table-striped">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Orden</th>
+                                                        <th>Estilo</th>
+                                                        <th>Cliente</th>
+                                                        <th>Color</th>
+                                                        <th>Material</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @foreach ($DatoAX as $dato)
+                                                    <tr>
+                                                        <td>{{ $dato->orden }}</td>
+                                                        <td>{{ $dato->estilo }}</td>
+                                                        <td>{{ $dato->cliente }}</td>
+                                                        <td>{{ $dato->color }}</td>
+                                                        <td>{{ $dato->material }}</td>
+                                                    </tr>
+                                                    @endforeach
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Fin del acordeón -->
                         <div class="row">
                             <div class="col-lg-3 col-md-6 col-sm-6 col-12 mb-3">
                                 <label for="orden" class="col-sm-6 col-form-label">ORDEN</label>
                                 <div class="col-sm-12">
-                                    <select name="orden" id="orden" class="form-control" required
+                                    <select name="orden" id="orden" class="form-control js-example-basic-single" required
                                         title="Por favor, selecciona una opción">
                                         <option value="">Selecciona una opción</option>
                                         @foreach ($DatoAX as $dato)
@@ -963,6 +1008,7 @@
         }
     </style>
 
+    <!-- jQuery -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         $(document).ready(function() {

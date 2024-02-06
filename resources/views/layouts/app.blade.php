@@ -1,21 +1,27 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>{{ __('Intimark-Calidad') }}</title>
-    <link rel="apple-touch-icon" sizes="76x76" href="{{ asset('material') }}/img/Intimark.ico">
-    <link rel="icon" type="image/ico" href="{{ asset('material') }}/img/Intimark.ico">
-    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
-    <!--     Fonts and icons     -->
-    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
-    <!-- CSS Files -->
-    <link href="{{ asset('material') }}/css/material-dashboard.css?v=2.1.1" rel="stylesheet" />
-    <!-- CSS Just for demo purpose, don't include it in your project -->
-    <link href="{{ asset('material') }}/demo/demo.css" rel="stylesheet" />
+      <meta charset="utf-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+      <meta name="csrf-token" content="{{ csrf_token() }}">
+      <title>{{ __('Intimark-Calidad') }}</title>
+      <link rel="apple-touch-icon" sizes="76x76" href="{{ asset('material') }}/img/Intimark.ico">
+      <link rel="icon" type="image/ico" href="{{ asset('material') }}/img/Intimark.ico">
+      <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
+      <!--     Fonts and icons     -->
+      <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
+      <!-- CSS Files -->
+      <link href="{{ asset('material') }}/css/material-dashboard.css?v=2.1.1" rel="stylesheet" />
+      <!-- CSS Just for demo purpose, don't include it in your project -->
+      <link href="{{ asset('material') }}/demo/demo.css" rel="stylesheet" />
+      <!-- Select2 CSS -->
+      <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.1.0-rc.0/css/select2.min.css" rel="stylesheet" />
+      <!-- Select2 JS -->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.1.0-rc.0/js/select2.min.js"></script>
+      <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" />
+
     </head>
     <body class="{{ $class ?? '' }}">
         @auth()
