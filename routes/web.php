@@ -5,6 +5,7 @@ use App\Http\Controllers\UserManagementController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\PDFController;
 use App\Http\Controllers\FormulariosCalidadController;
+use App\Http\Controllers\AuditoriaCorteController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -95,3 +96,8 @@ Route::get('/exportar-excel', [FormulariosCalidadController::class, 'exportarExc
 
 Route::get('/controlCalidadEmpaque', [FormulariosCalidadController::class, 'controlCalidadEmpaque'])->name('formulariosCalidad.controlCalidadEmpaque');
 Route::post('/formControlCalidadEmpaque', [FormulariosCalidadController::class, 'formControlCalidadEmpaque'])->name('formulariosCalidad.formControlCalidadEmpaque');
+
+
+
+Route::get('/inicioAuditoriaCorte', [AuditoriaCorteController::class, 'inicioAuditoriaCorte'])->name('formulariosCalidad.inicioAuditoriaCorte'); 
+Route::post('/formAuditoriaCortes', [AuditoriaCorteController::class, 'formAuditoriaCortes'])->name('formulariosCalidad.formAuditoriaCortes');

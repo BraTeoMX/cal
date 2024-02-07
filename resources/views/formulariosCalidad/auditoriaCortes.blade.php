@@ -874,7 +874,7 @@
                         </div>
                         <hr>
                         <div style="background: #3518b4a2">
-                            <h4 style="text-align: center">AUDITORIA EN BULTOS</h4>
+                            <h4 style="text-align: center">AUDITORIA FINAL</h4>
                         </div>
                         <div class="row">
                             <div class="col-md-6 mb-3">
@@ -1027,5 +1027,12 @@
                 }
             });
         });
+    
+        // Código para mantener visible la fila seleccionada después de enviar los datos
+        var seleccionado = document.querySelector('input[name="seleccion"]:checked');
+        if (seleccionado) {
+            var filaSeleccionada = seleccionado.closest('tr');
+            filaSeleccionada.style.display = '';
+        }
     </script>
 @endsection
