@@ -41,148 +41,152 @@
                     <h3 class="card-title">CONTROL DE CALIDAD EN CORTE</h3>
                 </div>
                 <hr>
-                <form method="POST" action="{{ route('auditoriaCorte.formAuditoriaMarcada') }}">
+                <form method="POST" action="{{ route('auditoriaCorte.formAuditoriaMarcada', ['id' => $datoAX->id]) }}">
                     @csrf
-                        <div style="background: #db8036a2">
-                            <h4 style="text-align: center">AUDITORIA DE MARCADA</h4>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6 mb-3">
-                                <label for="yOrden" class="col-sm-6 col-form-label">Yardas en la orden</label>
-                                <div class="col-sm-12 d-flex align-items-center">
-                                    <div class="form-check form-check-inline">
-                                        <input type="number" class="form-control me-2" name="yOrden" id="yOrden"
-                                            placeholder="..."   />
-                                    </div>
-                                    <div class="form-check form-check-inline">
-                                        <input class="quitar-espacio" type="radio" name="estado" id="estado1"
-                                            value="1"  >
-                                        <label class="label-paloma" for="estado1">✔ </label>
-                                    </div>
-                                    <div class="form-check form-check-inline">
-                                        <input class="quitar-espacio" type="radio" name="estado" id="estado2"
-                                            value="0"  >
-                                        <label class="label-tache" for="estado2">✖ </label>
-                                    </div>
+                    <input type="hidden" name="id" value="{{ $datoAX->id }}">
+                    <div style="background: #db8036a2">
+                        <h4 style="text-align: center">AUDITORIA DE MARCADA</h4>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="yarda_orden" class="col-sm-6 col-form-label">Yardas en la orden</label>
+                            <div class="col-sm-12 d-flex align-items-center">
+                                <div class="form-check form-check-inline">
+                                    <input type="number" class="form-control me-2" name="yarda_orden" id="yarda_orden"
+                                        placeholder="..." />
                                 </div>
-                            </div>
-                            <div class="col-md-6 mb-3">
-                                <label for="yMarcada" class="col-sm-6 col-form-label">Yardas en la marcada</label>
-                                <div class="col-sm-12 d-flex align-items-center">
-                                    <div class="form-check form-check-inline">
-                                        <input type="number" class="form-control me-2" name="yOrden" id="yOrden"
-                                            placeholder="..."   />
-                                    </div>
-                                    <div class="form-check form-check-inline">
-                                        <input class="quitar-espacio" type="radio" name="estado" id="estado1"
-                                            value="1"  >
-                                        <label class="label-paloma" for="estado1">✔ </label>
-                                    </div>
-                                    <div class="form-check form-check-inline">
-                                        <input class="quitar-espacio" type="radio" name="estado" id="estado2"
-                                            value="0"  >
-                                        <label class="label-tache" for="estado2">✖ </label>
-                                    </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="quitar-espacio" type="radio" name="yarda_orden_estatus" id="yarda_orden_estatus1"
+                                        value="1">
+                                    <label class="label-paloma" for="yarda_orden_estatus1">✔ </label>
                                 </div>
-                            </div>
-                            <div class="col-md-6 mb-3">
-                                <label for="yTendido" class="col-sm-6 col-form-label">Yardas en el tendido</label>
-                                <div class="col-sm-12 d-flex align-items-center">
-                                    <div class="form-check form-check-inline">
-                                        <input type="number" class="form-control me-2" name="yOrden" id="yOrden"
-                                            placeholder="..."   />
-                                    </div>
-                                    <div class="form-check form-check-inline">
-                                        <input class="quitar-espacio" type="radio" name="estado" id="estado1"
-                                            value="1"  >
-                                        <label class="label-paloma" for="estado1">✔ </label>
-                                    </div>
-                                    <div class="form-check form-check-inline">
-                                        <input class="quitar-espacio" type="radio" name="estado" id="estado2"
-                                            value="0"  >
-                                        <label class="label-tache" for="estado2">✖ </label>
-                                    </div>
-                                </div>
-                            </div>
-                            <br>
-                            <div class="col-md-6 mb-3">
-                                <label for="pieza_bulto" class="col-sm-3 col-form-label">Piezas X Bulto </label>
-                                <div class="col-sm-12 d-flex align-items-center">
-                                    <input type="number" class="form-control me-2" name="pieza_bulto" id="pieza_bulto"
-                                        placeholder="..."   />
-                                </div>
-                            </div>
-                            <div class="col-md-6 mb-3">
-                                <label for="pieza_total" class="col-sm-3 col-form-label">Piezas Totales</label>
-                                <div class="col-sm-12 d-flex align-items-center">
-                                    <input type="number" class="form-control me-2" name="pieza_total" id="pieza_total"
-                                        placeholder="..."   />
-                                </div>
-                            </div>
-                            <hr>
-                            <div class="col-md-6 mb-3">
-                                <label for="talla" class="col-sm-3 col-form-label">Tallas</label>
-                                <div class="col-sm-12 d-flex align-items-center">
-                                    <input type="number" class="form-control me-2" name="talla" id="talla"
-                                        placeholder="..."   />
-                                    <input type="number" class="form-control me-2" name="talla" id="talla"
-                                        placeholder="..."   />
-                                    <input type="number" class="form-control me-2" name="talla" id="talla"
-                                        placeholder="..."   />
-                                    <input type="number" class="form-control me-2" name="talla" id="talla"
-                                        placeholder="..."   />
-                                    <input type="number" class="form-control me-2" name="talla" id="talla"
-                                        placeholder="..."   />
-                                    <input type="number" class="form-control me-2" name="talla" id="talla"
-                                        placeholder="..."   />
-                                </div>
-                            </div>
-                            <div class="col-md-6 mb-3">
-                                <label for="bulto" class="col-sm-3 col-form-label"># Bultos</label>
-                                <div class="col-sm-12 d-flex align-items-center">
-                                    <input type="number" class="form-control me-2" name="bulto" id="bulto"
-                                        placeholder="..."   />
-                                    <input type="number" class="form-control me-2" name="bulto" id="bulto"
-                                        placeholder="..."   />
-                                    <input type="number" class="form-control me-2" name="bulto" id="bulto"
-                                        placeholder="..."   />
-                                    <input type="number" class="form-control me-2" name="bulto" id="bulto"
-                                        placeholder="..."   />
-                                    <input type="number" class="form-control me-2" name="bulto" id="bulto"
-                                        placeholder="..."   />
-                                </div>
-                            </div>
-                            <div class="col-md-6 mb-3">
-                                <label for="total_pieza" class="col-sm-3 col-form-label">Total piezas</label>
-                                <div class="col-sm-12 d-flex align-items-center">
-                                    <input type="number" class="form-control me-2" name="total_pieza" id="total_pieza"
-                                        placeholder="..."   />
-                                    <input type="number" class="form-control me-2" name="total_pieza" id="total_pieza"
-                                        placeholder="..."   />
-                                    <input type="number" class="form-control me-2" name="total_pieza" id="total_pieza"
-                                        placeholder="..."   />
-                                    <input type="number" class="form-control me-2" name="total_pieza" id="total_pieza"
-                                        placeholder="..."   />
-                                    <input type="number" class="form-control me-2" name="total_pieza" id="total_pieza"
-                                        placeholder="..."   />
-                                </div>
-                            </div>
-                            <div class="col-md-6 mb-3">
-                                <label for="largo_trazo" class="col-sm-3 col-form-label">Largo Trazo </label>
-                                <div class="col-sm-12 d-flex align-items-center">
-                                    <input type="number" class="form-control me-2" name="largo_trazo" id="largo_trazo"
-                                        placeholder="..."   />
-                                </div>
-                            </div>
-                            <div class="col-md-6 mb-3">
-                                <label for="ancho_trazo" class="col-sm-3 col-form-label">Ancho Trazo </label>
-                                <div class="col-sm-12 d-flex align-items-center">
-                                    <input type="number" class="form-control me-2" name="ancho_trazo" id="ancho_trazo"
-                                        placeholder="..."   />
+                                <div class="form-check form-check-inline">
+                                    <input class="quitar-espacio" type="radio" name="yarda_orden_estatus" id="yarda_orden_estatus2"
+                                        value="0">
+                                    <label class="label-tache" for="yarda_orden_estatus2">✖ </label>
                                 </div>
                             </div>
                         </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="yarda_marcada" class="col-sm-6 col-form-label">Yardas en la marcada</label>
+                            <div class="col-sm-12 d-flex align-items-center">
+                                <div class="form-check form-check-inline">
+                                    <input type="number" class="form-control me-2" name="yarda_marcada" id="yarda_marcada"
+                                        placeholder="..." />
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="quitar-espacio" type="radio" name="yarda_marcada_estatus" id="yarda_marcada_estatus1"
+                                        value="1">
+                                    <label class="label-paloma" for="yarda_marcada_estatus1">✔ </label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="quitar-espacio" type="radio" name="yarda_marcada_estatus" id="yarda_marcada_estatus2"
+                                        value="0">
+                                    <label class="label-tache" for="yarda_marcada_estatus2">✖ </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="yarda_tendido" class="col-sm-6 col-form-label">Yardas en el tendido</label>
+                            <div class="col-sm-12 d-flex align-items-center">
+                                <div class="form-check form-check-inline">
+                                    <input type="number" class="form-control me-2" name="yarda_tendido" id="yarda_tendido"
+                                        placeholder="..." />
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="quitar-espacio" type="radio" name="yarda_tendido_estatus" id="yarda_tendido_estatus1"
+                                        value="1">
+                                    <label class="label-paloma" for="yarda_tendido_estatus1">✔ </label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="quitar-espacio" type="radio" name="yarda_tendido_estatus" id="yarda_tendido_estatus2"
+                                        value="0">
+                                    <label class="label-tache" for="yarda_tendido_estatus2">✖ </label>
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="col-md-6 mb-3">
+                            <label for="pieza_bulto" class="col-sm-3 col-form-label">Piezas X Bulto </label>
+                            <div class="col-sm-12 d-flex align-items-center">
+                                <input type="number" class="form-control me-2" name="pieza_bulto" id="pieza_bulto"
+                                    placeholder="..." />
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="pieza_total" class="col-sm-3 col-form-label">Piezas Totales</label>
+                            <div class="col-sm-12 d-flex align-items-center">
+                                <input type="number" class="form-control me-2" name="pieza_total" id="pieza_total"
+                                    placeholder="..." />
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="col-md-6 mb-3">
+                            <label for="talla" class="col-sm-3 col-form-label">Tallas</label>
+                            <div class="col-sm-12 d-flex align-items-center">
+                                <input type="number" class="form-control me-2" name="talla" id="talla"
+                                    placeholder="..." />
+                                <input type="number" class="form-control me-2" name="talla" id="talla"
+                                    placeholder="..." />
+                                <input type="number" class="form-control me-2" name="talla" id="talla"
+                                    placeholder="..." />
+                                <input type="number" class="form-control me-2" name="talla" id="talla"
+                                    placeholder="..." />
+                                <input type="number" class="form-control me-2" name="talla" id="talla"
+                                    placeholder="..." />
+                                <input type="number" class="form-control me-2" name="talla" id="talla"
+                                    placeholder="..." />
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="bulto" class="col-sm-3 col-form-label"># Bultos</label>
+                            <div class="col-sm-12 d-flex align-items-center">
+                                <input type="number" class="form-control me-2" name="bulto" id="bulto"
+                                    placeholder="..." />
+                                <input type="number" class="form-control me-2" name="bulto" id="bulto"
+                                    placeholder="..." />
+                                <input type="number" class="form-control me-2" name="bulto" id="bulto"
+                                    placeholder="..." />
+                                <input type="number" class="form-control me-2" name="bulto" id="bulto"
+                                    placeholder="..." />
+                                <input type="number" class="form-control me-2" name="bulto" id="bulto"
+                                    placeholder="..." />
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="total_pieza" class="col-sm-3 col-form-label">Total piezas</label>
+                            <div class="col-sm-12 d-flex align-items-center">
+                                <input type="number" class="form-control me-2" name="total_pieza" id="total_pieza"
+                                    placeholder="..." />
+                                <input type="number" class="form-control me-2" name="total_pieza" id="total_pieza"
+                                    placeholder="..." />
+                                <input type="number" class="form-control me-2" name="total_pieza" id="total_pieza"
+                                    placeholder="..." />
+                                <input type="number" class="form-control me-2" name="total_pieza" id="total_pieza"
+                                    placeholder="..." />
+                                <input type="number" class="form-control me-2" name="total_pieza" id="total_pieza"
+                                    placeholder="..." />
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="largo_trazo" class="col-sm-3 col-form-label">Largo Trazo </label>
+                            <div class="col-sm-12 d-flex align-items-center">
+                                <input type="number" class="form-control me-2" name="largo_trazo" id="largo_trazo"
+                                    placeholder="..." />
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="ancho_trazo" class="col-sm-3 col-form-label">Ancho Trazo </label>
+                            <div class="col-sm-12 d-flex align-items-center">
+                                <input type="number" class="form-control me-2" name="ancho_trazo" id="ancho_trazo"
+                                    placeholder="..." />
+                            </div>
+                        </div>
+                    </div>
+                    <div>
                         <button type="submit" class="btn btn-success">Guardar</button>
+                        <button type="submit" class="btn btn-danger">Finalizar</button>
+                    </div>
                 </form>
             </div>
         </div>

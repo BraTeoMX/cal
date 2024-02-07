@@ -34,7 +34,7 @@ class AuditoriaCorteController extends Controller
             'CategoriaDefecto' => CategoriaDefecto::where('estado', 1)->get(),
             'CategoriaTipoDefecto' => CategoriaTipoDefecto::where('estado', 1)->get(),
             'CategoriaAuditor' => CategoriaAuditor::where('estado', 1)->get(),
-            'DatoAX' => DatoAX::all(),
+            'DatoAX' => DatoAX::where('estatus', NULL)->get(),
             'DatoAXIniciado' => DatoAX::where('estatus', 'iniciado')->get(),
             'DatoAXProceso' => DatoAX::where('estatus', 'proceso')->get(),
             'DatoAXFin' => DatoAX::where('estatus', 'fin')->get(),
@@ -82,17 +82,18 @@ class AuditoriaCorteController extends Controller
         return back()->with('success', 'Datos guardados correctamente.')->with('activePage', $activePage);
     }
 
-    public function auditoriaMarcada()
+    public function auditoriaMarcada($id)
     {
         $activePage ='';
         $categorias = $this->cargarCategorias();
-
+        // Obtener el dato con el id seleccionado
+        $datoAX = DatoAX::find($id);
 
         $mesesEnEspanol = [
             'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'
         ];
 
-        return view('auditoriaCorte.auditoriaMarcada', array_merge($categorias, ['mesesEnEspanol' => $mesesEnEspanol, 'activePage' => $activePage]));
+        return view('auditoriaCorte.auditoriaMarcada', array_merge($categorias, ['mesesEnEspanol' => $mesesEnEspanol, 'activePage' => $activePage, 'datoAX' => $datoAX]));
     }
 
     public function formAuditoriaMarcada(Request $request)
@@ -100,25 +101,18 @@ class AuditoriaCorteController extends Controller
         $activePage ='';
         // Validar los datos del formulario si es necesario
         $request->validate([
-            'seleccion' => 'required',
-            'color' => 'required',
-            'pieza' => 'required|numeric',
-            'trazo' => 'required|numeric',
-            'lienzo' => 'required',
+            'yarda_orden' => 'required',
+            'yarda_orden_estatus' => 'required',
         ]);
 
         // Obtener el ID seleccionado
-        $idSeleccionado = $request->input('seleccion');
+        $idSeleccionado = $request->input('id');
 
         // Realizar la actualización en la base de datos
         $auditoria = DatoAX::find($idSeleccionado);
-        $auditoria->color = $request->input('color');
-        $auditoria->pieza = $request->input('pieza');
-        $auditoria->trazo = $request->input('trazo');
-        $auditoria->lienzo = $request->input('lienzo');
-        // Establecer fecha_inicio con la fecha y hora actual
-        $auditoria->fecha_inicio = Carbon::now()->format('Y-m-d H:i:s');
-        $auditoria->estatus = "iniciado";
+        $auditoria->yarda_orden = $request->input('yarda_orden');
+        $auditoria->yarda_orden_estatus = $request->input('yarda_orden_estatus');
+        $auditoria->estatus = "proceso";
         $auditoria->save();
         return back()->with('success', 'Datos guardados correctamente.')->with('activePage', $activePage);
     }
