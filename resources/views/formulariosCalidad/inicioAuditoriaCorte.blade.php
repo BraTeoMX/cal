@@ -40,11 +40,10 @@
                 <div class="card-header card-header-primary">
                     <h3 class="card-title">CONTROL DE CALIDAD EN CORTE</h3>
                 </div>
-                <form method="POST" action="{{ route('formulariosCalidad.formAuditoriaCortes') }}">
-                    @csrf
-                    <hr>
-                    <div class="card-body">
-                        <!--Desde aqui inicia la edicion del codigo para mostrar el contenido-->
+                <div class="card-body">
+                    <!--Desde aqui inicia la edicion del codigo para mostrar el contenido-->
+                    <form method="POST" action="{{ route('formulariosCalidad.formAuditoriaCortes') }}">
+                        @csrf
                         {{-- Inicio de Acordeon --}}
                         <div class="accordion" id="accordionExample">
                             <div class="card">
@@ -133,7 +132,8 @@
                             </div>
                         </div>
                         <button type="submit" class="btn btn-success">Guardar</button>
-                </form>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
@@ -145,39 +145,6 @@
             height: 20px;
             /* Altura personalizada */
             /* Otros estilos personalizados según tus necesidades */
-        }
-
-        .label-paloma {
-            font-size: 20px;
-            /* Tamaño de fuente personalizado */
-            color: #33a533;
-            /* Color de texto personalizado */
-            font-weight: bold;
-            /* Texto en negritas (bold) */
-            /* Otros estilos personalizados según tus necesidades */
-        }
-
-        .label-tache {
-            font-size: 20px;
-            /* Tamaño de fuente personalizado */
-            color: #b61711;
-            /* Color de texto personalizado */
-            font-weight: bold;
-            /* Texto en negritas (bold) */
-            /* Otros estilos personalizados según tus necesidades */
-        }
-
-        .form-check-inline {
-            margin-right: 25px;
-        }
-
-        .form-control.me-2 {
-            margin-right: 25px;
-            /* Ajusta la cantidad de margen según tus necesidades */
-        }
-
-        .quitar-espacio {
-            margin-right: 10px;
         }
     </style>
 
