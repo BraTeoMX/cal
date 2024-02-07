@@ -99,5 +99,5 @@ Route::post('/formControlCalidadEmpaque', [FormulariosCalidadController::class, 
 
 
 
-Route::get('/inicioAuditoriaCorte', [AuditoriaCorteController::class, 'inicioAuditoriaCorte'])->name('formulariosCalidad.inicioAuditoriaCorte'); 
-Route::post('/formAuditoriaCortes', [AuditoriaCorteController::class, 'formAuditoriaCortes'])->name('formulariosCalidad.formAuditoriaCortes');
+Route::get('/inicioAuditoriaCorte', [AuditoriaCorteController::class, 'inicioAuditoriaCorte'])->name('auditoriaCorte.inicioAuditoriaCorte'); 
+Route::post('/formAuditoriaCortes', [AuditoriaCorteController::class, 'formAuditoriaCortes'])->name('auditoriaCorte.formAuditoriaCortes');

@@ -35,6 +35,9 @@ class AuditoriaCorteController extends Controller
             'CategoriaTipoDefecto' => CategoriaTipoDefecto::where('estado', 1)->get(),
             'CategoriaAuditor' => CategoriaAuditor::where('estado', 1)->get(),
             'DatoAX' => DatoAX::all(),
+            'DatoAXIniciado' => DatoAX::where('estatus', 'iniciado')->get(),
+            'DatoAXProceso' => DatoAX::where('estatus', 'proceso')->get(),
+            'DatoAXFin' => DatoAX::where('estatus', 'fin')->get(),
         ];
     }
 
@@ -48,8 +51,7 @@ class AuditoriaCorteController extends Controller
             'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'
         ];
 
-
-        return view('formulariosCalidad.inicioAuditoriaCorte', array_merge($categorias, ['mesesEnEspanol' => $mesesEnEspanol, 'activePage' => $activePage]));
+        return view('auditoriaCorte.inicioAuditoriaCorte', array_merge($categorias, ['mesesEnEspanol' => $mesesEnEspanol, 'activePage' => $activePage]));
     }
 
     public function formAuditoriaCortes(Request $request)
@@ -75,6 +77,7 @@ class AuditoriaCorteController extends Controller
         $auditoria->lienzo = $request->input('lienzo');
         // Establecer fecha_inicio con la fecha y hora actual
         $auditoria->fecha_inicio = Carbon::now()->format('Y-m-d H:i:s');
+        $auditoria->estatus = "iniciado";
         $auditoria->save();
         return back()->with('success', 'Datos guardados correctamente.')->with('activePage', $activePage);
     }
