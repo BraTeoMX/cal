@@ -82,4 +82,45 @@ class AuditoriaCorteController extends Controller
         return back()->with('success', 'Datos guardados correctamente.')->with('activePage', $activePage);
     }
 
+    public function auditoriaMarcada()
+    {
+        $activePage ='';
+        $categorias = $this->cargarCategorias();
+
+
+        $mesesEnEspanol = [
+            'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'
+        ];
+
+        return view('auditoriaCorte.auditoriaMarcada', array_merge($categorias, ['mesesEnEspanol' => $mesesEnEspanol, 'activePage' => $activePage]));
+    }
+
+    public function formAuditoriaMarcada(Request $request)
+    {
+        $activePage ='';
+        // Validar los datos del formulario si es necesario
+        $request->validate([
+            'seleccion' => 'required',
+            'color' => 'required',
+            'pieza' => 'required|numeric',
+            'trazo' => 'required|numeric',
+            'lienzo' => 'required',
+        ]);
+
+        // Obtener el ID seleccionado
+        $idSeleccionado = $request->input('seleccion');
+
+        // Realizar la actualización en la base de datos
+        $auditoria = DatoAX::find($idSeleccionado);
+        $auditoria->color = $request->input('color');
+        $auditoria->pieza = $request->input('pieza');
+        $auditoria->trazo = $request->input('trazo');
+        $auditoria->lienzo = $request->input('lienzo');
+        // Establecer fecha_inicio con la fecha y hora actual
+        $auditoria->fecha_inicio = Carbon::now()->format('Y-m-d H:i:s');
+        $auditoria->estatus = "iniciado";
+        $auditoria->save();
+        return back()->with('success', 'Datos guardados correctamente.')->with('activePage', $activePage);
+    }
+
 }

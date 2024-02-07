@@ -99,5 +99,9 @@ Route::post('/formControlCalidadEmpaque', [FormulariosCalidadController::class, 
 
 
 
+//Apartado de una nueva seccion para corte, ya que es uno de los mas grandes 
 Route::get('/inicioAuditoriaCorte', [AuditoriaCorteController::class, 'inicioAuditoriaCorte'])->name('auditoriaCorte.inicioAuditoriaCorte'); 
 Route::post('/formAuditoriaCortes', [AuditoriaCorteController::class, 'formAuditoriaCortes'])->name('auditoriaCorte.formAuditoriaCortes');
+
+Route::get('/auditoriaMarcada', [AuditoriaCorteController::class, 'auditoriaMarcada'])->name('auditoriaCorte.auditoriaMarcada'); 
+Route::post('/formAuditoriaMarcada', [AuditoriaCorteController::class, 'formAuditoriaMarcada'])->name('auditoriaCorte.formAuditoriaMarcada');

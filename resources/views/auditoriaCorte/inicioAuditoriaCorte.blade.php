@@ -145,7 +145,7 @@
                                                 <tbody>
                                                     @foreach ($DatoAXIniciado as $inicio)
                                                         <tr>
-                                                            <td><a href="{{ route('auditoriaCorte.inicioAuditoriaCorte') }}" class="btn btn-info">Acceder</a></td>
+                                                            <td><a href="{{ route('auditoriaCorte.auditoriaMarcada') }}" class="btn btn-info">Acceder</a></td>
                                                             <td>{{ $inicio->orden }}</td>
                                                             <td>{{ $inicio->estilo }}</td>
                                                             <td>{{ $inicio->cliente }}</td>
