@@ -54,6 +54,7 @@
                 <!--Aqui se edita el encabezado que es el que se muestra -->
                 <div class="card-header card-header-primary">
                     <h3 class="card-title">CONTROL DE CALIDAD EN CORTE</h3>
+                    <h3>Estatus: {{$datoAX->estatus}}</h3>
                 </div>
                 <hr>
                 <div class="row">
@@ -306,14 +307,14 @@
                     <!--Fin acordeon 4 -->
                     <!--Inicio acordeon 5 -->
                     <div class="card">
-                        <div class="card-header" id="headingSix">
+                        <div class="card-header" id="headingFive">
                             <h5 class="mb-0">
-                                <button class="btn btn-info btn-block collapsed" data-toggle="collapse" data-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
+                                <button class="btn btn-info btn-block collapsed" data-toggle="collapse" data-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
                                     Acordeón 5
                                 </button>
                             </h5>
                         </div>
-                        <div id="collapseSix" class="collapse" aria-labelledby="headingSix" data-parent="#accordion">
+                        <div id="collapseFive" class="collapse" aria-labelledby="headingFive" data-parent="#accordion">
                             <div class="card-body">
                                 Contenido del acordeón 5
                             </div>
@@ -367,5 +368,36 @@
                 margin-right: 10px;
             }
         </style>
-
+        <!-- Script para abrir el acordeón correspondiente -->
+        <script>
+            $(document).ready(function() {
+                // Obtener el valor de estatus de los datos
+                var estatus = "{{ $datoAX->estatus }}"; // Asegúrate de que el valor esté disponible en tu vista
+                console.log("Valor de estatus:", estatus);
+        
+                // Objeto de mapeo para asociar los valores de estatus con los ids de los acordeones
+                var acordeonMap = {
+                    "primero": "collapseOne",
+                    "segundo": "collapseTwo",
+                    "tercero": "collapseThree",
+                    "cuarto": "collapseFour",
+                    "quinto": "collapseFive"
+                };
+        
+                // Función para abrir el acordeón correspondiente según el valor de estatus
+                function abrirAcordeon(estatus) {
+                    var acordeonId = acordeonMap[estatus];
+                    $('#' + acordeonId).collapse('show');
+                }
+        
+                // Llamar a la función para abrir el acordeón después de que se haya mostrado completamente
+                $('#accordion').on('shown.bs.collapse', function() {
+                    abrirAcordeon(estatus);
+                });
+        
+                // Llamar a la función para abrir el acordeón directamente si ya se ha cargado completamente
+                abrirAcordeon(estatus);
+            });
+        </script>
+        
     @endsection

@@ -87,7 +87,7 @@ class AuditoriaCorteController extends Controller
         $activePage ='';
         $categorias = $this->cargarCategorias();
         // Obtener el dato con el id seleccionado y el valor de la columna "orden"
-        $datoAX = DatoAX::select('id', 'orden', 'cliente', 'estilo', 'material', 'color', 'pieza', 'trazo', 'lienzo')->find($id);
+        $datoAX = DatoAX::select('id','estatus', 'orden', 'cliente', 'estilo', 'material', 'color', 'pieza', 'trazo', 'lienzo')->find($id);
 
         $mesesEnEspanol = [
             'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'
