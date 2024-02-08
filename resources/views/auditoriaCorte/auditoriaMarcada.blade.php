@@ -15,6 +15,11 @@
             @endif
         </div>
     @endif
+    @if (session('sobre-escribir'))
+        <div class="alert sobre-escribir">
+            {{ session('sobre-escribir') }}
+        </div>
+    @endif
     @if (session('status'))
         {{-- A menudo utilizado para mensajes de estado genéricos --}}
         <div class="alert alert-secondary">
@@ -24,6 +29,16 @@
     <style>
         .alerta-exito {
             background-color: #28a745;
+            /* Color de fondo verde */
+            color: white;
+            /* Color de texto blanco */
+            padding: 20px;
+            border-radius: 15px;
+            font-size: 20px;
+        }
+
+        .sobre-escribir {
+            background-color: #0a8ba1;
             /* Color de fondo verde */
             color: white;
             /* Color de texto blanco */
@@ -75,23 +90,23 @@
                     <div style="background: #db8036a2">
                         <h4 style="text-align: center">AUDITORIA DE MARCADA</h4>
                     </div>
-                    
+
                     <div class="row">
                         <div class="col-md-6 mb-3">
                             <label for="yarda_orden" class="col-sm-6 col-form-label">Yardas en la orden</label>
                             <div class="col-sm-12 d-flex align-items-center">
                                 <div class="form-check form-check-inline">
-                                    <input type="number" step="0.0001" class="form-control me-2" name="yarda_orden" id="yarda_orden"
-                                        placeholder="..." />
+                                    <input type="number" step="0.0001" class="form-control me-2" name="yarda_orden"
+                                        id="yarda_orden" placeholder="..." />
                                 </div>
                                 <div class="form-check form-check-inline">
-                                    <input class="quitar-espacio" type="radio" name="yarda_orden_estatus" id="yarda_orden_estatus1"
-                                        value="1">
+                                    <input class="quitar-espacio" type="radio" name="yarda_orden_estatus"
+                                        id="yarda_orden_estatus1" value="1">
                                     <label class="label-paloma" for="yarda_orden_estatus1">✔ </label>
                                 </div>
                                 <div class="form-check form-check-inline">
-                                    <input class="quitar-espacio" type="radio" name="yarda_orden_estatus" id="yarda_orden_estatus2"
-                                        value="0">
+                                    <input class="quitar-espacio" type="radio" name="yarda_orden_estatus"
+                                        id="yarda_orden_estatus2" value="0">
                                     <label class="label-tache" for="yarda_orden_estatus2">✖ </label>
                                 </div>
                             </div>
@@ -100,17 +115,17 @@
                             <label for="yarda_marcada" class="col-sm-6 col-form-label">Yardas en la marcada</label>
                             <div class="col-sm-12 d-flex align-items-center">
                                 <div class="form-check form-check-inline">
-                                    <input type="number" step="0.0001" class="form-control me-2" name="yarda_marcada" id="yarda_marcada"
-                                        placeholder="..." />
+                                    <input type="number" step="0.0001" class="form-control me-2" name="yarda_marcada"
+                                        id="yarda_marcada" placeholder="..." />
                                 </div>
                                 <div class="form-check form-check-inline">
-                                    <input class="quitar-espacio" type="radio" name="yarda_marcada_estatus" id="yarda_marcada_estatus1"
-                                        value="1">
+                                    <input class="quitar-espacio" type="radio" name="yarda_marcada_estatus"
+                                        id="yarda_marcada_estatus1" value="1">
                                     <label class="label-paloma" for="yarda_marcada_estatus1">✔ </label>
                                 </div>
                                 <div class="form-check form-check-inline">
-                                    <input class="quitar-espacio" type="radio" name="yarda_marcada_estatus" id="yarda_marcada_estatus2"
-                                        value="0">
+                                    <input class="quitar-espacio" type="radio" name="yarda_marcada_estatus"
+                                        id="yarda_marcada_estatus2" value="0">
                                     <label class="label-tache" for="yarda_marcada_estatus2">✖ </label>
                                 </div>
                             </div>
@@ -119,17 +134,17 @@
                             <label for="yarda_tendido" class="col-sm-6 col-form-label">Yardas en el tendido</label>
                             <div class="col-sm-12 d-flex align-items-center">
                                 <div class="form-check form-check-inline">
-                                    <input type="number" step="0.0001" class="form-control me-2" name="yarda_tendido" id="yarda_tendido"
-                                        placeholder="..." />
+                                    <input type="number" step="0.0001" class="form-control me-2" name="yarda_tendido"
+                                        id="yarda_tendido" placeholder="..." />
                                 </div>
                                 <div class="form-check form-check-inline">
-                                    <input class="quitar-espacio" type="radio" name="yarda_tendido_estatus" id="yarda_tendido_estatus1"
-                                        value="1">
+                                    <input class="quitar-espacio" type="radio" name="yarda_tendido_estatus"
+                                        id="yarda_tendido_estatus1" value="1">
                                     <label class="label-paloma" for="yarda_tendido_estatus1">✔ </label>
                                 </div>
                                 <div class="form-check form-check-inline">
-                                    <input class="quitar-espacio" type="radio" name="yarda_tendido_estatus" id="yarda_tendido_estatus2"
-                                        value="0">
+                                    <input class="quitar-espacio" type="radio" name="yarda_tendido_estatus"
+                                        id="yarda_tendido_estatus2" value="0">
                                     <label class="label-tache" for="yarda_tendido_estatus2">✖ </label>
                                 </div>
                             </div>
@@ -157,46 +172,46 @@
                         <div class="col-md-6 mb-3">
                             <label for="talla1" class="col-sm-3 col-form-label">Tallas</label>
                             <div class="col-sm-12 d-flex align-items-center">
-                                <input type="number" step="0.0001" class="form-control me-2" name="talla1" id="talla1"
-                                    placeholder="..." />
-                                <input type="number" step="0.0001" class="form-control me-2" name="talla2" id="talla2"
-                                    placeholder="..." />
-                                <input type="number" step="0.0001" class="form-control me-2" name="talla3" id="talla3"
-                                    placeholder="..." />
-                                <input type="number" step="0.0001" class="form-control me-2" name="talla4" id="talla4"
-                                    placeholder="..." />
-                                <input type="number" step="0.0001" class="form-control me-2" name="talla5" id="talla5"
-                                    placeholder="..." />
+                                <input type="number" step="0.0001" class="form-control me-2" name="talla1"
+                                    id="talla1" placeholder="..." />
+                                <input type="number" step="0.0001" class="form-control me-2" name="talla2"
+                                    id="talla2" placeholder="..." />
+                                <input type="number" step="0.0001" class="form-control me-2" name="talla3"
+                                    id="talla3" placeholder="..." />
+                                <input type="number" step="0.0001" class="form-control me-2" name="talla4"
+                                    id="talla4" placeholder="..." />
+                                <input type="number" step="0.0001" class="form-control me-2" name="talla5"
+                                    id="talla5" placeholder="..." />
                             </div>
                         </div>
                         <div class="col-md-6 mb-3">
                             <label for="bulto1" class="col-sm-3 col-form-label"># Bultos</label>
                             <div class="col-sm-12 d-flex align-items-center">
-                                <input type="number" step="0.0001" class="form-control me-2" name="bulto1" id="bulto1"
-                                    placeholder="..." />
-                                <input type="number" step="0.0001" class="form-control me-2" name="bulto2" id="bulto2"
-                                    placeholder="..." />
-                                <input type="number" step="0.0001" class="form-control me-2" name="bulto3" id="bulto3"
-                                    placeholder="..." />
-                                <input type="number" step="0.0001" class="form-control me-2" name="bulto4" id="bulto4"
-                                    placeholder="..." />
-                                <input type="number" step="0.0001" class="form-control me-2" name="bulto5" id="bulto5"
-                                    placeholder="..." />
+                                <input type="number" step="0.0001" class="form-control me-2" name="bulto1"
+                                    id="bulto1" placeholder="..." />
+                                <input type="number" step="0.0001" class="form-control me-2" name="bulto2"
+                                    id="bulto2" placeholder="..." />
+                                <input type="number" step="0.0001" class="form-control me-2" name="bulto3"
+                                    id="bulto3" placeholder="..." />
+                                <input type="number" step="0.0001" class="form-control me-2" name="bulto4"
+                                    id="bulto4" placeholder="..." />
+                                <input type="number" step="0.0001" class="form-control me-2" name="bulto5"
+                                    id="bulto5" placeholder="..." />
                             </div>
                         </div>
                         <div class="col-md-6 mb-3">
                             <label for="total_pieza1" class="col-sm-3 col-form-label">Total piezas</label>
                             <div class="col-sm-12 d-flex align-items-center">
-                                <input type="number" step="0.0001" class="form-control me-2" name="total_pieza1" id="total_pieza1"
-                                    placeholder="..." />
-                                <input type="number" step="0.0001" class="form-control me-2" name="total_pieza2" id="total_pieza2"
-                                    placeholder="..." />
-                                <input type="number" step="0.0001" class="form-control me-2" name="total_pieza3" id="total_pieza3"
-                                    placeholder="..." />
-                                <input type="number" step="0.0001" class="form-control me-2" name="total_pieza4" id="total_pieza4"
-                                    placeholder="..." />
-                                <input type="number" step="0.0001" class="form-control me-2" name="total_pieza5" id="total_pieza5"
-                                    placeholder="..." />
+                                <input type="number" step="0.0001" class="form-control me-2" name="total_pieza1"
+                                    id="total_pieza1" placeholder="..." />
+                                <input type="number" step="0.0001" class="form-control me-2" name="total_pieza2"
+                                    id="total_pieza2" placeholder="..." />
+                                <input type="number" step="0.0001" class="form-control me-2" name="total_pieza3"
+                                    id="total_pieza3" placeholder="..." />
+                                <input type="number" step="0.0001" class="form-control me-2" name="total_pieza4"
+                                    id="total_pieza4" placeholder="..." />
+                                <input type="number" step="0.0001" class="form-control me-2" name="total_pieza5"
+                                    id="total_pieza5" placeholder="..." />
                             </div>
                         </div>
                     </div>
@@ -205,15 +220,15 @@
                         <div class="col-md-6 mb-3">
                             <label for="largo_trazo" class="col-sm-3 col-form-label">Largo Trazo </label>
                             <div class="col-sm-12 d-flex align-items-center">
-                                <input type="number" step="0.0001" class="form-control me-2" name="largo_trazo" id="largo_trazo"
-                                    placeholder="..." />
+                                <input type="number" step="0.0001" class="form-control me-2" name="largo_trazo"
+                                    id="largo_trazo" placeholder="..." />
                             </div>
                         </div>
                         <div class="col-md-6 mb-3">
                             <label for="ancho_trazo" class="col-sm-3 col-form-label">Ancho Trazo </label>
                             <div class="col-sm-12 d-flex align-items-center">
-                                <input type="number" step="0.0001" class="form-control me-2" name="ancho_trazo" id="ancho_trazo"
-                                    placeholder="..." />
+                                <input type="number" step="0.0001" class="form-control me-2" name="ancho_trazo"
+                                    id="ancho_trazo" placeholder="..." />
                             </div>
                         </div>
                     </div>
@@ -222,51 +237,50 @@
                         <button type="submit" class="btn btn-danger">Finalizar</button>
                     </div>
                 </form>
-            
+            </div>
         </div>
-    </div>
-    <style>
-        /* Estilos personalizados para los elementos de tipo "radio" */
-        input[type="radio"] {
-            width: 20px;
-            /* Ancho personalizado */
-            height: 20px;
-            /* Altura personalizada */
-            /* Otros estilos personalizados según tus necesidades */
-        }
+        <style>
+            /* Estilos personalizados para los elementos de tipo "radio" */
+            input[type="radio"] {
+                width: 20px;
+                /* Ancho personalizado */
+                height: 20px;
+                /* Altura personalizada */
+                /* Otros estilos personalizados según tus necesidades */
+            }
 
-        .label-paloma {
-            font-size: 20px;
-            /* Tamaño de fuente personalizado */
-            color: #33a533;
-            /* Color de texto personalizado */
-            font-weight: bold;
-            /* Texto en negritas (bold) */
-            /* Otros estilos personalizados según tus necesidades */
-        }
+            .label-paloma {
+                font-size: 20px;
+                /* Tamaño de fuente personalizado */
+                color: #33a533;
+                /* Color de texto personalizado */
+                font-weight: bold;
+                /* Texto en negritas (bold) */
+                /* Otros estilos personalizados según tus necesidades */
+            }
 
-        .label-tache {
-            font-size: 20px;
-            /* Tamaño de fuente personalizado */
-            color: #b61711;
-            /* Color de texto personalizado */
-            font-weight: bold;
-            /* Texto en negritas (bold) */
-            /* Otros estilos personalizados según tus necesidades */
-        }
+            .label-tache {
+                font-size: 20px;
+                /* Tamaño de fuente personalizado */
+                color: #b61711;
+                /* Color de texto personalizado */
+                font-weight: bold;
+                /* Texto en negritas (bold) */
+                /* Otros estilos personalizados según tus necesidades */
+            }
 
-        .form-check-inline {
-            margin-right: 25px;
-        }
+            .form-check-inline {
+                margin-right: 25px;
+            }
 
-        .form-control.me-2 {
-            margin-right: 25px;
-            /* Ajusta la cantidad de margen según tus necesidades */
-        }
+            .form-control.me-2 {
+                margin-right: 25px;
+                /* Ajusta la cantidad de margen según tus necesidades */
+            }
 
-        .quitar-espacio {
-            margin-right: 10px;
-        }
-    </style>
+            .quitar-espacio {
+                margin-right: 10px;
+            }
+        </style>
 
-@endsection
+    @endsection

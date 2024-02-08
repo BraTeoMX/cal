@@ -104,6 +104,54 @@ class AuditoriaCorteController extends Controller
         $idSeleccionado = $request->input('id');
         $orden = $request->input('orden');
 
+        // Verificar si ya existe un registro con el mismo valor de orden_id
+        $existeOrden = AuditoriaMarcada::where('orden_id', $orden)->first();
+
+        // Si ya existe un registro con el mismo valor de orden_id, puedes mostrar un mensaje de error o tomar alguna otra acción
+        if ($existeOrden) {
+            $existeOrden->yarda_orden = $request->input('yarda_orden');
+            $existeOrden->yarda_orden_estatus = $request->input('yarda_orden_estatus');
+            $existeOrden->yarda_marcada = $request->input('yarda_marcada');
+            $existeOrden->yarda_marcada_estatus = $request->input('yarda_marcada_estatus');
+            $existeOrden->yarda_tendido = $request->input('yarda_tendido');
+            $existeOrden->yarda_tendido_estatus = $request->input('yarda_tendido_estatus');
+            $existeOrden->talla1 = $request->input('talla1');
+            $existeOrden->talla2 = $request->input('talla2');
+            $existeOrden->talla3 = $request->input('talla3');
+            $existeOrden->talla4 = $request->input('talla4');
+            $existeOrden->talla5 = $request->input('talla5');
+            $existeOrden->talla6 = $request->input('talla6');
+            $existeOrden->talla7 = $request->input('talla7');
+            $existeOrden->talla8 = $request->input('talla8');
+            $existeOrden->talla9 = $request->input('talla9');
+            $existeOrden->talla10 = $request->input('talla10');
+            $existeOrden->bulto1 = $request->input('bulto1');
+            $existeOrden->bulto2 = $request->input('bulto2');
+            $existeOrden->bulto3 = $request->input('bulto3');
+            $existeOrden->bulto4 = $request->input('bulto4');
+            $existeOrden->bulto5 = $request->input('bulto5');
+            $existeOrden->bulto6 = $request->input('bulto6');
+            $existeOrden->bulto7 = $request->input('bulto7');
+            $existeOrden->bulto8 = $request->input('bulto8');
+            $existeOrden->bulto9 = $request->input('bulto9');
+            $existeOrden->bulto10 = $request->input('bulto10');
+            $existeOrden->total_pieza1 = $request->input('total_pieza1');
+            $existeOrden->total_pieza2 = $request->input('total_pieza2');
+            $existeOrden->total_pieza3 = $request->input('total_pieza3');
+            $existeOrden->total_pieza4 = $request->input('total_pieza4');
+            $existeOrden->total_pieza5 = $request->input('total_pieza5');
+            $existeOrden->total_pieza6 = $request->input('total_pieza6');
+            $existeOrden->total_pieza7 = $request->input('total_pieza7');
+            $existeOrden->total_pieza8 = $request->input('total_pieza8');
+            $existeOrden->total_pieza9 = $request->input('total_pieza9');
+            $existeOrden->total_pieza10 = $request->input('total_pieza10');
+            $existeOrden->largo_trazo =  $request->input('largo_trazo');
+            $existeOrden->ancho_trazo = $request->input('ancho_trazo');
+            $existeOrden->save();
+            
+            return back()->with('sobre-escribir', 'Ya existe un registro con el mismo valor de orden.');
+        }
+
         // Realizar la actualización en la base de datos usando el modelo AuditoriaMarcada
         $auditoria = new AuditoriaMarcada(); // Crear una nueva instancia del modelo
         $auditoria->dato_ax_id = $idSeleccionado; // Asignar el ID obtenido desde la vista
