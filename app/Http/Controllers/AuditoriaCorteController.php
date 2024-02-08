@@ -12,7 +12,7 @@ use App\Models\CategoriaTallaCantidad;
 use App\Models\CategoriaTamañoMuestra;
 use App\Models\CategoriaDefecto;
 use App\Models\CategoriaTipoDefecto;
-use App\Models\ReporteAuditoriaEtiqueta;
+use App\Models\AuditoriaMarcada;
 
 use App\Exports\DatosExport;
 use App\Models\DatoAX;
