@@ -120,54 +120,57 @@
                                     placeholder="..." />
                             </div>
                         </div>
-                        <hr>
+                    </div>
+                    <hr>
+                    <div class="row">
                         <div class="col-md-6 mb-3">
-                            <label for="talla" class="col-sm-3 col-form-label">Tallas</label>
+                            <label for="talla1" class="col-sm-3 col-form-label">Tallas</label>
                             <div class="col-sm-12 d-flex align-items-center">
-                                <input type="number" class="form-control me-2" name="talla" id="talla"
+                                <input type="number" class="form-control me-2" name="talla1" id="talla1"
                                     placeholder="..." />
-                                <input type="number" class="form-control me-2" name="talla" id="talla"
+                                <input type="number" class="form-control me-2" name="talla2" id="talla2"
                                     placeholder="..." />
-                                <input type="number" class="form-control me-2" name="talla" id="talla"
+                                <input type="number" class="form-control me-2" name="talla3" id="talla3"
                                     placeholder="..." />
-                                <input type="number" class="form-control me-2" name="talla" id="talla"
+                                <input type="number" class="form-control me-2" name="talla4" id="talla4"
                                     placeholder="..." />
-                                <input type="number" class="form-control me-2" name="talla" id="talla"
-                                    placeholder="..." />
-                                <input type="number" class="form-control me-2" name="talla" id="talla"
+                                <input type="number" class="form-control me-2" name="talla5" id="talla5"
                                     placeholder="..." />
                             </div>
                         </div>
                         <div class="col-md-6 mb-3">
-                            <label for="bulto" class="col-sm-3 col-form-label"># Bultos</label>
+                            <label for="bulto1" class="col-sm-3 col-form-label"># Bultos</label>
                             <div class="col-sm-12 d-flex align-items-center">
-                                <input type="number" class="form-control me-2" name="bulto" id="bulto"
+                                <input type="number" class="form-control me-2" name="bulto1" id="bulto1"
                                     placeholder="..." />
-                                <input type="number" class="form-control me-2" name="bulto" id="bulto"
+                                <input type="number" class="form-control me-2" name="bulto2" id="bulto2"
                                     placeholder="..." />
-                                <input type="number" class="form-control me-2" name="bulto" id="bulto"
+                                <input type="number" class="form-control me-2" name="bulto3" id="bulto3"
                                     placeholder="..." />
-                                <input type="number" class="form-control me-2" name="bulto" id="bulto"
+                                <input type="number" class="form-control me-2" name="bulto4" id="bulto4"
                                     placeholder="..." />
-                                <input type="number" class="form-control me-2" name="bulto" id="bulto"
+                                <input type="number" class="form-control me-2" name="bulto5" id="bulto5"
                                     placeholder="..." />
                             </div>
                         </div>
                         <div class="col-md-6 mb-3">
-                            <label for="total_pieza" class="col-sm-3 col-form-label">Total piezas</label>
+                            <label for="total_pieza1" class="col-sm-3 col-form-label">Total piezas</label>
                             <div class="col-sm-12 d-flex align-items-center">
-                                <input type="number" class="form-control me-2" name="total_pieza" id="total_pieza"
+                                <input type="number" class="form-control me-2" name="total_pieza1" id="total_pieza1"
                                     placeholder="..." />
-                                <input type="number" class="form-control me-2" name="total_pieza" id="total_pieza"
+                                <input type="number" class="form-control me-2" name="total_pieza2" id="total_pieza2"
                                     placeholder="..." />
-                                <input type="number" class="form-control me-2" name="total_pieza" id="total_pieza"
+                                <input type="number" class="form-control me-2" name="total_pieza3" id="total_pieza3"
                                     placeholder="..." />
-                                <input type="number" class="form-control me-2" name="total_pieza" id="total_pieza"
+                                <input type="number" class="form-control me-2" name="total_pieza4" id="total_pieza4"
                                     placeholder="..." />
-                                <input type="number" class="form-control me-2" name="total_pieza" id="total_pieza"
+                                <input type="number" class="form-control me-2" name="total_pieza5" id="total_pieza5"
                                     placeholder="..." />
                             </div>
                         </div>
+                    </div>
+                    <hr>
+                    <div class="row">
                         <div class="col-md-6 mb-3">
                             <label for="largo_trazo" class="col-sm-3 col-form-label">Largo Trazo </label>
                             <div class="col-sm-12 d-flex align-items-center">
