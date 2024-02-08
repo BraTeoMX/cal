@@ -58,7 +58,7 @@
                             </a>
                         </li>
                         <li class="nav-item{{ $activePage == 'Corte' ? ' active' : '' }}">
-                            <a class="nav-link" href="{{ route('formulariosCalidad.auditoriaCortes') }}">
+                            <a class="nav-link" href="{{ route('auditoriaCorte.inicioAuditoriaCorte') }}">
                                 <i class="material-icons">edit_document</i>
                                 <p>{{ __('FCC-010') }}</p>
                                 <p style="text-align: center;">{{ __('AUDITORIA CORTE') }}</p>
