@@ -237,6 +237,91 @@
                         <button type="submit" class="btn btn-danger">Finalizar</button>
                     </div>
                 </form>
+                <hr>
+                <div id="accordion">
+                    <!--Inicio acordeon 1 -->
+                    <div class="card">
+                        <div class="card-header" id="headingOne">
+                            <h5 class="mb-0">
+                                <button class="btn btn-info btn-block" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                    Acordeón 1
+                                </button>
+                            </h5>
+                        </div>
+                
+                        <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+                            <div class="card-body">
+                                Contenido del acordeón 1
+                            </div>
+                        </div>
+                    </div>
+                    <!--Fin acordeon 1 -->
+                    <!--Inicio acordeon 2 -->
+                    <div class="card">
+                        <div class="card-header" id="headingTwo">
+                            <h5 class="mb-0">
+                                <button class="btn btn-info btn-block collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                    Acordeón 2
+                                </button>
+                            </h5>
+                        </div>
+                        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+                            <div class="card-body">
+                                Contenido del acordeón 2
+                            </div>
+                        </div>
+                    </div>
+                    <!--Fin acordeon 2 -->
+                    <!--Inicio acordeon 3 -->
+                    <div class="card">
+                        <div class="card-header" id="headingThree">
+                            <h5 class="mb-0">
+                                <button class="btn btn-info btn-block collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                    Acordeón 3
+                                </button>
+                            </h5>
+                        </div>
+                        <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
+                            <div class="card-body">
+                                Contenido del acordeón 3
+                            </div>
+                        </div>
+                    </div>
+                    <!--Fin acordeon 3 -->
+                    <!--Inicio acordeon 4 -->
+                    <div class="card">
+                        <div class="card-header" id="headingFour">
+                            <h5 class="mb-0">
+                                <button class="btn btn-info btn-block collapsed" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                                    Acordeón 4
+                                </button>
+                            </h5>
+                        </div>
+                        <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordion">
+                            <div class="card-body">
+                                Contenido del acordeón 4
+                            </div>
+                        </div>
+                    </div>
+                    <!--Fin acordeon 4 -->
+                    <!--Inicio acordeon 5 -->
+                    <div class="card">
+                        <div class="card-header" id="headingSix">
+                            <h5 class="mb-0">
+                                <button class="btn btn-info btn-block collapsed" data-toggle="collapse" data-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
+                                    Acordeón 5
+                                </button>
+                            </h5>
+                        </div>
+                        <div id="collapseSix" class="collapse" aria-labelledby="headingSix" data-parent="#accordion">
+                            <div class="card-body">
+                                Contenido del acordeón 5
+                            </div>
+                        </div>
+                    </div>
+                    <!--Fin acordeon 5 -->
+                </div>
+                <!--Fin div de acordeon -->
             </div>
         </div>
         <style>
