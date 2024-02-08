@@ -92,8 +92,13 @@ class AuditoriaCorteController extends Controller
         $mesesEnEspanol = [
             'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'
         ];
-
-        return view('auditoriaCorte.auditoriaMarcada', array_merge($categorias, ['mesesEnEspanol' => $mesesEnEspanol, 'activePage' => $activePage, 'datoAX' => $datoAX]));
+        // Obtener el registro correspondiente en la tabla AuditoriaMarcada si existe
+        $auditoriaMarcada = AuditoriaMarcada::where('dato_ax_id', $id)->first();
+        return view('auditoriaCorte.auditoriaMarcada', array_merge($categorias, [
+            'mesesEnEspanol' => $mesesEnEspanol, 
+            'activePage' => $activePage, 
+            'datoAX' => $datoAX, 
+            'auditoriaMarcada' => $auditoriaMarcada,]));
     }
 
     public function formAuditoriaMarcada(Request $request)
