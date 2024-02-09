@@ -306,28 +306,28 @@
                                     <input type="hidden" name="orden" value="{{ $datoAX->orden }}">
                                     <div class="row">
                                         <div class="col-md-6 mb-3">
-                                            <label for="nombre" class="col-sm-3 col-form-label">NOMBRE</label>
+                                            <label for="nombre" class="col-sm-6 col-form-label">NOMBRE TECNICO</label>
                                             <div class="col-sm-12 d-flex align-items-center">
                                                 <select name="nombre" id="nombre" class="form-control"  
-                                                    title="Por favor, selecciona una opción" required>
+                                                    title="Por favor, selecciona una opción">
                                                     <option value="">Selecciona una opción</option>
-                                                    @foreach ($CategoriaEstilo as $nombre)
+                                                    @foreach ($CategoriaNoRecibo as $nombre)
                                                         <option value="{{ $nombre->nombre }}" {{ isset($auditoriaTendido) && $auditoriaTendido->nombre == $nombre->nombre ? 'selected' : '' }}>{{ $nombre->nombre }}</option>
                                                     @endforeach
                                                 </select>
                                             </div>
                                         </div>
                                         <div class="col-md-6 mb-3">
-                                            <label for="nombre" class="col-sm-3 col-form-label">Fecha</label>
+                                            <label for="fecha" class="col-sm-6 col-form-label">Fecha</label>
                                             <div class="col-sm-12 d-flex align-items-center">
                                                 {{ now()->format('d ') . $mesesEnEspanol[now()->format('n') - 1] . now()->format(' Y') }}
                                             </div>
                                         </div>
                                         <div class="col-md-6 mb-3">
-                                            <label for="mesa" class="col-sm-3 col-form-label">MESA</label>
+                                            <label for="mesa" class="col-sm-6 col-form-label">MESA</label>
                                             <div class="col-sm-12 d-flex align-items-center">
                                                 <select name="mesa" id="mesa" class="form-control"  
-                                                    title="Por favor, selecciona una opción" required>
+                                                    title="Por favor, selecciona una opción">
                                                     <option value="">Selecciona una opción</option>
                                                     @foreach ($CategoriaEstilo as $mesa)
                                                         <option value="{{ $mesa->nombre }}" {{ isset($auditoriaTendido) && $auditoriaTendido->mesa == $mesa->nombre ? 'selected' : '' }}>{{ $mesa->nombre }}</option>
@@ -336,13 +336,13 @@
                                             </div>
                                         </div>
                                         <div class="col-md-6 mb-3">
-                                            <label for="auditor" class="col-sm-3 col-form-label">AUDITOR</label>
+                                            <label for="auditor" class="col-sm-6 col-form-label">AUDITOR</label>
                                             <div class="col-sm-12 d-flex align-items-center">
                                                 <select name="auditor" id="auditor" class="form-control"  
-                                                    title="Por favor, selecciona una opción" required>
+                                                    title="Por favor, selecciona una opción">
                                                     <option value="">Selecciona una opción</option>
                                                     @foreach ($CategoriaAuditor as $auditor)
-                                                        <option value="{{ $auditor->nombre }}" {{ isset($auditoriaTendido) && $auditoriaTendido->nombre == $auditor->nombre ? 'selected' : '' }}>{{ $auditor->nombre }}</option>
+                                                        <option value="{{ $auditor->nombre }}" {{ isset($auditoriaTendido) && $auditoriaTendido->auditor == $auditor->nombre ? 'selected' : '' }}>{{ $auditor->nombre }}</option>
                                                     @endforeach
                                                 </select>
                                             </div>

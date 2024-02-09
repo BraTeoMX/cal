@@ -157,7 +157,7 @@ class AuditoriaCorteController extends Controller
             $existeOrden->ancho_trazo = $request->input('ancho_trazo');
             $existeOrden->save();
             
-            return back()->with('sobre-escribir', 'Ya existe un registro con el mismo valor de orden.');
+            return back()->with('sobre-escribir', 'Actualilzacion realizada con exito');
         }
 
         // Realizar la actualización en la base de datos usando el modelo AuditoriaMarcada
@@ -221,6 +221,9 @@ class AuditoriaCorteController extends Controller
 
         // Si ya existe un registro con el mismo valor de orden_id, puedes mostrar un mensaje de error o tomar alguna otra acción
         if ($existeOrden) {
+            $existeOrden->nombre = $request->input('nombre');
+            $existeOrden->mesa = $request->input('mesa');
+            $existeOrden->auditor = $request->input('auditor');
             $existeOrden->yarda_orden = $request->input('yarda_orden');
             $existeOrden->yarda_orden_estatus = $request->input('yarda_orden_estatus');
             $existeOrden->yarda_marcada = $request->input('yarda_marcada');
@@ -261,7 +264,7 @@ class AuditoriaCorteController extends Controller
             $existeOrden->ancho_trazo = $request->input('ancho_trazo');
             $existeOrden->save();
             
-            return back()->with('sobre-escribir', 'Ya existe un registro con el mismo valor de orden.');
+            return back()->with('sobre-escribir', 'Actualilzacion realizada con exito');
         }
 
         // Realizar la actualización en la base de datos usando el modelo AuditoriaTendido
