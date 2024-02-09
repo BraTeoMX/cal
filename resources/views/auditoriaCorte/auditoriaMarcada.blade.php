@@ -102,6 +102,8 @@
                                     @csrf
                                     <input type="hidden" name="id" value="{{ $datoAX->id }}">
                                     <input type="hidden" name="orden" value="{{ $datoAX->orden }}">
+                                    {{--Campo oculto para el boton Finalizar--}}
+                                    <input type="hidden" name="accion" value="">
                                     <div class="row">
                                         <div class="col-md-6 mb-3">
                                             <label for="yarda_orden" class="col-sm-6 col-form-label">Yardas en la
@@ -277,8 +279,8 @@
                                         </div>
                                     </div>
                                     <div>
-                                        <button type="submit" class="btn btn-success">Guardar</button>
-                                        <button type="submit" class="btn btn-danger">Finalizar</button>
+                                        <button type="submit" name="accion" value="guardar" class="btn btn-success">Guardar</button>
+                                        <button type="submit" name="accion" value="finalizar" class="btn btn-danger">Finalizar</button>
                                     </div>
                                 </form>
                                 {{-- Fin cuerpo acordeon --}}
@@ -312,7 +314,7 @@
                                                     title="Por favor, selecciona una opción">
                                                     <option value="">Selecciona una opción</option>
                                                     @foreach ($CategoriaNoRecibo as $nombre)
-                                                        <option value="{{ $nombre->nombre }}" {{ isset($auditoriaTendido) && $auditoriaTendido->nombre == $nombre->nombre ? 'selected' : '' }}>{{ $nombre->nombre }}</option>
+                                                        <option value="{{ $nombre->nombre }}" {{ isset($auditoriaTendido) && trim($auditoriaTendido->nombre) === trim($nombre->nombre) ? 'selected' : '' }}>{{ $nombre->nombre }}</option>
                                                     @endforeach
                                                 </select>
                                             </div>
@@ -342,167 +344,254 @@
                                                     title="Por favor, selecciona una opción">
                                                     <option value="">Selecciona una opción</option>
                                                     @foreach ($CategoriaAuditor as $auditor)
-                                                        <option value="{{ $auditor->nombre }}" {{ isset($auditoriaTendido) && $auditoriaTendido->auditor == $auditor->nombre ? 'selected' : '' }}>{{ $auditor->nombre }}</option>
+                                                        <option value="{{ $auditor->nombre }}" {{ isset($auditoriaTendido) && trim($auditoriaTendido->auditor) == trim($auditor->nombre) ? 'selected' : '' }}>{{ $auditor->nombre }}</option>
                                                     @endforeach
                                                 </select>
                                             </div>
                                         </div>
                                     </div>
+                                    <hr>
                                     <div class="row">
                                         <div class="col-md-6 mb-3">
-                                            <label for="yarda_orden" class="col-sm-6 col-form-label">Yardas en la
-                                                orden</label>
-                                            <div class="col-sm-12 d-flex align-items-center">
+                                            <label for="codigo_material" class="col-sm-6 col-form-label">1. Codigo de material</label>
+                                            <div class="col-sm-12 d-flex align-items-center" style="margin-right: -5px;">
                                                 <div class="form-check form-check-inline">
-                                                    <input type="number" step="0.0001" class="form-control me-2"
-                                                        name="yarda_orden" id="yarda_orden" placeholder="..."
-                                                        value="{{ isset($auditoriaTendido) ? $auditoriaTendido->yarda_orden : '' }}" />
+                                                    <input class="quitar-espacio" type="radio" name="estado" id="estado1"
+                                                        value="1"  >
+                                                    <label class="label-paloma" for="estado1"> ✔ </label>
                                                 </div>
-                                                <div class="form-check form-check-inline">
-                                                    <input class="quitar-espacio" type="radio" name="yarda_orden_estatus"
-                                                        id="yarda_orden_estatus1" value="1"
-                                                        {{ isset($auditoriaTendido) && $auditoriaTendido->yarda_orden_estatus == 1 ? 'checked' : '' }}>
-                                                    <label class="label-paloma" for="yarda_orden_estatus1">✔ </label>
+                                                <div class="form-check form-check-inline" style="margin-right: -5px;">
+                                                    <input class="quitar-espacio" type="radio" name="estado" id="estado2"
+                                                        value="0"  >
+                                                    <label class="label-tache" for="estado1"> ✖ </label>
                                                 </div>
-                                                <div class="form-check form-check-inline">
-                                                    <input class="quitar-espacio" type="radio" name="yarda_orden_estatus"
-                                                        id="yarda_orden_estatus2" value="0"
-                                                        {{ isset($auditoriaTendido) && $auditoriaTendido->yarda_orden_estatus == 0 ? 'checked' : '' }}>
-                                                    <label class="label-tache" for="yarda_orden_estatus2">✖ </label>
-                                                </div>
+                                                <input type="text" class="form-control me-2" name="codigo_material"
+                                                    id="codigo_material" placeholder=" COMENTARIOS"   />
                                             </div>
                                         </div>
                                         <div class="col-md-6 mb-3">
-                                            <label for="yarda_marcada" class="col-sm-6 col-form-label">Yardas en la
-                                                marcada</label>
+                                            <label for="codigo_color" class="col-sm-6 col-form-label">2. Codigo de color</label>
                                             <div class="col-sm-12 d-flex align-items-center">
                                                 <div class="form-check form-check-inline">
-                                                    <input type="number" step="0.0001" class="form-control me-2"
-                                                        name="yarda_marcada" id="yarda_marcada" placeholder="..."
-                                                        value="{{ isset($auditoriaTendido) ? $auditoriaTendido->yarda_marcada : '' }}" />
+                                                    <input class="quitar-espacio" type="radio" name="estado" id="estado1"
+                                                        value="1"  >
+                                                    <label class="label-paloma" for="estado1"> ✔ </label>
                                                 </div>
                                                 <div class="form-check form-check-inline">
-                                                    <input class="quitar-espacio" type="radio"
-                                                        name="yarda_marcada_estatus" id="yarda_marcada_estatus1"
-                                                        value="1"
-                                                        {{ isset($auditoriaTendido) && $auditoriaTendido->yarda_marcada_estatus == 1 ? 'checked' : '' }}>
-                                                    <label class="label-paloma" for="yarda_marcada_estatus1">✔ </label>
+                                                    <input class="quitar-espacio" type="radio" name="estado" id="estado2"
+                                                        value="0"  >
+                                                    <label class="label-tache" for="estado1"> ✖ </label>
                                                 </div>
-                                                <div class="form-check form-check-inline">
-                                                    <input class="quitar-espacio" type="radio"
-                                                        name="yarda_marcada_estatus" id="yarda_marcada_estatus2"
-                                                        value="0"
-                                                        {{ isset($auditoriaTendido) && $auditoriaTendido->yarda_marcada_estatus == 0 ? 'checked' : '' }}>
-                                                    <label class="label-tache" for="yarda_marcada_estatus2">✖ </label>
-                                                </div>
+                                                <input type="text" class="form-control me-2" name="codigo_color"
+                                                    id="codigo_color" placeholder=" COMENTARIOS"   />
                                             </div>
                                         </div>
                                         <div class="col-md-6 mb-3">
-                                            <label for="yarda_tendido" class="col-sm-6 col-form-label">Yardas en el
+                                            <label for="info_trazo" class="col-sm-6 col-form-label">3. Informacion de trazo</label>
+                                            <div class="col-sm-12 d-flex align-items-center">
+                                                <div class="form-check form-check-inline">
+                                                    <input class="quitar-espacio" type="radio" name="estado" id="estado1"
+                                                        value="1"  >
+                                                    <label class="label-paloma" for="estado1"> ✔ </label>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <input class="quitar-espacio" type="radio" name="estado" id="estado2"
+                                                        value="0"  >
+                                                    <label class="label-tache" for="estado1"> ✖ </label>
+                                                </div>
+                                                <input type="text" class="form-control me-2" name="info_trazo" id="info_trazo"
+                                                    placeholder=" COMENTARIOS"   />
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label for="cantidad_lienzo" class="col-sm-6 col-form-label">4. Cantidad de
+                                                lienzos</label>
+                                            <div class="col-sm-12 d-flex align-items-center">
+                                                <div class="form-check form-check-inline">
+                                                    <input class="quitar-espacio" type="radio" name="estado" id="estado1"
+                                                        value="1"  >
+                                                    <label class="label-paloma" for="estado1"> ✔ </label>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <input class="quitar-espacio" type="radio" name="estado" id="estado2"
+                                                        value="0"  >
+                                                    <label class="label-tache" for="estado1"> ✖ </label>
+                                                </div>
+                                                <input type="text" class="form-control me-2" name="cantidad_lienzo"
+                                                    id="cantidad_lienzo" placeholder=" COMENTARIOS"   />
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label for="longitud_tendido" class="col-sm-6 col-form-label">5. Longitud de
                                                 tendido</label>
                                             <div class="col-sm-12 d-flex align-items-center">
                                                 <div class="form-check form-check-inline">
-                                                    <input type="number" step="0.0001" class="form-control me-2"
-                                                        name="yarda_tendido" id="yarda_tendido" placeholder="..."
-                                                        value="{{ isset($auditoriaTendido) ? $auditoriaTendido->yarda_tendido : '' }}" />
+                                                    <input class="quitar-espacio" type="radio" name="estado" id="estado1"
+                                                        value="1"  >
+                                                    <label class="label-paloma" for="estado1"> ✔ </label>
                                                 </div>
                                                 <div class="form-check form-check-inline">
-                                                    <input class="quitar-espacio" type="radio"
-                                                        name="yarda_tendido_estatus" id="yarda_tendido_estatus1"
-                                                        value="1"
-                                                        {{ isset($auditoriaTendido) && $auditoriaTendido->yarda_tendido_estatus == 1 ? 'checked' : '' }}>
-                                                    <label class="label-paloma" for="yarda_tendido_estatus1">✔ </label>
+                                                    <input class="quitar-espacio" type="radio" name="estado" id="estado2"
+                                                        value="0"  >
+                                                    <label class="label-tache" for="estado1"> ✖ </label>
+                                                </div>
+                                                <input type="text" class="form-control me-2" name="longitud_tendido"
+                                                    id="longitud_tendido" placeholder=" COMENTARIOS"   />
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label for="ancho_tendido" class="col-sm-6 col-form-label">6. Ancho de tendido</label>
+                                            <div class="col-sm-12 d-flex align-items-center">
+                                                <div class="form-check form-check-inline">
+                                                    <input class="quitar-espacio" type="radio" name="estado" id="estado1"
+                                                        value="1"  >
+                                                    <label class="label-paloma" for="estado1"> ✔ </label>
                                                 </div>
                                                 <div class="form-check form-check-inline">
-                                                    <input class="quitar-espacio" type="radio"
-                                                        name="yarda_tendido_estatus" id="yarda_tendido_estatus2"
-                                                        value="0"
-                                                        {{ isset($auditoriaTendido) && $auditoriaTendido->yarda_tendido_estatus == 0 ? 'checked' : '' }}>
-                                                    <label class="label-tache" for="yarda_tendido_estatus2">✖ </label>
+                                                    <input class="quitar-espacio" type="radio" name="estado" id="estado2"
+                                                        value="0"  >
+                                                    <label class="label-tache" for="estado1"> ✖ </label>
                                                 </div>
-                                            </div>
-                                        </div>
-                                        <br>
-                                    </div>
-                                    <hr>
-                                    <div class="row">
-                                        <div class="col-md-6 mb-3">
-                                            <label for="talla1" class="col-sm-3 col-form-label">Tallas</label>
-                                            <div class="col-sm-12 d-flex align-items-center">
-                                                <input type="number" step="0.0001" class="form-control me-2"
-                                                    name="talla1" id="talla1" placeholder="..."
-                                                    value="{{ isset($auditoriaTendido) ? $auditoriaTendido->talla1 : '' }}" />
-                                                <input type="number" step="0.0001" class="form-control me-2"
-                                                    name="talla2" id="talla2" placeholder="..."
-                                                    value="{{ isset($auditoriaTendido) ? $auditoriaTendido->talla2 : '' }}" />
-                                                <input type="number" step="0.0001" class="form-control me-2"
-                                                    name="talla3" id="talla3" placeholder="..."
-                                                    value="{{ isset($auditoriaTendido) ? $auditoriaTendido->talla3 : '' }}" />
-                                                <input type="number" step="0.0001" class="form-control me-2"
-                                                    name="talla4" id="talla4" placeholder="..."
-                                                    value="{{ isset($auditoriaTendido) ? $auditoriaTendido->talla4 : '' }}" />
-                                                <input type="number" step="0.0001" class="form-control me-2"
-                                                    name="talla5" id="talla5" placeholder="..."
-                                                    value="{{ isset($auditoriaTendido) ? $auditoriaTendido->talla5 : '' }}" />
+                                                <input type="text" class="form-control me-2" name="ancho_tendido"
+                                                    id="ancho_tendido" placeholder=" COMENTARIOS"   />
                                             </div>
                                         </div>
                                         <div class="col-md-6 mb-3">
-                                            <label for="bulto1" class="col-sm-3 col-form-label"># Bultos</label>
+                                            <label for="material_relajado" class="col-sm-6 col-form-label">7. Material
+                                                relajado</label>
                                             <div class="col-sm-12 d-flex align-items-center">
-                                                <input type="number" step="0.0001" class="form-control me-2"
-                                                    name="bulto1" id="bulto1" placeholder="..."
-                                                    value="{{ isset($auditoriaTendido) ? $auditoriaTendido->bulto1 : '' }}" />
-                                                <input type="number" step="0.0001" class="form-control me-2"
-                                                    name="bulto2" id="bulto2" placeholder="..."
-                                                    value="{{ isset($auditoriaTendido) ? $auditoriaTendido->bulto2 : '' }}" />
-                                                <input type="number" step="0.0001" class="form-control me-2"
-                                                    name="bulto3" id="bulto3" placeholder="..."
-                                                    value="{{ isset($auditoriaTendido) ? $auditoriaTendido->bulto3 : '' }}" />
-                                                <input type="number" step="0.0001" class="form-control me-2"
-                                                    name="bulto4" id="bulto4" placeholder="..."
-                                                    value="{{ isset($auditoriaTendido) ? $auditoriaTendido->bulto4 : '' }}" />
-                                                <input type="number" step="0.0001" class="form-control me-2"
-                                                    name="bulto5" id="bulto5" placeholder="..."
-                                                    value="{{ isset($auditoriaTendido) ? $auditoriaTendido->bulto5 : '' }}" />
+                                                <div class="form-check form-check-inline">
+                                                    <input class="quitar-espacio" type="radio" name="estado" id="estado1"
+                                                        value="1"  >
+                                                    <label class="label-paloma" for="estado1"> ✔ </label>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <input class="quitar-espacio" type="radio" name="estado" id="estado2"
+                                                        value="0"  >
+                                                    <label class="label-tache" for="estado1"> ✖ </label>
+                                                </div>
+                                                <input type="text" class="form-control me-2" name="material_relajado"
+                                                    id="material_relajado" placeholder=" COMENTARIOS"   />
                                             </div>
                                         </div>
                                         <div class="col-md-6 mb-3">
-                                            <label for="total_pieza1" class="col-sm-3 col-form-label">Total piezas</label>
+                                            <label for="material_relajado" class="col-sm-6 col-form-label">Accion correctiva </label>
                                             <div class="col-sm-12 d-flex align-items-center">
-                                                <input type="number" step="0.0001" class="form-control me-2"
-                                                    name="total_pieza1" id="total_pieza1" placeholder="..."
-                                                    value="{{ isset($auditoriaTendido) ? $auditoriaTendido->total_pieza1 : '' }}" />
-                                                <input type="number" step="0.0001" class="form-control me-2"
-                                                    name="total_pieza2" id="total_pieza2" placeholder="..."
-                                                    value="{{ isset($auditoriaTendido) ? $auditoriaTendido->total_pieza2 : '' }}" />
-                                                <input type="number" step="0.0001" class="form-control me-2"
-                                                    name="total_pieza3" id="total_pieza3" placeholder="..."
-                                                    value="{{ isset($auditoriaTendido) ? $auditoriaTendido->total_pieza3 : '' }}" />
-                                                <input type="number" step="0.0001" class="form-control me-2"
-                                                    name="total_pieza4" id="total_pieza4" placeholder="..."
-                                                    value="{{ isset($auditoriaTendido) ? $auditoriaTendido->total_pieza4 : '' }}" />
-                                                <input type="number" step="0.0001" class="form-control me-2"
-                                                    name="total_pieza5" id="total_pieza5" placeholder="..."
-                                                    value="{{ isset($auditoriaTendido) ? $auditoriaTendido->total_pieza4 : '' }}" />
+                                                <input type="text" class="form-control me-2" name="material_relajado"
+                                                    id="material_relajado" placeholder=" COMENTARIOS"   />
                                             </div>
                                         </div>
-                                    </div>
-                                    <hr>
-                                    <div class="row">
+                                        <hr>
                                         <div class="col-md-6 mb-3">
-                                            <label for="largo_trazo" class="col-sm-3 col-form-label">Largo Trazo </label>
+                                            <label for="emplame" class="col-sm-6 col-form-label">8. Empalmes</label>
                                             <div class="col-sm-12 d-flex align-items-center">
-                                                <input type="number" step="0.0001" class="form-control me-2"
-                                                    name="largo_trazo" id="largo_trazo" placeholder="..."
-                                                    value="{{ isset($auditoriaTendido) ? $auditoriaTendido->largo_trazo : '' }}" />
+                                                <div class="form-check form-check-inline">
+                                                    <input class="quitar-espacio" type="radio" name="estado" id="estado1"
+                                                        value="1"  >
+                                                    <label class="label-paloma" for="estado1"> ✔ </label>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <input class="quitar-espacio" type="radio" name="estado" id="estado2"
+                                                        value="0"  >
+                                                    <label class="label-tache" for="estado1"> ✖ </label>
+                                                </div>
+                                                <input type="text" class="form-control me-2" name="emplame" id="emplame"
+                                                    placeholder=" COMENTARIOS"   />
                                             </div>
                                         </div>
                                         <div class="col-md-6 mb-3">
-                                            <label for="ancho_trazo" class="col-sm-3 col-form-label">Ancho Trazo </label>
+                                            <label for="cara_material" class="col-sm-6 col-form-label">9. Cara de material</label>
                                             <div class="col-sm-12 d-flex align-items-center">
-                                                <input type="number" step="0.0001" class="form-control me-2"
-                                                    name="ancho_trazo" id="ancho_trazo" placeholder="..."
-                                                    value="{{ isset($auditoriaTendido) ? $auditoriaTendido->ancho_trazo : '' }}" />
+                                                <div class="form-check form-check-inline">
+                                                    <input class="quitar-espacio" type="radio" name="estado" id="estado1"
+                                                        value="1"  >
+                                                    <label class="label-paloma" for="estado1"> ✔ </label>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <input class="quitar-espacio" type="radio" name="estado" id="estado2"
+                                                        value="0"  >
+                                                    <label class="label-tache" for="estado1"> ✖ </label>
+                                                </div>
+                                                <input type="text" class="form-control me-2" name="cara_material"
+                                                    id="cara_material" placeholder=" COMENTARIOS"   />
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label for="tono" class="col-sm-6 col-form-label">10. Tonos</label>
+                                            <div class="col-sm-12 d-flex align-items-center">
+                                                <div class="form-check form-check-inline">
+                                                    <input class="quitar-espacio" type="radio" name="estado" id="estado1"
+                                                        value="1"  >
+                                                    <label class="label-paloma" for="estado1"> ✔ </label>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <input class="quitar-espacio" type="radio" name="estado" id="estado2"
+                                                        value="0"  >
+                                                    <label class="label-tache" for="estado1"> ✖ </label>
+                                                </div>
+                                                <input type="text" class="form-control me-2" name="tono" id="tono"
+                                                    placeholder=" COMENTARIOS"   />
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label for="alineacion_tendido" class="col-sm-6 col-form-label">11. Alineacion de
+                                                tendido</label>
+                                            <div class="col-sm-12 d-flex align-items-center">
+                                                <div class="form-check form-check-inline">
+                                                    <input class="quitar-espacio" type="radio" name="estado" id="estado1"
+                                                        value="1"  >
+                                                    <label class="label-paloma" for="estado1"> ✔ </label>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <input class="quitar-espacio" type="radio" name="estado" id="estado2"
+                                                        value="0"  >
+                                                    <label class="label-tache" for="estado1"> ✖ </label>
+                                                </div>
+                                                <input type="text" class="form-control me-2" name="alineacion_tendido"
+                                                    id="alineacion_tendido" placeholder=" COMENTARIOS"   />
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label for="arruga_tendido" class="col-sm-6 col-form-label">12. Arrugas de tendido</label>
+                                            <div class="col-sm-12 d-flex align-items-center">
+                                                <div class="form-check form-check-inline">
+                                                    <input class="quitar-espacio" type="radio" name="estado" id="estado1"
+                                                        value="1"  >
+                                                    <label class="label-paloma" for="estado1"> ✔ </label>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <input class="quitar-espacio" type="radio" name="estado" id="estado2"
+                                                        value="0"  >
+                                                    <label class="label-tache" for="estado1"> ✖ </label>
+                                                </div>
+                                                <input type="text" class="form-control me-2" name="arruga_tendido"
+                                                    id="arruga_tendido" placeholder=" COMENTARIOS"   />
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label for="defecto_material" class="col-sm-6 col-form-label">13. defecto de
+                                                material</label>
+                                            <div class="col-sm-12 d-flex align-items-center">
+                                                <div class="form-check form-check-inline">
+                                                    <input class="quitar-espacio" type="radio" name="estado" id="estado1"
+                                                        value="1"  >
+                                                    <label class="label-paloma" for="estado1"> ✔ </label>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <input class="quitar-espacio" type="radio" name="estado" id="estado2"
+                                                        value="0"  >
+                                                    <label class="label-tache" for="estado1"> ✖ </label>
+                                                </div>
+                                                <input type="text" class="form-control me-2" name="defecto_material"
+                                                    id="defecto_material" placeholder=" COMENTARIOS"   />
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label for="material_relajado" class="col-sm-6 col-form-label">¿Se libera el
+                                                tendido?</label>
+                                            <div class="col-sm-12 d-flex align-items-center">
+                                                <input type="text" class="form-control me-2" name="material_relajado"
+                                                    id="material_relajado" placeholder=" COMENTARIOS"   />
                                             </div>
                                         </div>
                                     </div>

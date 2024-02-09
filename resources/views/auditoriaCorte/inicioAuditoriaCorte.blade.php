@@ -115,7 +115,7 @@
                     </form>
                     <hr>
                     <div>
-                        {{-- Inicio de Acordeon --}}
+                        {{-- Inicio de Acordeon 
                         <div class="accordion" id="accordionExample1">
                             <div class="card">
                                 <div class="card-header" id="headingOne">
@@ -159,6 +159,7 @@
                                 </div>
                             </div>
                         </div>
+                        --}}
                         <!-- Fin del acordeón -->
                     </div>
                     <div>
@@ -192,7 +193,7 @@
                                                 <tbody>
                                                     @foreach ($DatoAXProceso as $proceso)
                                                         <tr>
-                                                            <td><a href="{{ route('auditoriaCorte.inicioAuditoriaCorte') }}" class="btn btn-info">Acceder</a></td>
+                                                            <td><a href="{{ route('auditoriaCorte.auditoriaMarcada', ['id' => $proceso->id]) }}" class="btn btn-info">Acceder</a></td>
                                                             <td>{{ $proceso->orden }}</td>
                                                             <td>{{ $proceso->estilo }}</td>
                                                             <td>{{ $proceso->cliente }}</td>

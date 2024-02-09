@@ -36,8 +36,9 @@ class AuditoriaCorteController extends Controller
             'CategoriaTipoDefecto' => CategoriaTipoDefecto::where('estado', 1)->get(),
             'CategoriaAuditor' => CategoriaAuditor::where('estado', 1)->get(),
             'DatoAX' => DatoAX::where('estatus', NULL)->get(),
-            'DatoAXIniciado' => DatoAX::where('estatus', 'iniciado')->get(),
-            'DatoAXProceso' => DatoAX::where('estatus', 'proceso')->get(),
+            'DatoAXProceso' => DatoAX::whereNotIn('estatus', ['fin'])
+                           ->whereNotNull('estatus')
+                           ->get(),
             'DatoAXFin' => DatoAX::where('estatus', 'fin')->get(),
         ];
     }
@@ -111,7 +112,17 @@ class AuditoriaCorteController extends Controller
         // Obtener el ID seleccionado desde el formulario
         $idSeleccionado = $request->input('id');
         $orden = $request->input('orden');
+        $accion = $request->input('accion'); // Obtener el valor del campo 'accion'
+        // Verificar la acción y actualizar el campo 'estatus' solo si se hizo clic en el botón "Finalizar"
+        if ($accion === 'finalizar') {
+            // Buscar la fila en la base de datos utilizando el modelo AuditoriaMarcada
+            $auditoria = DatoAX::findOrFail($idSeleccionado);
 
+            // Actualizar el valor de la columna deseada
+            $auditoria->estatus = 'siguiente';
+            $auditoria->save();
+            return back()->with('success', 'Datos guardados correctamente.')->with('activePage', $activePage);
+        }
         // Verificar si ya existe un registro con el mismo valor de orden_id
         $existeOrden = AuditoriaMarcada::where('orden_id', $orden)->first();
 
