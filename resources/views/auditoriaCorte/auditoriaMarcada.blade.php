@@ -83,8 +83,6 @@
                         <h4>Lienzo: {{ $datoAX->lienzo }}</h4>
                     </div>
                 </div>
-                <hr>
-                <hr>
                 <div id="accordion">
                     <!--Inicio acordeon 1 -->
                     <div class="card">
@@ -92,11 +90,10 @@
                             <h5 class="mb-0">
                                 <button class="btn btn-info btn-block" data-toggle="collapse" data-target="#collapseOne"
                                     aria-expanded="true" aria-controls="collapseOne">
-                                    Acordeón 1
+                                    - - AUDITORIA DE MARCADA - - 
                                 </button>
                             </h5>
                         </div>
-
                         <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
                             <div class="card-body">
                                 {{-- Inicio cuerpo acordeon --}}
@@ -105,10 +102,6 @@
                                     @csrf
                                     <input type="hidden" name="id" value="{{ $datoAX->id }}">
                                     <input type="hidden" name="orden" value="{{ $datoAX->orden }}">
-                                    <div style="background: #db8036a2">
-                                        <h4 style="text-align: center">AUDITORIA DE MARCADA</h4>
-                                    </div>
-
                                     <div class="row">
                                         <div class="col-md-6 mb-3">
                                             <label for="yarda_orden" class="col-sm-6 col-form-label">Yardas en la
@@ -117,18 +110,18 @@
                                                 <div class="form-check form-check-inline">
                                                     <input type="number" step="0.0001" class="form-control me-2"
                                                         name="yarda_orden" id="yarda_orden" placeholder="..."
-                                                        value="{{ isset($auditoriaMarcada) ? $auditoriaMarcada->yarda_orden : '' }}" />
+                                                        value="{{ isset($auditoriaMarcada) ? $auditoriaMarcada->yarda_orden : '' }}" required />
                                                 </div>
                                                 <div class="form-check form-check-inline">
                                                     <input class="quitar-espacio" type="radio" name="yarda_orden_estatus"
                                                         id="yarda_orden_estatus1" value="1"
-                                                        {{ isset($auditoriaMarcada) && $auditoriaMarcada->yarda_orden_estatus == 1 ? 'checked' : '' }}>
+                                                        {{ isset($auditoriaMarcada) && $auditoriaMarcada->yarda_orden_estatus == 1 ? 'checked' : '' }} required />
                                                     <label class="label-paloma" for="yarda_orden_estatus1">✔ </label>
                                                 </div>
                                                 <div class="form-check form-check-inline">
                                                     <input class="quitar-espacio" type="radio" name="yarda_orden_estatus"
                                                         id="yarda_orden_estatus2" value="0"
-                                                        {{ isset($auditoriaMarcada) && $auditoriaMarcada->yarda_orden_estatus == 0 ? 'checked' : '' }}>
+                                                        {{ isset($auditoriaMarcada) && $auditoriaMarcada->yarda_orden_estatus == 0 ? 'checked' : '' }} required />
                                                     <label class="label-tache" for="yarda_orden_estatus2">✖ </label>
                                                 </div>
                                             </div>
@@ -140,20 +133,20 @@
                                                 <div class="form-check form-check-inline">
                                                     <input type="number" step="0.0001" class="form-control me-2"
                                                         name="yarda_marcada" id="yarda_marcada" placeholder="..."
-                                                        value="{{ isset($auditoriaMarcada) ? $auditoriaMarcada->yarda_marcada : '' }}" />
+                                                        value="{{ isset($auditoriaMarcada) ? $auditoriaMarcada->yarda_marcada : '' }}" required />
                                                 </div>
                                                 <div class="form-check form-check-inline">
                                                     <input class="quitar-espacio" type="radio"
                                                         name="yarda_marcada_estatus" id="yarda_marcada_estatus1"
                                                         value="1"
-                                                        {{ isset($auditoriaMarcada) && $auditoriaMarcada->yarda_marcada_estatus == 1 ? 'checked' : '' }}>
+                                                        {{ isset($auditoriaMarcada) && $auditoriaMarcada->yarda_marcada_estatus == 1 ? 'checked' : '' }} required />
                                                     <label class="label-paloma" for="yarda_marcada_estatus1">✔ </label>
                                                 </div>
                                                 <div class="form-check form-check-inline">
                                                     <input class="quitar-espacio" type="radio"
                                                         name="yarda_marcada_estatus" id="yarda_marcada_estatus2"
                                                         value="0"
-                                                        {{ isset($auditoriaMarcada) && $auditoriaMarcada->yarda_marcada_estatus == 0 ? 'checked' : '' }}>
+                                                        {{ isset($auditoriaMarcada) && $auditoriaMarcada->yarda_marcada_estatus == 0 ? 'checked' : '' }} required />
                                                     <label class="label-tache" for="yarda_marcada_estatus2">✖ </label>
                                                 </div>
                                             </div>
@@ -165,20 +158,20 @@
                                                 <div class="form-check form-check-inline">
                                                     <input type="number" step="0.0001" class="form-control me-2"
                                                         name="yarda_tendido" id="yarda_tendido" placeholder="..."
-                                                        value="{{ isset($auditoriaMarcada) ? $auditoriaMarcada->yarda_tendido : '' }}" />
+                                                        value="{{ isset($auditoriaMarcada) ? $auditoriaMarcada->yarda_tendido : '' }}" required />
                                                 </div>
                                                 <div class="form-check form-check-inline">
                                                     <input class="quitar-espacio" type="radio"
                                                         name="yarda_tendido_estatus" id="yarda_tendido_estatus1"
                                                         value="1"
-                                                        {{ isset($auditoriaMarcada) && $auditoriaMarcada->yarda_tendido_estatus == 1 ? 'checked' : '' }}>
+                                                        {{ isset($auditoriaMarcada) && $auditoriaMarcada->yarda_tendido_estatus == 1 ? 'checked' : '' }} required />
                                                     <label class="label-paloma" for="yarda_tendido_estatus1">✔ </label>
                                                 </div>
                                                 <div class="form-check form-check-inline">
                                                     <input class="quitar-espacio" type="radio"
                                                         name="yarda_tendido_estatus" id="yarda_tendido_estatus2"
                                                         value="0"
-                                                        {{ isset($auditoriaMarcada) && $auditoriaMarcada->yarda_tendido_estatus == 0 ? 'checked' : '' }}>
+                                                        {{ isset($auditoriaMarcada) && $auditoriaMarcada->yarda_tendido_estatus == 0 ? 'checked' : '' }} required />
                                                     <label class="label-tache" for="yarda_tendido_estatus2">✖ </label>
                                                 </div>
                                             </div>
@@ -208,7 +201,7 @@
                                             <div class="col-sm-12 d-flex align-items-center">
                                                 <input type="number" step="0.0001" class="form-control me-2"
                                                     name="talla1" id="talla1" placeholder="..."
-                                                    value="{{ isset($auditoriaMarcada) ? $auditoriaMarcada->talla1 : '' }}" />
+                                                    value="{{ isset($auditoriaMarcada) ? $auditoriaMarcada->talla1 : '' }}" required />
                                                 <input type="number" step="0.0001" class="form-control me-2"
                                                     name="talla2" id="talla2" placeholder="..."
                                                     value="{{ isset($auditoriaMarcada) ? $auditoriaMarcada->talla2 : '' }}" />
@@ -228,7 +221,7 @@
                                             <div class="col-sm-12 d-flex align-items-center">
                                                 <input type="number" step="0.0001" class="form-control me-2"
                                                     name="bulto1" id="bulto1" placeholder="..."
-                                                    value="{{ isset($auditoriaMarcada) ? $auditoriaMarcada->bulto1 : '' }}" />
+                                                    value="{{ isset($auditoriaMarcada) ? $auditoriaMarcada->bulto1 : '' }}" required />
                                                 <input type="number" step="0.0001" class="form-control me-2"
                                                     name="bulto2" id="bulto2" placeholder="..."
                                                     value="{{ isset($auditoriaMarcada) ? $auditoriaMarcada->bulto2 : '' }}" />
@@ -248,7 +241,7 @@
                                             <div class="col-sm-12 d-flex align-items-center">
                                                 <input type="number" step="0.0001" class="form-control me-2"
                                                     name="total_pieza1" id="total_pieza1" placeholder="..."
-                                                    value="{{ isset($auditoriaMarcada) ? $auditoriaMarcada->total_pieza1 : '' }}" />
+                                                    value="{{ isset($auditoriaMarcada) ? $auditoriaMarcada->total_pieza1 : '' }}" required />
                                                 <input type="number" step="0.0001" class="form-control me-2"
                                                     name="total_pieza2" id="total_pieza2" placeholder="..."
                                                     value="{{ isset($auditoriaMarcada) ? $auditoriaMarcada->total_pieza2 : '' }}" />
@@ -271,7 +264,7 @@
                                             <div class="col-sm-12 d-flex align-items-center">
                                                 <input type="number" step="0.0001" class="form-control me-2"
                                                     name="largo_trazo" id="largo_trazo" placeholder="..."
-                                                    value="{{ isset($auditoriaMarcada) ? $auditoriaMarcada->largo_trazo : '' }}" />
+                                                    value="{{ isset($auditoriaMarcada) ? $auditoriaMarcada->largo_trazo : '' }}" required />
                                             </div>
                                         </div>
                                         <div class="col-md-6 mb-3">
@@ -279,7 +272,7 @@
                                             <div class="col-sm-12 d-flex align-items-center">
                                                 <input type="number" step="0.0001" class="form-control me-2"
                                                     name="ancho_trazo" id="ancho_trazo" placeholder="..."
-                                                    value="{{ isset($auditoriaMarcada) ? $auditoriaMarcada->ancho_trazo : '' }}" />
+                                                    value="{{ isset($auditoriaMarcada) ? $auditoriaMarcada->ancho_trazo : '' }}" required />
                                             </div>
                                         </div>
                                     </div>
@@ -289,7 +282,6 @@
                                     </div>
                                 </form>
                                 {{-- Fin cuerpo acordeon --}}
-
                             </div>
                         </div>
                     </div>
@@ -300,13 +292,226 @@
                             <h5 class="mb-0">
                                 <button class="btn btn-info btn-block collapsed" data-toggle="collapse"
                                     data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                                    Acordeón 2
+                                    - - AUDITORIA DE TENDIDO - -
                                 </button>
                             </h5>
                         </div>
                         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
                             <div class="card-body">
-                                Contenido del acordeón 2
+                                {{-- Inicio cuerpo acordeon --}}
+                                <form method="POST"
+                                    action="{{ route('auditoriaCorte.formAuditoriaTendido', ['id' => $datoAX->id]) }}">
+                                    @csrf
+                                    <input type="hidden" name="id" value="{{ $datoAX->id }}">
+                                    <input type="hidden" name="orden" value="{{ $datoAX->orden }}">
+                                    <div class="row">
+                                        <div class="col-md-6 mb-3">
+                                            <label for="nombre" class="col-sm-3 col-form-label">NOMBRE</label>
+                                            <div class="col-sm-12 d-flex align-items-center">
+                                                <select name="nombre" id="nombre" class="form-control"  
+                                                    title="Por favor, selecciona una opción" required>
+                                                    <option value="">Selecciona una opción</option>
+                                                    @foreach ($CategoriaEstilo as $nombre)
+                                                        <option value="{{ $nombre->nombre }}" {{ isset($auditoriaTendido) && $auditoriaTendido->nombre == $nombre->nombre ? 'selected' : '' }}>{{ $nombre->nombre }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label for="nombre" class="col-sm-3 col-form-label">Fecha</label>
+                                            <div class="col-sm-12 d-flex align-items-center">
+                                                {{ now()->format('d ') . $mesesEnEspanol[now()->format('n') - 1] . now()->format(' Y') }}
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label for="mesa" class="col-sm-3 col-form-label">MESA</label>
+                                            <div class="col-sm-12 d-flex align-items-center">
+                                                <select name="mesa" id="mesa" class="form-control"  
+                                                    title="Por favor, selecciona una opción" required>
+                                                    <option value="">Selecciona una opción</option>
+                                                    @foreach ($CategoriaEstilo as $mesa)
+                                                        <option value="{{ $mesa->nombre }}" {{ isset($auditoriaTendido) && $auditoriaTendido->mesa == $mesa->nombre ? 'selected' : '' }}>{{ $mesa->nombre }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label for="auditor" class="col-sm-3 col-form-label">AUDITOR</label>
+                                            <div class="col-sm-12 d-flex align-items-center">
+                                                <select name="auditor" id="auditor" class="form-control"  
+                                                    title="Por favor, selecciona una opción" required>
+                                                    <option value="">Selecciona una opción</option>
+                                                    @foreach ($CategoriaAuditor as $auditor)
+                                                        <option value="{{ $auditor->nombre }}" {{ isset($auditoriaTendido) && $auditoriaTendido->nombre == $auditor->nombre ? 'selected' : '' }}>{{ $auditor->nombre }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6 mb-3">
+                                            <label for="yarda_orden" class="col-sm-6 col-form-label">Yardas en la
+                                                orden</label>
+                                            <div class="col-sm-12 d-flex align-items-center">
+                                                <div class="form-check form-check-inline">
+                                                    <input type="number" step="0.0001" class="form-control me-2"
+                                                        name="yarda_orden" id="yarda_orden" placeholder="..."
+                                                        value="{{ isset($auditoriaTendido) ? $auditoriaTendido->yarda_orden : '' }}" />
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <input class="quitar-espacio" type="radio" name="yarda_orden_estatus"
+                                                        id="yarda_orden_estatus1" value="1"
+                                                        {{ isset($auditoriaTendido) && $auditoriaTendido->yarda_orden_estatus == 1 ? 'checked' : '' }}>
+                                                    <label class="label-paloma" for="yarda_orden_estatus1">✔ </label>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <input class="quitar-espacio" type="radio" name="yarda_orden_estatus"
+                                                        id="yarda_orden_estatus2" value="0"
+                                                        {{ isset($auditoriaTendido) && $auditoriaTendido->yarda_orden_estatus == 0 ? 'checked' : '' }}>
+                                                    <label class="label-tache" for="yarda_orden_estatus2">✖ </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label for="yarda_marcada" class="col-sm-6 col-form-label">Yardas en la
+                                                marcada</label>
+                                            <div class="col-sm-12 d-flex align-items-center">
+                                                <div class="form-check form-check-inline">
+                                                    <input type="number" step="0.0001" class="form-control me-2"
+                                                        name="yarda_marcada" id="yarda_marcada" placeholder="..."
+                                                        value="{{ isset($auditoriaTendido) ? $auditoriaTendido->yarda_marcada : '' }}" />
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <input class="quitar-espacio" type="radio"
+                                                        name="yarda_marcada_estatus" id="yarda_marcada_estatus1"
+                                                        value="1"
+                                                        {{ isset($auditoriaTendido) && $auditoriaTendido->yarda_marcada_estatus == 1 ? 'checked' : '' }}>
+                                                    <label class="label-paloma" for="yarda_marcada_estatus1">✔ </label>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <input class="quitar-espacio" type="radio"
+                                                        name="yarda_marcada_estatus" id="yarda_marcada_estatus2"
+                                                        value="0"
+                                                        {{ isset($auditoriaTendido) && $auditoriaTendido->yarda_marcada_estatus == 0 ? 'checked' : '' }}>
+                                                    <label class="label-tache" for="yarda_marcada_estatus2">✖ </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label for="yarda_tendido" class="col-sm-6 col-form-label">Yardas en el
+                                                tendido</label>
+                                            <div class="col-sm-12 d-flex align-items-center">
+                                                <div class="form-check form-check-inline">
+                                                    <input type="number" step="0.0001" class="form-control me-2"
+                                                        name="yarda_tendido" id="yarda_tendido" placeholder="..."
+                                                        value="{{ isset($auditoriaTendido) ? $auditoriaTendido->yarda_tendido : '' }}" />
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <input class="quitar-espacio" type="radio"
+                                                        name="yarda_tendido_estatus" id="yarda_tendido_estatus1"
+                                                        value="1"
+                                                        {{ isset($auditoriaTendido) && $auditoriaTendido->yarda_tendido_estatus == 1 ? 'checked' : '' }}>
+                                                    <label class="label-paloma" for="yarda_tendido_estatus1">✔ </label>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <input class="quitar-espacio" type="radio"
+                                                        name="yarda_tendido_estatus" id="yarda_tendido_estatus2"
+                                                        value="0"
+                                                        {{ isset($auditoriaTendido) && $auditoriaTendido->yarda_tendido_estatus == 0 ? 'checked' : '' }}>
+                                                    <label class="label-tache" for="yarda_tendido_estatus2">✖ </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <br>
+                                    </div>
+                                    <hr>
+                                    <div class="row">
+                                        <div class="col-md-6 mb-3">
+                                            <label for="talla1" class="col-sm-3 col-form-label">Tallas</label>
+                                            <div class="col-sm-12 d-flex align-items-center">
+                                                <input type="number" step="0.0001" class="form-control me-2"
+                                                    name="talla1" id="talla1" placeholder="..."
+                                                    value="{{ isset($auditoriaTendido) ? $auditoriaTendido->talla1 : '' }}" />
+                                                <input type="number" step="0.0001" class="form-control me-2"
+                                                    name="talla2" id="talla2" placeholder="..."
+                                                    value="{{ isset($auditoriaTendido) ? $auditoriaTendido->talla2 : '' }}" />
+                                                <input type="number" step="0.0001" class="form-control me-2"
+                                                    name="talla3" id="talla3" placeholder="..."
+                                                    value="{{ isset($auditoriaTendido) ? $auditoriaTendido->talla3 : '' }}" />
+                                                <input type="number" step="0.0001" class="form-control me-2"
+                                                    name="talla4" id="talla4" placeholder="..."
+                                                    value="{{ isset($auditoriaTendido) ? $auditoriaTendido->talla4 : '' }}" />
+                                                <input type="number" step="0.0001" class="form-control me-2"
+                                                    name="talla5" id="talla5" placeholder="..."
+                                                    value="{{ isset($auditoriaTendido) ? $auditoriaTendido->talla5 : '' }}" />
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label for="bulto1" class="col-sm-3 col-form-label"># Bultos</label>
+                                            <div class="col-sm-12 d-flex align-items-center">
+                                                <input type="number" step="0.0001" class="form-control me-2"
+                                                    name="bulto1" id="bulto1" placeholder="..."
+                                                    value="{{ isset($auditoriaTendido) ? $auditoriaTendido->bulto1 : '' }}" />
+                                                <input type="number" step="0.0001" class="form-control me-2"
+                                                    name="bulto2" id="bulto2" placeholder="..."
+                                                    value="{{ isset($auditoriaTendido) ? $auditoriaTendido->bulto2 : '' }}" />
+                                                <input type="number" step="0.0001" class="form-control me-2"
+                                                    name="bulto3" id="bulto3" placeholder="..."
+                                                    value="{{ isset($auditoriaTendido) ? $auditoriaTendido->bulto3 : '' }}" />
+                                                <input type="number" step="0.0001" class="form-control me-2"
+                                                    name="bulto4" id="bulto4" placeholder="..."
+                                                    value="{{ isset($auditoriaTendido) ? $auditoriaTendido->bulto4 : '' }}" />
+                                                <input type="number" step="0.0001" class="form-control me-2"
+                                                    name="bulto5" id="bulto5" placeholder="..."
+                                                    value="{{ isset($auditoriaTendido) ? $auditoriaTendido->bulto5 : '' }}" />
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label for="total_pieza1" class="col-sm-3 col-form-label">Total piezas</label>
+                                            <div class="col-sm-12 d-flex align-items-center">
+                                                <input type="number" step="0.0001" class="form-control me-2"
+                                                    name="total_pieza1" id="total_pieza1" placeholder="..."
+                                                    value="{{ isset($auditoriaTendido) ? $auditoriaTendido->total_pieza1 : '' }}" />
+                                                <input type="number" step="0.0001" class="form-control me-2"
+                                                    name="total_pieza2" id="total_pieza2" placeholder="..."
+                                                    value="{{ isset($auditoriaTendido) ? $auditoriaTendido->total_pieza2 : '' }}" />
+                                                <input type="number" step="0.0001" class="form-control me-2"
+                                                    name="total_pieza3" id="total_pieza3" placeholder="..."
+                                                    value="{{ isset($auditoriaTendido) ? $auditoriaTendido->total_pieza3 : '' }}" />
+                                                <input type="number" step="0.0001" class="form-control me-2"
+                                                    name="total_pieza4" id="total_pieza4" placeholder="..."
+                                                    value="{{ isset($auditoriaTendido) ? $auditoriaTendido->total_pieza4 : '' }}" />
+                                                <input type="number" step="0.0001" class="form-control me-2"
+                                                    name="total_pieza5" id="total_pieza5" placeholder="..."
+                                                    value="{{ isset($auditoriaTendido) ? $auditoriaTendido->total_pieza4 : '' }}" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <div class="row">
+                                        <div class="col-md-6 mb-3">
+                                            <label for="largo_trazo" class="col-sm-3 col-form-label">Largo Trazo </label>
+                                            <div class="col-sm-12 d-flex align-items-center">
+                                                <input type="number" step="0.0001" class="form-control me-2"
+                                                    name="largo_trazo" id="largo_trazo" placeholder="..."
+                                                    value="{{ isset($auditoriaTendido) ? $auditoriaTendido->largo_trazo : '' }}" />
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label for="ancho_trazo" class="col-sm-3 col-form-label">Ancho Trazo </label>
+                                            <div class="col-sm-12 d-flex align-items-center">
+                                                <input type="number" step="0.0001" class="form-control me-2"
+                                                    name="ancho_trazo" id="ancho_trazo" placeholder="..."
+                                                    value="{{ isset($auditoriaTendido) ? $auditoriaTendido->ancho_trazo : '' }}" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <button type="submit" class="btn btn-success">Guardar</button>
+                                        <button type="submit" class="btn btn-danger">Finalizar</button>
+                                    </div>
+                                </form>
+                                {{-- Fin cuerpo acordeon --}}
                             </div>
                         </div>
                     </div>
@@ -317,7 +522,7 @@
                             <h5 class="mb-0">
                                 <button class="btn btn-info btn-block collapsed" data-toggle="collapse"
                                     data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                                    Acordeón 3
+                                    - - LECTRA - - 
                                 </button>
                             </h5>
                         </div>
@@ -335,7 +540,7 @@
                             <h5 class="mb-0">
                                 <button class="btn btn-info btn-block collapsed" data-toggle="collapse"
                                     data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
-                                    Acordeón 4
+                                    - - AUDITORIA EN BULTOS - -
                                 </button>
                             </h5>
                         </div>
@@ -352,7 +557,7 @@
                             <h5 class="mb-0">
                                 <button class="btn btn-info btn-block collapsed" data-toggle="collapse"
                                     data-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
-                                    Acordeón 5
+                                    - - AUDITORIA FINAL - - 
                                 </button>
                             </h5>
                         </div>

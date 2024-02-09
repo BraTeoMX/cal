@@ -105,3 +105,4 @@ Route::post('/formAuditoriaCortes', [AuditoriaCorteController::class, 'formAudit
 
 Route::get('/auditoriaMarcada/{id}', [AuditoriaCorteController::class, 'auditoriaMarcada'])->name('auditoriaCorte.auditoriaMarcada'); 
 Route::post('/formAuditoriaMarcada', [AuditoriaCorteController::class, 'formAuditoriaMarcada'])->name('auditoriaCorte.formAuditoriaMarcada');
+Route::post('/formAuditoriaTendido', [AuditoriaCorteController::class, 'formAuditoriaTendido'])->name('auditoriaCorte.formAuditoriaTendido');
