@@ -383,7 +383,7 @@
                             <div class="card-body">
                                 {{-- Inicio cuerpo acordeon --}}
                                 <form method="POST"
-                                    action="{{ route('auditoriaCorte.formAuditoriaTendido', ['id' => $datoAX->id]) }}">
+                                    action="{{ route('auditoriaCorte.formAuditoriaTendido', ['id' => $datoAX->id]) }}"> 
                                     @csrf
                                     <input type="hidden" name="id" value="{{ $datoAX->id }}">
                                     <input type="hidden" name="orden" value="{{ $datoAX->orden }}">
@@ -643,7 +643,7 @@
                                             </div>
                                         </div>
                                         <div class="col-md-6 mb-3">
-                                            <label for="emplame" class="col-sm-6 col-form-label">8. Empalmes</label>
+                                            <label for="empalme" class="col-sm-6 col-form-label">8. Empalmes</label>
                                             <div class="col-sm-12 d-flex align-items-center" style="margin-right: -5px;">
                                                 <div class="form-check form-check-inline">
                                                     <input class="quitar-espacio" type="radio" name="empalme_estatus"
@@ -661,8 +661,8 @@
                                                 </div>
                                                 <div class="form-check form-check-inline">
                                                     <input type="number" step="0.0001" class="form-control me-2"
-                                                        name="emplame" id="emplame" placeholder="..."
-                                                        value="{{ isset($auditoriaTendido) ? $auditoriaTendido->emplame : '' }}"
+                                                        name="empalme" id="empalme" placeholder="..."
+                                                        value="{{ isset($auditoriaTendido) ? $auditoriaTendido->empalme : '' }}"
                                                         required />
                                                 </div>
                                             </div>
@@ -820,6 +820,7 @@
                                             </div>
                                         </div>
                                         <hr>
+                                        {{--
                                         <div class="col-md-6 mb-3">
                                             <label for="libera_tendido" class="col-sm-6 col-form-label">¿Se libera el
                                                 tendido?</label>
@@ -830,10 +831,11 @@
                                                     required />
                                             </div>
                                         </div>
+                                        --}}
                                     </div>
                                     <div>
                                         <button type="submit" class="btn btn-success">Guardar</button>
-                                        <button type="submit" value="finalizar"
+                                        <button type="submit" name="accion" value="finalizar"
                                             class="btn btn-danger">Finalizar</button>
                                     </div>
                                 </form>
@@ -855,7 +857,181 @@
                         <div id="collapseThree" class="collapse" aria-labelledby="headingThree"
                             data-parent="#accordion">
                             <div class="card-body">
-                                Contenido del acordeón 3
+                                {{-- Inicio cuerpo acordeon --}}
+                                <form method="POST"
+                                    action="{{ route('auditoriaCorte.formLectra', ['id' => $datoAX->id]) }}">
+                                    @csrf
+                                    <input type="hidden" name="id" value="{{ $datoAX->id }}">
+                                    <input type="hidden" name="orden" value="{{ $datoAX->orden }}">
+                                    {{-- Campo oculto para el boton Finalizar --}}
+                                    <input type="hidden" name="accion" value="">
+                                    <div class="row">
+                                        <div class="col-md-6 mb-3">
+                                            <label for="nombre" class="col-sm-6 col-form-label">NOMBRE TECNICO</label>
+                                            <div class="col-sm-12 d-flex align-items-center">
+                                                <select name="nombre" id="nombre" class="form-control"
+                                                    title="Por favor, selecciona una opción">
+                                                    <option value="">Selecciona una opción</option>
+                                                    @foreach ($CategoriaNoRecibo as $nombre)
+                                                        <option value="{{ $nombre->nombre }}"
+                                                            {{ isset($Lectra) && trim($Lectra->nombre) === trim($nombre->nombre) ? 'selected' : '' }}>
+                                                            {{ $nombre->nombre }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label for="fecha" class="col-sm-6 col-form-label">Fecha</label>
+                                            <div class="col-sm-12 d-flex align-items-center">
+                                                {{ now()->format('d ') . $mesesEnEspanol[now()->format('n') - 1] . now()->format(' Y') }}
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label for="mesa" class="col-sm-6 col-form-label">MESA</label>
+                                            <div class="col-sm-12 d-flex align-items-center">
+                                                <select name="mesa" id="mesa" class="form-control"
+                                                    title="Por favor, selecciona una opción">
+                                                    <option value="">Selecciona una opción</option>
+                                                    @foreach ($CategoriaEstilo as $mesa)
+                                                        <option value="{{ $mesa->nombre }}"
+                                                            {{ isset($Lectra) && $Lectra->mesa == $mesa->nombre ? 'selected' : '' }}>
+                                                            {{ $mesa->nombre }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label for="auditor" class="col-sm-6 col-form-label">AUDITOR</label>
+                                            <div class="col-sm-12 d-flex align-items-center">
+                                                <select name="auditor" id="auditor" class="form-control"
+                                                    title="Por favor, selecciona una opción">
+                                                    <option value="">Selecciona una opción</option>
+                                                    @foreach ($CategoriaAuditor as $auditor)
+                                                        <option value="{{ $auditor->nombre }}"
+                                                            {{ isset($Lectra) && trim($Lectra->auditor) == trim($auditor->nombre) ? 'selected' : '' }}>
+                                                            {{ $auditor->nombre }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <div class="row">
+                                        <div class="col-md-6 mb-3">
+                                            <label for="simetria_pieza" class="col-sm-6 col-form-label">1. Simetria de piezas</label>
+                                            <div class="col-sm-12 d-flex align-items-center" style="margin-right: -5px;">
+                                                <div class="form-check form-check-inline">
+                                                    <input class="quitar-espacio" type="radio"
+                                                        name="simetria_pieza_estatus" id="simetria_pieza_estatus1"
+                                                        value="1"
+                                                        {{ isset($Lectra) && $Lectra->simetria_pieza_estatus == 1 ? 'checked' : '' }}
+                                                        required />
+                                                    <label class="label-paloma" for="simetria_pieza_estatus1">✔ </label>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <input class="quitar-espacio" type="radio"
+                                                        name="simetria_pieza_estatus" id="simetria_pieza_estatus2"
+                                                        value="0"
+                                                        {{ isset($Lectra) && $Lectra->simetria_pieza_estatus == 0 ? 'checked' : '' }}
+                                                        required />
+                                                    <label class="label-tache" for="simetria_pieza_estatus2">✖ </label>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <input type="number" step="0.0001" class="form-control me-2"
+                                                        name="simetria_pieza" id="simetria_pieza" placeholder="..."
+                                                        value="{{ isset($Lectra) ? $Lectra->simetria_pieza : '' }}"
+                                                        required />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label for="pieza_completa" class="col-sm-6 col-form-label">2. Piezas completas</label>
+                                            <div class="col-sm-12 d-flex align-items-center">
+                                                <div class="col-sm-12 d-flex align-items-center"
+                                                    style="margin-right: -5px;">
+                                                    <div class="form-check form-check-inline">
+                                                        <input class="quitar-espacio" type="radio"
+                                                            name="pieza_completa_estatus" id="pieza_completa_estatus1"
+                                                            value="1"
+                                                            {{ isset($Lectra) && $Lectra->pieza_completa_estatus == 1 ? 'checked' : '' }}
+                                                            required />
+                                                        <label class="label-paloma" for="pieza_completa_estatus1">✔ </label>
+                                                    </div>
+                                                    <div class="form-check form-check-inline">
+                                                        <input class="quitar-espacio" type="radio"
+                                                            name="pieza_completa_estatus" id="pieza_completa_estatus2"
+                                                            value="0"
+                                                            {{ isset($Lectra) && $Lectra->pieza_completa_estatus == 0 ? 'checked' : '' }}
+                                                            required />
+                                                        <label class="label-tache" for="pieza_completa_estatus2">✖ </label>
+                                                    </div>
+                                                    <div class="form-check form-check-inline">
+                                                        <input type="number" step="0.0001" class="form-control me-2"
+                                                            name="pieza_completa" id="pieza_completa" placeholder="..."
+                                                            value="{{ isset($Lectra) ? $Lectra->pieza_completa : '' }}"
+                                                            required />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label for="pieza_contrapatron" class="col-sm-6 col-form-label">3. Piezas contra patron</label>
+                                            <div class="col-sm-12 d-flex align-items-center" style="margin-right: -5px;">
+                                                <div class="form-check form-check-inline">
+                                                    <input class="quitar-espacio" type="radio"
+                                                        name="pieza_contrapatron_estatus" id="pieza_contrapatron_estatus1"
+                                                        value="1"
+                                                        {{ isset($Lectra) && $Lectra->pieza_contrapatron_estatus == 1 ? 'checked' : '' }}
+                                                        required />
+                                                    <label class="label-paloma" for="pieza_contrapatron_estatus1">✔
+                                                    </label>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <input class="quitar-espacio" type="radio"
+                                                        name="pieza_contrapatron_estatus" id="pieza_contrapatron_estatus2"
+                                                        value="0"
+                                                        {{ isset($Lectra) && $Lectra->pieza_contrapatron_estatus == 0 ? 'checked' : '' }}
+                                                        required />
+                                                    <label class="label-tache" for="pieza_contrapatron_estatus2">✖ </label>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <input type="number" step="0.0001" class="form-control me-2"
+                                                        name="pieza_contrapatron" id="pieza_contrapatron" placeholder="..."
+                                                        value="{{ isset($Lectra) ? $Lectra->pieza_contrapatron : '' }}"
+                                                        required />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <hr>
+                                        <div class="col-md-6 mb-3">
+                                            <label for="accion_correctiva" class="col-sm-6 col-form-label">Accion
+                                                correctiva </label>
+                                            <div class="col-sm-12 d-flex align-items-center">
+                                                <input type="text" class="form-control me-2" name="accion_correctiva"
+                                                    id="accion_correctiva" placeholder="COMENTARIO"
+                                                    value="{{ isset($Lectra) ? $Lectra->accion_correctiva : '' }}"
+                                                    required />
+                                            </div>
+                                        </div>
+                                        <hr>
+                                        <div class="col-md-6 mb-3">
+                                            <label for="libera_tendido" class="col-sm-6 col-form-label">¿Se libera el
+                                                tendido?</label>
+                                            <div class="col-sm-12 d-flex align-items-center">
+                                                <input type="text" class="form-control me-2" name="libera_tendido"
+                                                    id="libera_tendido" placeholder="..."
+                                                    value="{{ isset($Lectra) ? $Lectra->libera_tendido : '' }}"
+                                                    required />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <button type="submit" class="btn btn-success">Guardar</button>
+                                        <button type="submit" name="accion" value="finalizar"
+                                            class="btn btn-danger">Finalizar</button>
+                                    </div>
+                                </form>
+                                {{-- Fin cuerpo acordeon --}}
                             </div>
                         </div>
                     </div>
@@ -948,7 +1124,8 @@
             const estatusTextos = {
                 'estatusAuditoriaMarcada': 'Auditoria de Marcada',
                 'estatusAuditoriaTendido': 'Auditoria de Tendido',
-                'estatusLectra': 'Lectura',
+                'estatusLectra': 'Lectra',
+                'estatusAuditoriaBulto': 'Auditoria en Bultos',
                 'estatusAuditoriaFinal': 'Auditoria Final',
                 // Agrega otros valores para los demás estados
             };
@@ -973,7 +1150,7 @@
                         // Abre el acordeón 3
                         document.getElementById("collapseThree").classList.add("show");
                         break;
-                    case "estatusAuditoriaTendido":
+                    case "estatusAuditoriaBulto":
                         // Abre el acordeón 4
                         document.getElementById("collapseFour").classList.add("show");
                         break;

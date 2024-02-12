@@ -14,6 +14,7 @@ use App\Models\CategoriaDefecto;
 use App\Models\CategoriaTipoDefecto;
 use App\Models\AuditoriaMarcada;
 use App\Models\AuditoriaTendido;
+use App\Models\Lectra;
 
 use App\Exports\DatosExport;
 use App\Models\DatoAX;
@@ -101,12 +102,14 @@ class AuditoriaCorteController extends Controller
         // Obtener el registro correspondiente en la tabla AuditoriaMarcada si existe
         $auditoriaMarcada = AuditoriaMarcada::where('dato_ax_id', $id)->first();
         $auditoriaTendido = AuditoriaTendido::where('dato_ax_id', $id)->first();
+        $Lectra = Lectra::where('dato_ax_id', $id)->first();
         return view('auditoriaCorte.auditoriaMarcada', array_merge($categorias, [
             'mesesEnEspanol' => $mesesEnEspanol, 
             'activePage' => $activePage, 
             'datoAX' => $datoAX, 
             'auditoriaMarcada' => $auditoriaMarcada,
-            'auditoriaTendido' => $auditoriaTendido,]));
+            'auditoriaTendido' => $auditoriaTendido,
+            'Lectra' => $Lectra, ]));
     }
 
     public function formAuditoriaMarcada(Request $request)
@@ -231,6 +234,7 @@ class AuditoriaCorteController extends Controller
         $idSeleccionado = $request->input('id');
         $orden = $request->input('orden');
         $accion = $request->input('accion'); // Obtener el valor del campo 'accion'
+        //dd($accion);
         if ($accion === 'finalizar') {
             // Buscar la fila en la base de datos utilizando el modelo AuditoriaMarcada
             $auditoria = DatoAX::findOrFail($idSeleccionado);
@@ -238,7 +242,7 @@ class AuditoriaCorteController extends Controller
             // Actualizar el valor de la columna deseada
             $auditoria->estatus = 'estatusLectra';
             $auditoria->save();
-            return back()->with('cambio-estatus', 'Se Cambio a estatus: AUDITORIA DE TENDIDO.')->with('activePage', $activePage);
+            return back()->with('cambio-estatus', 'Se Cambio a estatus: LECTRA.')->with('activePage', $activePage);
         }
         // Verificar si ya existe un registro con el mismo valor de orden_id
         $existeOrden = AuditoriaTendido::where('orden_id', $orden)->first();
@@ -275,7 +279,7 @@ class AuditoriaCorteController extends Controller
             $existeOrden->defecto_material = $request->input('defecto_material');
             $existeOrden->defecto_material_estatus = $request->input('defecto_material_estatus');
             $existeOrden->accion_correctiva = $request->input('accion_correctiva');
-            $existeOrden->libera_tendido = $request->input('libera_tendido');
+            //$existeOrden->libera_tendido = $request->input('libera_tendido');
 
             $existeOrden->save();
             
@@ -317,7 +321,70 @@ class AuditoriaCorteController extends Controller
         $auditoria->defecto_material = $request->input('defecto_material');
         $auditoria->defecto_material_estatus = $request->input('defecto_material_estatus');
         $auditoria->accion_correctiva = $request->input('accion_correctiva');
-        $auditoria->libera_tendido = $request->input('libera_tendido');
+        //$auditoria->libera_tendido = $request->input('libera_tendido');
+        
+        $auditoria->save();
+        return back()->with('success', 'Datos guardados correctamente.')->with('activePage', $activePage);
+    }
+
+    public function formLectra(Request $request)
+    {
+        $activePage ='';
+        // Validar los datos del formulario si es necesario
+        // Obtener el ID seleccionado desde el formulario
+        $idSeleccionado = $request->input('id');
+        $orden = $request->input('orden');
+        $accion = $request->input('accion'); // Obtener el valor del campo 'accion'
+        if ($accion === 'finalizar') {
+            // Buscar la fila en la base de datos utilizando el modelo AuditoriaMarcada
+            $auditoria = DatoAX::findOrFail($idSeleccionado);
+
+            // Actualizar el valor de la columna deseada
+            $auditoria->estatus = 'estatusAuditoriaBulto';
+            $auditoria->save();
+            return back()->with('cambio-estatus', 'Se Cambio a estatus: AUDITORIA DE TENDIDO.')->with('activePage', $activePage);
+        }
+        // Verificar si ya existe un registro con el mismo valor de orden_id
+        $existeOrden = Lectra::where('orden_id', $orden)->first();
+
+        // Si ya existe un registro con el mismo valor de orden_id, puedes mostrar un mensaje de error o tomar alguna otra acción
+        if ($existeOrden) {
+            $existeOrden->nombre = $request->input('nombre');
+            $existeOrden->mesa = $request->input('mesa');
+            $existeOrden->auditor = $request->input('auditor');
+            $existeOrden->simetria_pieza = $request->input('simetria_pieza');
+            $existeOrden->simetria_pieza_estatus = $request->input('simetria_pieza_estatus');
+            $existeOrden->pieza_completa = $request->input('pieza_completa');
+            $existeOrden->pieza_completa_estatus = $request->input('pieza_completa_estatus');
+            $existeOrden->pieza_contrapatron = $request->input('pieza_contrapatron');
+            $existeOrden->pieza_contrapatron_estatus = $request->input('pieza_contrapatron_estatus');
+            $existeOrden->pieza_inspeccionada = $request->input('pieza_inspeccionada');
+            $existeOrden->defecto = $request->input('defecto');
+            $existeOrden->porcentaje = $request->input('porcentaje');
+
+        
+            $existeOrden->save();
+            
+            return back()->with('sobre-escribir', 'Actualilzacion realizada con exito');
+        }
+
+        // Realizar la actualización en la base de datos usando el modelo AuditoriaTendido
+        $auditoria = new Lectra(); // Crear una nueva instancia del modelo
+        $auditoria->dato_ax_id = $idSeleccionado; // Asignar el ID obtenido desde la vista
+        $auditoria->orden_id = $orden; // Aquí asumiendo que la columna en la tabla auditoria_marcadas se llama "orden_id"
+        $auditoria->estatus = "proceso";
+        $auditoria->nombre = $request->input('nombre');
+        $auditoria->mesa = $request->input('mesa');
+        $auditoria->auditor = $request->input('auditor');
+        $auditoria->simetria_pieza = $request->input('simetria_pieza');
+        $auditoria->simetria_pieza_estatus = $request->input('simetria_pieza_estatus');
+        $auditoria->pieza_completa = $request->input('pieza_completa');
+        $auditoria->pieza_completa_estatus = $request->input('pieza_completa_estatus');
+        $auditoria->pieza_contrapatron = $request->input('pieza_contrapatron');
+        $auditoria->pieza_contrapatron_estatus = $request->input('pieza_contrapatron_estatus');
+        $auditoria->pieza_inspeccionada = $request->input('pieza_inspeccionada');
+        $auditoria->defecto = $request->input('defecto');
+        $auditoria->porcentaje = $request->input('porcentaje');
         
         $auditoria->save();
         return back()->with('success', 'Datos guardados correctamente.')->with('activePage', $activePage);
