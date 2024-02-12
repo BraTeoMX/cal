@@ -39,7 +39,7 @@ class AuditoriaCorteController extends Controller
             'CategoriaTipoDefecto' => CategoriaTipoDefecto::where('estado', 1)->get(),
             'CategoriaAuditor' => CategoriaAuditor::where('estado', 1)->get(),
             'DatoAX' => DatoAX::where(function($query) {
-                $query->whereNull('estatus')
+                $query->whereNull('e estatus')
                       ->orWhere('estatus', '');
             })->get(),
             'DatoAXProceso' => DatoAX::whereNotIn('estatus', ['fin'])
