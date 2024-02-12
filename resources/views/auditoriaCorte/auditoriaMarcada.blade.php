@@ -1056,7 +1056,208 @@
                         </div>
                         <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordion">
                             <div class="card-body">
-                                Contenido del acordeón 4
+                                {{-- Inicio cuerpo acordeon --}}
+                                <form method="POST"
+                                    action="{{ route('auditoriaCorte.formAuditoriaBulto', ['id' => $datoAX->id]) }}">
+                                    @csrf
+                                    <input type="hidden" name="id" value="{{ $datoAX->id }}">
+                                    <input type="hidden" name="orden" value="{{ $datoAX->orden }}">
+                                    {{-- Campo oculto para el boton Finalizar --}}
+                                    <input type="hidden" name="accion" value="">
+                                    <div class="row">
+                                        <div class="col-md-6 mb-3">
+                                            <label for="nombre" class="col-sm-6 col-form-label">NOMBRE TECNICO</label>
+                                            <div class="col-sm-12 d-flex align-items-center">
+                                                <select name="nombre" id="nombre" class="form-control"
+                                                    title="Por favor, selecciona una opción">
+                                                    <option value="">Selecciona una opción</option>
+                                                    @foreach ($CategoriaNoRecibo as $nombre)
+                                                        <option value="{{ $nombre->nombre }}"
+                                                            {{ isset($auditoriaBulto) && trim($auditoriaBulto->nombre) === trim($nombre->nombre) ? 'selected' : '' }}>
+                                                            {{ $nombre->nombre }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label for="fecha" class="col-sm-6 col-form-label">Fecha</label>
+                                            <div class="col-sm-12 d-flex align-items-center">
+                                                {{ now()->format('d ') . $mesesEnEspanol[now()->format('n') - 1] . now()->format(' Y') }}
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label for="mesa" class="col-sm-6 col-form-label">MESA</label>
+                                            <div class="col-sm-12 d-flex align-items-center">
+                                                <select name="mesa" id="mesa" class="form-control"
+                                                    title="Por favor, selecciona una opción">
+                                                    <option value="">Selecciona una opción</option>
+                                                    @foreach ($CategoriaEstilo as $mesa)
+                                                        <option value="{{ $mesa->nombre }}"
+                                                            {{ isset($auditoriaBulto) && $auditoriaBulto->mesa == $mesa->nombre ? 'selected' : '' }}>
+                                                            {{ $mesa->nombre }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label for="auditor" class="col-sm-6 col-form-label">AUDITOR</label>
+                                            <div class="col-sm-12 d-flex align-items-center">
+                                                <select name="auditor" id="auditor" class="form-control"
+                                                    title="Por favor, selecciona una opción">
+                                                    <option value="">Selecciona una opción</option>
+                                                    @foreach ($CategoriaAuditor as $auditor)
+                                                        <option value="{{ $auditor->nombre }}"
+                                                            {{ isset($auditoriaBulto) && trim($auditoriaBulto->auditor) == trim($auditor->nombre) ? 'selected' : '' }}>
+                                                            {{ $auditor->nombre }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <div class="row">
+                                        <div class="col-md-6 mb-3">
+                                            <label for="cantidad_bulto" class="col-sm-6 col-form-label">1. Cantidad de Bultos</label>
+                                            <div class="col-sm-12 d-flex align-items-center" style="margin-right: -5px;">
+                                                <div class="form-check form-check-inline">
+                                                    <input class="quitar-espacio" type="radio"
+                                                        name="cantidad_bulto_estatus" id="cantidad_bulto_estatus1"
+                                                        value="1"
+                                                        {{ isset($auditoriaBulto) && $auditoriaBulto->cantidad_bulto_estatus == 1 ? 'checked' : '' }}
+                                                        required />
+                                                    <label class="label-paloma" for="cantidad_bulto_estatus1">✔ </label>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <input class="quitar-espacio" type="radio"
+                                                        name="cantidad_bulto_estatus" id="cantidad_bulto_estatus2"
+                                                        value="0"
+                                                        {{ isset($auditoriaBulto) && $auditoriaBulto->cantidad_bulto_estatus == 0 ? 'checked' : '' }}
+                                                        required />
+                                                    <label class="label-tache" for="cantidad_bulto_estatus2">✖ </label>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <input type="number" step="0.0001" class="form-control me-2"
+                                                        name="cantidad_bulto" id="cantidad_bulto" placeholder="..."
+                                                        value="{{ isset($auditoriaBulto) ? $auditoriaBulto->cantidad_bulto : '' }}"
+                                                        required />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label for="pieza_paquete" class="col-sm-6 col-form-label">2. Piezas por paquete</label>
+                                            <div class="col-sm-12 d-flex align-items-center">
+                                                <div class="col-sm-12 d-flex align-items-center"
+                                                    style="margin-right: -5px;">
+                                                    <div class="form-check form-check-inline">
+                                                        <input class="quitar-espacio" type="radio"
+                                                            name="pieza_paquete_estatus" id="pieza_paquete_estatus1"
+                                                            value="1"
+                                                            {{ isset($auditoriaBulto) && $auditoriaBulto->pieza_paquete_estatus == 1 ? 'checked' : '' }}
+                                                            required />
+                                                        <label class="label-paloma" for="pieza_paquete_estatus1">✔ </label>
+                                                    </div>
+                                                    <div class="form-check form-check-inline">
+                                                        <input class="quitar-espacio" type="radio"
+                                                            name="pieza_paquete_estatus" id="pieza_paquete_estatus2"
+                                                            value="0"
+                                                            {{ isset($auditoriaBulto) && $auditoriaBulto->pieza_paquete_estatus == 0 ? 'checked' : '' }}
+                                                            required />
+                                                        <label class="label-tache" for="pieza_paquete_estatus2">✖ </label>
+                                                    </div>
+                                                    <div class="form-check form-check-inline">
+                                                        <input type="number" step="0.0001" class="form-control me-2"
+                                                            name="pieza_paquete" id="pieza_paquete" placeholder="..."
+                                                            value="{{ isset($auditoriaBulto) ? $auditoriaBulto->pieza_paquete : '' }}"
+                                                            required />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label for="ingreso_ticket" class="col-sm-6 col-form-label">3. Ingreso de Tickets</label>
+                                            <div class="col-sm-12 d-flex align-items-center" style="margin-right: -5px;">
+                                                <div class="form-check form-check-inline">
+                                                    <input class="quitar-espacio" type="radio"
+                                                        name="ingreso_ticket_estatus" id="ingreso_ticket_estatus1"
+                                                        value="1"
+                                                        {{ isset($auditoriaBulto) && $auditoriaBulto->ingreso_ticket_estatus == 1 ? 'checked' : '' }}
+                                                        required />
+                                                    <label class="label-paloma" for="ingreso_ticket_estatus1">✔
+                                                    </label>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <input class="quitar-espacio" type="radio"
+                                                        name="ingreso_ticket_estatus" id="ingreso_ticket_estatus2"
+                                                        value="0"
+                                                        {{ isset($auditoriaBulto) && $auditoriaBulto->ingreso_ticket_estatus == 0 ? 'checked' : '' }}
+                                                        required />
+                                                    <label class="label-tache" for="ingreso_ticket_estatus2">✖ </label>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <input type="number" step="0.0001" class="form-control me-2"
+                                                        name="ingreso_ticket" id="ingreso_ticket" placeholder="..."
+                                                        value="{{ isset($auditoriaBulto) ? $auditoriaBulto->ingreso_ticket : '' }}"
+                                                        required />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label for="sellado_paquete" class="col-sm-6 col-form-label">4. Sellado de Paquetes</label>
+                                            <div class="col-sm-12 d-flex align-items-center" style="margin-right: -5px;">
+                                                <div class="form-check form-check-inline">
+                                                    <input class="quitar-espacio" type="radio"
+                                                        name="sellado_paquete_estatus" id="sellado_paquete_estatus1"
+                                                        value="1"
+                                                        {{ isset($auditoriaBulto) && $auditoriaBulto->sellado_paquete_estatus == 1 ? 'checked' : '' }}
+                                                        required />
+                                                    <label class="label-paloma" for="sellado_paquete_estatus1">✔
+                                                    </label>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <input class="quitar-espacio" type="radio"
+                                                        name="sellado_paquete_estatus" id="sellado_paquete_estatus2"
+                                                        value="0"
+                                                        {{ isset($auditoriaBulto) && $auditoriaBulto->sellado_paquete_estatus == 0 ? 'checked' : '' }}
+                                                        required />
+                                                    <label class="label-tache" for="sellado_paquete_estatus2">✖ </label>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <input type="number" step="0.0001" class="form-control me-2"
+                                                        name="sellado_paquete" id="sellado_paquete" placeholder="..."
+                                                        value="{{ isset($auditoriaBulto) ? $auditoriaBulto->sellado_paquete : '' }}"
+                                                        required />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <div class="row">
+                                        <div class="col-md-6 mb-3">
+                                            <label for="defecto" class="col-sm-6 col-form-label">Defectos </label>
+                                            <div class="col-sm-12 d-flex align-items-center">
+                                                <input type="text" class="form-control me-2" name="defecto"
+                                                    id="defecto" placeholder="..."
+                                                    value="{{ isset($auditoriaBulto) ? $auditoriaBulto->defecto : '' }}"
+                                                    required />
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label for="porcentaje" class="col-sm-6 col-form-label">Porcentaje</label>
+                                            <div class="col-sm-12 d-flex align-items-center">
+                                                <input type="text" class="form-control me-2" name="porcentaje"
+                                                    id="porcentaje" placeholder="..."
+                                                    value="{{ isset($auditoriaBulto) ? $auditoriaBulto->porcentaje : '' }}"
+                                                    required />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <button type="submit" class="btn btn-success">Guardar</button>
+                                        <button type="submit" name="accion" value="finalizar"
+                                            class="btn btn-danger">Finalizar</button>
+                                    </div>
+                                </form>
+                                {{-- Fin cuerpo acordeon --}}
                             </div>
                         </div>
                     </div>
@@ -1162,7 +1363,7 @@
                         // Abre el acordeón 4
                         document.getElementById("collapseFour").classList.add("show");
                         break;
-                    case "AuditoriaFinal":
+                    case "estatusAuditoriaFinal":
                         // Abre el acordeón 5
                         document.getElementById("collapseFive").classList.add("show");
                         break;
