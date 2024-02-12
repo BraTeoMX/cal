@@ -16,6 +16,7 @@ use App\Models\AuditoriaMarcada;
 use App\Models\AuditoriaTendido;
 use App\Models\Lectra;
 use App\Models\AuditoriaBulto;
+use App\Models\AuditoriaFinal;
 
 use App\Exports\DatosExport;
 use App\Models\DatoAX;
@@ -105,6 +106,7 @@ class AuditoriaCorteController extends Controller
         $auditoriaTendido = AuditoriaTendido::where('dato_ax_id', $id)->first();
         $Lectra = Lectra::where('dato_ax_id', $id)->first();
         $auditoriaBulto = AuditoriaBulto::where('dato_ax_id', $id)->first();
+        $auditoriaFinal = AuditoriaFinal::where('dato_ax_id', $id)->first();
         return view('auditoriaCorte.auditoriaMarcada', array_merge($categorias, [
             'mesesEnEspanol' => $mesesEnEspanol, 
             'activePage' => $activePage, 
@@ -112,7 +114,8 @@ class AuditoriaCorteController extends Controller
             'auditoriaMarcada' => $auditoriaMarcada,
             'auditoriaTendido' => $auditoriaTendido,
             'Lectra' => $Lectra, 
-            'auditoriaBulto' => $auditoriaBulto]));
+            'auditoriaBulto' => $auditoriaBulto, 
+            'auditoriaFinal' => $auditoriaFinal]));
     }
 
     public function formAuditoriaMarcada(Request $request)
@@ -454,6 +457,49 @@ class AuditoriaCorteController extends Controller
         $auditoria->defecto = $request->input('defecto');
         $auditoria->porcentaje = $request->input('porcentaje');
         
+        $auditoria->save();
+        return back()->with('success', 'Datos guardados correctamente.')->with('activePage', $activePage);
+    }
+
+    public function formAuditoriaFinal(Request $request)
+    {
+        $activePage ='';
+        // Validar los datos del formulario si es necesario
+        // Obtener el ID seleccionado desde el formulario
+        $idSeleccionado = $request->input('id');
+        $orden = $request->input('orden');
+        $accion = $request->input('accion'); // Obtener el valor del campo 'accion'
+        if ($accion === 'finalizar') {
+            // Buscar la fila en la base de datos utilizando el modelo AuditoriaMarcada
+            $auditoria = DatoAX::findOrFail($idSeleccionado);
+
+            // Actualizar el valor de la columna deseada
+            $auditoria->estatus = 'estatusAuditoriaFinal';
+            $auditoria->save();
+            return back()->with('cambio-estatus', 'Se Cambio a estatus: AUDITORIA FINAL.')->with('activePage', $activePage);
+        }
+        // Verificar si ya existe un registro con el mismo valor de orden_id
+        $existeOrden = AuditoriaFinal::where('orden_id', $orden)->first();
+
+        // Si ya existe un registro con el mismo valor de orden_id, puedes mostrar un mensaje de error o tomar alguna otra acción
+        if ($existeOrden) {
+            $existeOrden->supervisor_corte = $request->input('supervisor_corte');
+            $existeOrden->supervisor_linea = $request->input('supervisor_linea');
+            $existeOrden->estatus = $request->input('estatus');
+            
+            $existeOrden->save();
+            
+            return back()->with('sobre-escribir', 'Actualilzacion realizada con exito');
+        }
+
+        // Realizar la actualización en la base de datos usando el modelo AuditoriaFinal
+        $auditoria = new AuditoriaFinal(); // Crear una nueva instancia del modelo
+        $auditoria->dato_ax_id = $idSeleccionado; // Asignar el ID obtenido desde la vista
+        $auditoria->orden_id = $orden; // Aquí asumiendo que la columna en la tabla auditoria_marcadas se llama "orden_id"
+        $auditoria->supervisor_corte = $request->input('supervisor_corte');
+        $auditoria->supervisor_linea = $request->input('supervisor_linea');
+        $auditoria->estatus = $request->input('estatus');
+
         $auditoria->save();
         return back()->with('success', 'Datos guardados correctamente.')->with('activePage', $activePage);
     }
