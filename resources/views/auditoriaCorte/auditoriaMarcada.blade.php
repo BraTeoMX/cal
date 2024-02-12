@@ -1002,25 +1002,33 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <hr>
+                                    </div>
+                                    <hr>
+                                    <div class="row">
                                         <div class="col-md-6 mb-3">
-                                            <label for="accion_correctiva" class="col-sm-6 col-form-label">Accion
-                                                correctiva </label>
+                                            <label for="pieza_inspeccionada" class="col-sm-6 col-form-label">Piezas inspeccionadas</label>
                                             <div class="col-sm-12 d-flex align-items-center">
-                                                <input type="text" class="form-control me-2" name="accion_correctiva"
-                                                    id="accion_correctiva" placeholder="COMENTARIO"
-                                                    value="{{ isset($Lectra) ? $Lectra->accion_correctiva : '' }}"
+                                                <input type="text" class="form-control me-2" name="pieza_inspeccionada"
+                                                    id="pieza_inspeccionada" placeholder="..."
+                                                    value="{{ isset($Lectra) ? $Lectra->pieza_inspeccionada : '' }}"
                                                     required />
                                             </div>
                                         </div>
-                                        <hr>
                                         <div class="col-md-6 mb-3">
-                                            <label for="libera_tendido" class="col-sm-6 col-form-label">¿Se libera el
-                                                tendido?</label>
+                                            <label for="defecto" class="col-sm-6 col-form-label">Defectos </label>
                                             <div class="col-sm-12 d-flex align-items-center">
-                                                <input type="text" class="form-control me-2" name="libera_tendido"
-                                                    id="libera_tendido" placeholder="..."
-                                                    value="{{ isset($Lectra) ? $Lectra->libera_tendido : '' }}"
+                                                <input type="text" class="form-control me-2" name="defecto"
+                                                    id="defecto" placeholder="..."
+                                                    value="{{ isset($Lectra) ? $Lectra->defecto : '' }}"
+                                                    required />
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label for="porcentaje" class="col-sm-6 col-form-label">Porcentaje</label>
+                                            <div class="col-sm-12 d-flex align-items-center">
+                                                <input type="text" class="form-control me-2" name="porcentaje"
+                                                    id="porcentaje" placeholder="..."
+                                                    value="{{ isset($Lectra) ? $Lectra->porcentaje : '' }}"
                                                     required />
                                             </div>
                                         </div>

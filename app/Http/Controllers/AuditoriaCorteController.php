@@ -342,7 +342,7 @@ class AuditoriaCorteController extends Controller
             // Actualizar el valor de la columna deseada
             $auditoria->estatus = 'estatusAuditoriaBulto';
             $auditoria->save();
-            return back()->with('cambio-estatus', 'Se Cambio a estatus: AUDITORIA DE TENDIDO.')->with('activePage', $activePage);
+            return back()->with('cambio-estatus', 'Se Cambio a estatus: AUDITORIA EN BULTOS.')->with('activePage', $activePage);
         }
         // Verificar si ya existe un registro con el mismo valor de orden_id
         $existeOrden = Lectra::where('orden_id', $orden)->first();
