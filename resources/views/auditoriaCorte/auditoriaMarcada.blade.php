@@ -103,7 +103,7 @@
                     <div class="card">
                         <div class="card-header" id="headingOne">
                             <h5 class="mb-0">
-                                <button class="btn btn-info btn-block" data-toggle="collapse" data-target="#collapseOne"
+                                <button id="btnOne" class="btn btn-info btn-block" data-toggle="collapse" data-target="#collapseOne"
                                     aria-expanded="true" aria-controls="collapseOne">
                                     - - AUDITORIA DE MARCADA - -
                                 </button>
@@ -378,7 +378,7 @@
                     <div class="card">
                         <div class="card-header" id="headingTwo">
                             <h5 class="mb-0">
-                                <button class="btn btn-info btn-block collapsed" data-toggle="collapse"
+                                <button id="btnTwo" class="btn btn-info btn-block collapsed" data-toggle="collapse"
                                     data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
                                     - - AUDITORIA DE TENDIDO - -
                                 </button>
@@ -858,7 +858,7 @@
                     <div class="card">
                         <div class="card-header" id="headingThree">
                             <h5 class="mb-0">
-                                <button class="btn btn-info btn-block collapsed" data-toggle="collapse"
+                                <button id="btnThree" class="btn btn-info btn-block collapsed" data-toggle="collapse"
                                     data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
                                     - - LECTRA - -
                                 </button>
@@ -1063,7 +1063,7 @@
                     <div class="card">
                         <div class="card-header" id="headingFour">
                             <h5 class="mb-0">
-                                <button class="btn btn-info btn-block collapsed" data-toggle="collapse"
+                                <button id="btnFour" class="btn btn-info btn-block collapsed" data-toggle="collapse"
                                     data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
                                     - - AUDITORIA EN BULTOS - -
                                 </button>
@@ -1286,7 +1286,7 @@
                     <div class="card">
                         <div class="card-header" id="headingFive">
                             <h5 class="mb-0">
-                                <button class="btn btn-info btn-block collapsed" data-toggle="collapse"
+                                <button id="btnFive" class="btn btn-info btn-block collapsed" data-toggle="collapse"
                                     data-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
                                     - - AUDITORIA FINAL - -
                                 </button>
@@ -1432,22 +1432,32 @@
                     case "estatusAuditoriaMarcada":
                         // Abre el acordeón 1
                         document.getElementById("collapseOne").classList.add("show");
+                        document.getElementById("btnOne").classList.remove("btn-info");
+                        document.getElementById("btnOne").classList.add("btn-primary");
                         break;
                     case "estatusAuditoriaTendido":
                         // Abre el acordeón 2
                         document.getElementById("collapseTwo").classList.add("show");
+                        document.getElementById("btnTwo").classList.remove("btn-info");
+                        document.getElementById("btnTwo").classList.add("btn-primary");
                         break;
                     case "estatusLectra":
                         // Abre el acordeón 3
                         document.getElementById("collapseThree").classList.add("show");
+                        document.getElementById("btnThree").classList.remove("btn-info");
+                        document.getElementById("btnThree").classList.add("btn-primary");
                         break;
                     case "estatusAuditoriaBulto":
                         // Abre el acordeón 4
                         document.getElementById("collapseFour").classList.add("show");
+                        document.getElementById("btnFour").classList.remove("btn-info");
+                        document.getElementById("btnFour").classList.add("btn-primary");
                         break;
                     case "estatusAuditoriaFinal":
                         // Abre el acordeón 5
                         document.getElementById("collapseFive").classList.add("show");
+                        document.getElementById("btnFive").classList.remove("btn-info");
+                        document.getElementById("btnFive").classList.add("btn-primary");
                         break;
                     default:
                         console.log("El valor de estatus no coincide con ninguna opción válida para abrir un acordeón.");
