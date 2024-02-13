@@ -1326,8 +1326,11 @@
                                     </div>
                                     <div>
                                         <button type="submit" class="btn btn-success">Guardar</button>
-                                        <button type="submit" name="accion" value="finalizar"
-                                            class="btn btn-danger">Finalizar</button>
+                                        @if(session('estatus_checked'))
+                                            <button type="submit" class="btn btn-danger">Finalizar</button>
+                                        @else
+                                            <button type="submit" class="btn btn-danger" disabled>Finalizar</button>
+                                        @endif
                                     </div>
                                 </form>
                                 {{-- Fin cuerpo acordeon --}}

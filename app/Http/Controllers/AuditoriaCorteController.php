@@ -469,6 +469,12 @@ class AuditoriaCorteController extends Controller
         $idSeleccionado = $request->input('id');
         $orden = $request->input('orden');
         $accion = $request->input('accion'); // Obtener el valor del campo 'accion'
+
+        // Verificar si todos los checkboxes tienen el valor de "1"
+        $allChecked = $request->input('estatus') == 1;
+        // Guardar el estado del checkbox en la sesión
+        $request->session()->put('estatus_checked', $allChecked);
+
         if ($accion === 'finalizar') {
             // Buscar la fila en la base de datos utilizando el modelo AuditoriaMarcada
             $auditoria = DatoAX::findOrFail($idSeleccionado);
