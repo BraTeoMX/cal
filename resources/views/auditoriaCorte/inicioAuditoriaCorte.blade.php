@@ -65,7 +65,7 @@
                                 <tbody>
                                     @foreach ($DatoAX as $dato)
                                         <tr>
-                                            <td><input type="radio" name="seleccion" value="{{ $dato->id }}"></td>
+                                            <td><input type="radio" name="seleccion" value="{{ $dato->id }}" required></td>
                                             <!-- Nuevo -->
                                             <td>{{ $dato->orden }}</td>
                                             <td>{{ $dato->estilo }}</td>
@@ -81,7 +81,7 @@
                                 <label for="color" class="col-sm-6 col-form-label">COLOR</label>
                                 <div class="col-sm-12 d-flex align-items-center">
                                     <select name="color" id="color" class="form-control"
-                                        title="Por favor, selecciona una opción">
+                                        title="Por favor, selecciona una opción" required>
                                         <option value="">Selecciona una opción</option>
                                         @foreach ($CategoriaColor as $color)
                                             <option value="{{ $color->nombre }}">{{ $color->nombre }}</option>
@@ -93,21 +93,21 @@
                                 <label for="pieza" class="col-sm-6 col-form-label">PIEZAS</label>
                                 <div class="col-sm-12">
                                     <input type="number" class="form-control" name="pieza" id="pieza"
-                                        placeholder="..." />
+                                        placeholder="..." required/>
                                 </div>
                             </div>
                             <div class="col-lg-3 col-md-6 col-sm-6 col-12 mb-3">
                                 <label for="trazo" class="col-sm-6 col-form-label">TRAZO</label>
                                 <div class="col-sm-12">
                                     <input type="number" class="form-control" name="trazo" id="trazo"
-                                        placeholder="..." />
+                                        placeholder="..." required/>
                                 </div>
                             </div>
                             <div class="col-lg-3 col-md-6 col-sm-6 col-12 mb-3">
                                 <label for="lienzo" class="col-sm-6 col-form-label">LIENZOS</label>
                                 <div class="col-sm-12">
                                     <input type="text" class="form-control" name="lienzo" id="lienzo"
-                                        placeholder="..." />
+                                        placeholder="..." required/>
                                 </div>
                             </div>
                         </div>

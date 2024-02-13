@@ -107,6 +107,14 @@ class AuditoriaCorteController extends Controller
         $Lectra = Lectra::where('dato_ax_id', $id)->first();
         $auditoriaBulto = AuditoriaBulto::where('dato_ax_id', $id)->first();
         $auditoriaFinal = AuditoriaFinal::where('dato_ax_id', $id)->first();
+
+        // Verificar si es la primera vez que se carga la página
+        if (!session()->has('primer_carga_auditoria_marcada')) {
+            session()->put('primer_carga_auditoria_marcada', true);
+            $mostrarFinalizar = false;
+        } else {
+            $mostrarFinalizar = session('estatus_checked_AuditoriaMarcada');
+        }
         return view('auditoriaCorte.auditoriaMarcada', array_merge($categorias, [
             'mesesEnEspanol' => $mesesEnEspanol, 
             'activePage' => $activePage, 
@@ -115,7 +123,8 @@ class AuditoriaCorteController extends Controller
             'auditoriaTendido' => $auditoriaTendido,
             'Lectra' => $Lectra, 
             'auditoriaBulto' => $auditoriaBulto, 
-            'auditoriaFinal' => $auditoriaFinal]));
+            'auditoriaFinal' => $auditoriaFinal,
+            'mostrarFinalizar' => $mostrarFinalizar]));
     }
 
     public function formAuditoriaMarcada(Request $request)
@@ -127,6 +136,7 @@ class AuditoriaCorteController extends Controller
         $orden = $request->input('orden');
         $accion = $request->input('accion'); // Obtener el valor del campo 'accion'
         // Verificar la acción y actualizar el campo 'estatus' solo si se hizo clic en el botón "Finalizar"
+        //dd($accion);
         if ($accion === 'finalizar') {
             // Buscar la fila en la base de datos utilizando el modelo AuditoriaMarcada
             $auditoria = DatoAX::findOrFail($idSeleccionado);
@@ -136,6 +146,12 @@ class AuditoriaCorteController extends Controller
             $auditoria->save();
             return back()->with('cambio-estatus', 'Se Cambio a estatus: AUDITORIA DE TENDIDO.')->with('activePage', $activePage);
         }
+
+        $allChecked = trim($request->input('yarda_orden_estatus')) === "1" &&
+              trim($request->input('yarda_marcada_estatus')) === "1" &&
+              trim($request->input('yarda_tendido_estatus')) === "1";
+
+        $request->session()->put('estatus_checked_AuditoriaMarcada', $allChecked);
         // Verificar si ya existe un registro con el mismo valor de orden_id
         $existeOrden = AuditoriaMarcada::where('orden_id', $orden)->first();
 
@@ -241,6 +257,7 @@ class AuditoriaCorteController extends Controller
         $orden = $request->input('orden');
         $accion = $request->input('accion'); // Obtener el valor del campo 'accion'
         //dd($accion);
+        
         if ($accion === 'finalizar') {
             // Buscar la fila en la base de datos utilizando el modelo AuditoriaMarcada
             $auditoria = DatoAX::findOrFail($idSeleccionado);
@@ -250,6 +267,22 @@ class AuditoriaCorteController extends Controller
             $auditoria->save();
             return back()->with('cambio-estatus', 'Se Cambio a estatus: LECTRA.')->with('activePage', $activePage);
         }
+
+        $allChecked = trim($request->input('codigo_material_estatus')) === "1" &&
+              trim($request->input('codigo_color_estatus')) === "1" &&
+              trim($request->input('informacion_trazo_estatus')) === "1" &&
+              trim($request->input('cantidad_lienzo_estatus')) === "1" &&
+              trim($request->input('longitud_tendido_estatus')) === "1" &&
+              trim($request->input('ancho_tendido_estatus')) === "1" &&
+              trim($request->input('material_relajado_estatus')) === "1" &&
+              trim($request->input('empalme_estatus')) === "1" &&
+              trim($request->input('cara_material_estatus')) === "1" &&
+              trim($request->input('tono_estatus')) === "1" &&
+              trim($request->input('alineacion_tendido_estatus')) === "1" &&
+              trim($request->input('arruga_tendido_estatus')) === "1" &&
+              trim($request->input('defecto_material_estatus')) === "1";
+
+        $request->session()->put('estatus_checked_AuditoriaTendido', $allChecked);
         // Verificar si ya existe un registro con el mismo valor de orden_id
         $existeOrden = AuditoriaTendido::where('orden_id', $orden)->first();
 
@@ -341,6 +374,7 @@ class AuditoriaCorteController extends Controller
         $idSeleccionado = $request->input('id');
         $orden = $request->input('orden');
         $accion = $request->input('accion'); // Obtener el valor del campo 'accion'
+
         if ($accion === 'finalizar') {
             // Buscar la fila en la base de datos utilizando el modelo AuditoriaMarcada
             $auditoria = DatoAX::findOrFail($idSeleccionado);
@@ -350,6 +384,12 @@ class AuditoriaCorteController extends Controller
             $auditoria->save();
             return back()->with('cambio-estatus', 'Se Cambio a estatus: AUDITORIA EN BULTOS.')->with('activePage', $activePage);
         }
+
+        $allChecked = trim($request->input('simetria_pieza_estatus')) === "1" &&
+              trim($request->input('pieza_completa_estatus')) === "1" &&
+              trim($request->input('pieza_contrapatron_estatus')) === "1";
+
+        $request->session()->put('estatus_checked_Lectra', $allChecked);
         // Verificar si ya existe un registro con el mismo valor de orden_id
         $existeOrden = Lectra::where('orden_id', $orden)->first();
 
@@ -404,6 +444,7 @@ class AuditoriaCorteController extends Controller
         $idSeleccionado = $request->input('id');
         $orden = $request->input('orden');
         $accion = $request->input('accion'); // Obtener el valor del campo 'accion'
+        //dd($request->input());
         if ($accion === 'finalizar') {
             // Buscar la fila en la base de datos utilizando el modelo AuditoriaMarcada
             $auditoria = DatoAX::findOrFail($idSeleccionado);
@@ -413,6 +454,15 @@ class AuditoriaCorteController extends Controller
             $auditoria->save();
             return back()->with('cambio-estatus', 'Se Cambio a estatus: AUDITORIA FINAL.')->with('activePage', $activePage);
         }
+
+        // Verificar si todos los checkboxes tienen el valor deseado
+        $allChecked = trim($request->input('cantidad_bulto_estatus')) === "1" &&
+              trim($request->input('pieza_paquete_estatus')) === "1" &&
+              trim($request->input('ingreso_ticket_estatus')) === "1" &&
+              trim($request->input('sellado_paquete_estatus')) === "1";
+
+        $request->session()->put('estatus_checked_AuditoriaBulto', $allChecked);
+
         // Verificar si ya existe un registro con el mismo valor de orden_id
         $existeOrden = AuditoriaBulto::where('orden_id', $orden)->first();
 
@@ -470,20 +520,19 @@ class AuditoriaCorteController extends Controller
         $orden = $request->input('orden');
         $accion = $request->input('accion'); // Obtener el valor del campo 'accion'
 
-        // Verificar si todos los checkboxes tienen el valor de "1"
-        $allChecked = $request->input('estatus') == 1;
-        // Guardar el estado del checkbox en la sesión
-        $request->session()->put('estatus_checked', $allChecked);
-
         if ($accion === 'finalizar') {
             // Buscar la fila en la base de datos utilizando el modelo AuditoriaMarcada
             $auditoria = DatoAX::findOrFail($idSeleccionado);
 
             // Actualizar el valor de la columna deseada
-            $auditoria->estatus = 'estatusAuditoriaFinal';
+            $auditoria->estatus = 'fin';
             $auditoria->save();
             return back()->with('cambio-estatus', 'Se Cambio a estatus: AUDITORIA FINAL.')->with('activePage', $activePage);
         }
+        // Verificar si todos los checkboxes tienen el valor de "1"
+        $allChecked = $request->input('estatus') == 1;
+        // Guardar el estado del checkbox en la sesión
+        $request->session()->put('estatus_checked_AuditoriaFinal', $allChecked);
         // Verificar si ya existe un registro con el mismo valor de orden_id
         $existeOrden = AuditoriaFinal::where('orden_id', $orden)->first();
 

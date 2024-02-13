@@ -112,6 +112,7 @@
                         <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
                             <div class="card-body">
                                 {{-- Inicio cuerpo acordeon --}}
+                                @if ($datoAX->estatus == 'estatusAuditoriaMarcada')
                                 <form method="POST"
                                     action="{{ route('auditoriaCorte.formAuditoriaMarcada', ['id' => $datoAX->id]) }}">
                                     @csrf
@@ -360,10 +361,14 @@
                                     </div>
                                     <div>
                                         <button type="submit" name="accion" class="btn btn-success">Guardar</button>
-                                        <button type="submit" name="accion" value="finalizar"
-                                            class="btn btn-danger">Finalizar</button>
+                                        @if(session('estatus_checked_AuditoriaMarcada'))
+                                            <button type="submit" class="btn btn-danger" value="finalizar" name="accion" >Finalizar</button>
+                                        @else
+                                            <button type="submit" class="btn btn-danger" disabled>Finalizar</button>
+                                        @endif
                                     </div>
                                 </form>
+                                @endif
                                 {{-- Fin cuerpo acordeon --}}
                             </div>
                         </div>
@@ -382,6 +387,7 @@
                         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
                             <div class="card-body">
                                 {{-- Inicio cuerpo acordeon --}}
+                                @if ($datoAX->estatus == 'estatusAuditoriaTendido')
                                 <form method="POST"
                                     action="{{ route('auditoriaCorte.formAuditoriaTendido', ['id' => $datoAX->id]) }}"> 
                                     @csrf
@@ -835,10 +841,14 @@
                                     </div>
                                     <div>
                                         <button type="submit" class="btn btn-success">Guardar</button>
-                                        <button type="submit" name="accion" value="finalizar"
-                                            class="btn btn-danger">Finalizar</button>
+                                        @if(session('estatus_checked_AuditoriaTendido'))
+                                            <button type="submit" class="btn btn-danger" value="finalizar" name="accion" >Finalizar</button>
+                                        @else
+                                            <button type="submit" class="btn btn-danger" disabled>Finalizar</button>
+                                        @endif
                                     </div>
                                 </form>
+                                @endif
                                 {{-- Fin cuerpo acordeon --}}
                             </div>
                         </div>
@@ -858,6 +868,7 @@
                             data-parent="#accordion">
                             <div class="card-body">
                                 {{-- Inicio cuerpo acordeon --}}
+                                @if ($datoAX->estatus == 'estatusLectra')
                                 <form method="POST"
                                     action="{{ route('auditoriaCorte.formLectra', ['id' => $datoAX->id]) }}">
                                     @csrf
@@ -1035,10 +1046,14 @@
                                     </div>
                                     <div>
                                         <button type="submit" class="btn btn-success">Guardar</button>
-                                        <button type="submit" name="accion" value="finalizar"
-                                            class="btn btn-danger">Finalizar</button>
+                                        @if(session('estatus_checked_Lectra'))
+                                            <button type="submit" class="btn btn-danger" value="finalizar" name="accion" >Finalizar</button>
+                                        @else
+                                            <button type="submit" class="btn btn-danger" disabled>Finalizar</button>
+                                        @endif
                                     </div>
                                 </form>
+                                @endif
                                 {{-- Fin cuerpo acordeon --}}
                             </div>
                         </div>
@@ -1057,6 +1072,7 @@
                         <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordion">
                             <div class="card-body">
                                 {{-- Inicio cuerpo acordeon --}}
+                                @if ($datoAX->estatus == 'estatusAuditoriaBulto')
                                 <form method="POST"
                                     action="{{ route('auditoriaCorte.formAuditoriaBulto', ['id' => $datoAX->id]) }}">
                                     @csrf
@@ -1253,10 +1269,14 @@
                                     </div>
                                     <div>
                                         <button type="submit" class="btn btn-success">Guardar</button>
-                                        <button type="submit" name="accion" value="finalizar"
-                                            class="btn btn-danger">Finalizar</button>
+                                        @if(session('estatus_checked_AuditoriaBulto'))
+                                            <button type="submit" class="btn btn-danger" value="finalizar" name="accion" >Finalizar</button>
+                                        @else
+                                            <button type="submit" class="btn btn-danger" disabled>Finalizar</button>
+                                        @endif
                                     </div>
                                 </form>
+                                @endif
                                 {{-- Fin cuerpo acordeon --}}
                             </div>
                         </div>
@@ -1275,64 +1295,66 @@
                         <div id="collapseFive" class="collapse" aria-labelledby="headingFive" data-parent="#accordion">
                             <div class="card-body">
                                 {{-- Inicio cuerpo acordeon --}}
-                                <form method="POST"
-                                    action="{{ route('auditoriaCorte.formAuditoriaFinal', ['id' => $datoAX->id]) }}">
-                                    @csrf
-                                    <input type="hidden" name="id" value="{{ $datoAX->id }}">
-                                    <input type="hidden" name="orden" value="{{ $datoAX->orden }}">
-                                    {{-- Campo oculto para el boton Finalizar --}}
-                                    <input type="hidden" name="accion" value="">
-                                    <div class="row">
-                                        <div class="col-md-6 mb-3">
-                                            <label for="supervisor_corte" class="col-sm-6 col-form-label">Supervisor de corte:</label>
-                                            <div class="col-sm-12 d-flex align-items-center">
-                                                <input type="text" class="form-control me-2" name="supervisor_corte"
-                                                    id="supervisor_corte" placeholder="No. Empleado"
-                                                    value="{{ isset($auditoriaFinal) ? $auditoriaFinal->supervisor_corte : '' }}"
-                                                    required />
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6 mb-3">
-                                            <label for="supervisor_linea" class="col-sm-6 col-form-label">Supervisor de linea:</label>
-                                            <div class="col-sm-12 d-flex align-items-center">
-                                                <input type="text" class="form-control me-2" name="supervisor_linea"
-                                                    id="supervisor_linea" placeholder="No. Empleado"
-                                                    value="{{ isset($auditoriaFinal) ? $auditoriaFinal->supervisor_linea : '' }}"
-                                                    required />
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6 mb-3">
-                                            <label for="estatus" class="col-sm-6 col-form-label">Aceptado - Rechazado</label>
-                                            <div class="col-sm-12 d-flex align-items-center" style="margin-right: -5px;">
-                                                <div class="form-check form-check-inline">
-                                                    <input class="quitar-espacio" type="radio"
-                                                        name="estatus" id="estatus1"
-                                                        value="1"
-                                                        {{ isset($auditoriaFinal) && $auditoriaFinal->estatus == 1 ? 'checked' : '' }}
+                                @if ($datoAX->estatus == 'estatusAuditoriaFinal')
+                                    <form method="POST"
+                                        action="{{ route('auditoriaCorte.formAuditoriaFinal', ['id' => $datoAX->id]) }}">
+                                        @csrf
+                                        <input type="hidden" name="id" value="{{ $datoAX->id }}">
+                                        <input type="hidden" name="orden" value="{{ $datoAX->orden }}">
+                                        {{-- Campo oculto para el boton Finalizar --}}
+                                        <input type="hidden" name="accion" value="">
+                                        <div class="row">
+                                            <div class="col-md-6 mb-3">
+                                                <label for="supervisor_corte" class="col-sm-6 col-form-label">Supervisor de corte:</label>
+                                                <div class="col-sm-12 d-flex align-items-center">
+                                                    <input type="text" class="form-control me-2" name="supervisor_corte"
+                                                        id="supervisor_corte" placeholder="No. Empleado"
+                                                        value="{{ isset($auditoriaFinal) ? $auditoriaFinal->supervisor_corte : '' }}"
                                                         required />
-                                                    <label class="label-paloma" for="estatus1">✔
-                                                    </label>
-                                                </div>
-                                                <div class="form-check form-check-inline">
-                                                    <input class="quitar-espacio" type="radio"
-                                                        name="estatus" id="estatus2"
-                                                        value="0"
-                                                        {{ isset($auditoriaFinal) && $auditoriaFinal->estatus == 0 ? 'checked' : '' }}
-                                                        required />
-                                                    <label class="label-tache" for="estatus2">✖ </label>
                                                 </div>
                                             </div>
+                                            <div class="col-md-6 mb-3">
+                                                <label for="supervisor_linea" class="col-sm-6 col-form-label">Supervisor de linea:</label>
+                                                <div class="col-sm-12 d-flex align-items-center">
+                                                    <input type="text" class="form-control me-2" name="supervisor_linea"
+                                                        id="supervisor_linea" placeholder="No. Empleado"
+                                                        value="{{ isset($auditoriaFinal) ? $auditoriaFinal->supervisor_linea : '' }}"
+                                                        required />
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 mb-3">
+                                                <label for="estatus" class="col-sm-6 col-form-label">Aceptado - Rechazado</label>
+                                                <div class="col-sm-12 d-flex align-items-center" style="margin-right: -5px;">
+                                                    <div class="form-check form-check-inline">
+                                                        <input class="quitar-espacio" type="radio"
+                                                            name="estatus" id="estatus1"
+                                                            value="1"
+                                                            {{ isset($auditoriaFinal) && $auditoriaFinal->estatus == 1 ? 'checked' : '' }}
+                                                            required />
+                                                        <label class="label-paloma" for="estatus1">✔
+                                                        </label>
+                                                    </div>
+                                                    <div class="form-check form-check-inline">
+                                                        <input class="quitar-espacio" type="radio"
+                                                            name="estatus" id="estatus2"
+                                                            value="0"
+                                                            {{ isset($auditoriaFinal) && $auditoriaFinal->estatus == 0 ? 'checked' : '' }}
+                                                            required />
+                                                        <label class="label-tache" for="estatus2">✖ </label>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div>
-                                        <button type="submit" class="btn btn-success">Guardar</button>
-                                        @if(session('estatus_checked'))
-                                            <button type="submit" class="btn btn-danger">Finalizar</button>
-                                        @else
-                                            <button type="submit" class="btn btn-danger" disabled>Finalizar</button>
-                                        @endif
-                                    </div>
-                                </form>
+                                        <div>
+                                            <button type="submit" class="btn btn-success">Guardar</button>
+                                            @if(session('estatus_checked_AuditoriaFinal'))
+                                                <button type="submit" class="btn btn-danger" value="finalizar" name="accion" >Finalizar</button>
+                                            @else
+                                                <button type="submit" class="btn btn-danger" disabled>Finalizar</button>
+                                            @endif
+                                        </div>
+                                    </form>
+                                @endif
                                 {{-- Fin cuerpo acordeon --}}
                             </div>
                         </div>
