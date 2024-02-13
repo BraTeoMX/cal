@@ -108,13 +108,12 @@ class AuditoriaCorteController extends Controller
         $auditoriaBulto = AuditoriaBulto::where('dato_ax_id', $id)->first();
         $auditoriaFinal = AuditoriaFinal::where('dato_ax_id', $id)->first();
 
-        // Verificar si es la primera vez que se carga la página
-        if (!session()->has('primer_carga_auditoria_marcada')) {
-            session()->put('primer_carga_auditoria_marcada', true);
-            $mostrarFinalizar = false;
-        } else {
-            $mostrarFinalizar = session('estatus_checked_AuditoriaMarcada');
-        }
+        // Determina si mostrar el botón "Finalizar" para cada formulario
+        $mostrarFinalizarMarcada = $auditoriaMarcada ? session('estatus_checked_AuditoriaMarcada') : false;
+        $mostrarFinalizarTendido = $auditoriaTendido ? session('estatus_checked_AuditoriaTendido') : false;
+        $mostrarFinalizarLectra = $Lectra ? session('estatus_checked_Lectra') : false;
+        $mostrarFinalizarBulto = $auditoriaBulto ? session('estatus_checked_AuditoriaBulto') : false;
+        $mostrarFinalizarFinal = $auditoriaFinal ? session('estatus_checked_AuditoriaFinal') : false;
         return view('auditoriaCorte.auditoriaMarcada', array_merge($categorias, [
             'mesesEnEspanol' => $mesesEnEspanol, 
             'activePage' => $activePage, 
@@ -124,7 +123,11 @@ class AuditoriaCorteController extends Controller
             'Lectra' => $Lectra, 
             'auditoriaBulto' => $auditoriaBulto, 
             'auditoriaFinal' => $auditoriaFinal,
-            'mostrarFinalizar' => $mostrarFinalizar]));
+            'mostrarFinalizarMarcada' => $mostrarFinalizarMarcada,
+            'mostrarFinalizarTendido' => $mostrarFinalizarTendido,
+            'mostrarFinalizarLectra' => $mostrarFinalizarLectra,
+            'mostrarFinalizarBulto' => $mostrarFinalizarBulto,
+            'mostrarFinalizarFinal' => $mostrarFinalizarFinal,]));
     }
 
     public function formAuditoriaMarcada(Request $request)

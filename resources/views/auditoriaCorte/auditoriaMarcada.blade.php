@@ -361,7 +361,7 @@
                                     </div>
                                     <div>
                                         <button type="submit" name="accion" class="btn btn-success">Guardar</button>
-                                        @if(session('estatus_checked_AuditoriaMarcada'))
+                                        @if($mostrarFinalizarMarcada)
                                             <button type="submit" class="btn btn-danger" value="finalizar" name="accion" >Finalizar</button>
                                         @else
                                             <button type="submit" class="btn btn-danger" disabled>Finalizar</button>
@@ -841,7 +841,7 @@
                                     </div>
                                     <div>
                                         <button type="submit" class="btn btn-success">Guardar</button>
-                                        @if(session('estatus_checked_AuditoriaTendido'))
+                                        @if($mostrarFinalizarTendido)
                                             <button type="submit" class="btn btn-danger" value="finalizar" name="accion" >Finalizar</button>
                                         @else
                                             <button type="submit" class="btn btn-danger" disabled>Finalizar</button>
@@ -1046,7 +1046,7 @@
                                     </div>
                                     <div>
                                         <button type="submit" class="btn btn-success">Guardar</button>
-                                        @if(session('estatus_checked_Lectra'))
+                                        @if($mostrarFinalizarLectra)
                                             <button type="submit" class="btn btn-danger" value="finalizar" name="accion" >Finalizar</button>
                                         @else
                                             <button type="submit" class="btn btn-danger" disabled>Finalizar</button>
@@ -1269,7 +1269,7 @@
                                     </div>
                                     <div>
                                         <button type="submit" class="btn btn-success">Guardar</button>
-                                        @if(session('estatus_checked_AuditoriaBulto'))
+                                        @if($mostrarFinalizarBulto)
                                             <button type="submit" class="btn btn-danger" value="finalizar" name="accion" >Finalizar</button>
                                         @else
                                             <button type="submit" class="btn btn-danger" disabled>Finalizar</button>
@@ -1347,7 +1347,7 @@
                                         </div>
                                         <div>
                                             <button type="submit" class="btn btn-success">Guardar</button>
-                                            @if(session('estatus_checked_AuditoriaFinal'))
+                                            @if($mostrarFinalizarFinal)
                                                 <button type="submit" class="btn btn-danger" value="finalizar" name="accion" >Finalizar</button>
                                             @else
                                                 <button type="submit" class="btn btn-danger" disabled>Finalizar</button>
@@ -1417,6 +1417,7 @@
                 'estatusLectra': 'Lectra',
                 'estatusAuditoriaBulto': 'Auditoria en Bultos',
                 'estatusAuditoriaFinal': 'Auditoria Final',
+                'fin': 'Terminado'
                 // Agrega otros valores para los demás estados
             };
             const estatusTexto = estatusTextos[estatus];
