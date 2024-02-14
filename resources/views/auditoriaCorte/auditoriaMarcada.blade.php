@@ -72,6 +72,7 @@
                     <h3 id="estatusValue">Estatus: {{ $datoAX->estatus }}</h3>
                 </div>
                 <hr>
+                @if ($datoAX->estatus == 'estatusAuditoriaMarcada' || $datoAX->estatus == 'estatusAuditoriaTendido' || $datoAX->estatus == 'estatusLectra' || $datoAX->estatus == 'estatusAuditoriaBulto' || $datoAX->estatus == 'estatusAuditoriaFinal' || $datoAX->estatus == 'fin')
                 <div class="row">
                     <div class="col-lg-3 col-md-4 col-sm-6 col-12">
                         <h4>Orden: {{ $datoAX->orden }}</h4>
@@ -98,6 +99,66 @@
                         <h4>Lienzo: {{ $datoAX->lienzo }}</h4>
                     </div>
                 </div>
+                @else
+                <div class="row">
+                    <div class="col-lg-3 col-md-4 col-sm-6 col-12">
+                        <h4>Orden: {{ $datoAX->orden }}</h4>
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-sm-6 col-12">
+                        <h4>Cliente: {{ $datoAX->cliente }}</h4>
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-sm-6 col-12">
+                        <h4>Estilo: {{ $datoAX->estilo }}</h4>
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-sm-6 col-12">
+                        <h4>Material: {{ $datoAX->material }}</h4>
+                    </div>
+                </div>
+                <form method="POST" action="{{ route('auditoriaCorte.formEncabezadoAuditoriaCorte') }}">
+                    @csrf
+                    <input type="hidden" name="id" value="{{ $datoAX->id }}">
+                    <input type="hidden" name="orden" value="{{ $datoAX->orden }}">
+                    <!-- Desde aquí inicia la edición del código para mostrar el contenido -->
+                    <div class="row">
+                        <div class="col-lg-3 col-md-6 col-sm-6 col-12 mb-3">
+                            <label for="color" class="col-sm-6 col-form-label">COLOR</label>
+                            <div class="col-sm-12 d-flex align-items-center">
+                                <select name="color" id="color" class="form-control"
+                                    title="Por favor, selecciona una opción" required>
+                                    <option value="">Selecciona una opción</option>
+                                    @foreach ($CategoriaColor as $color)
+                                        <option value="{{ $color->nombre }}">{{ $color->nombre }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-6 col-sm-6 col-12 mb-3">
+                            <label for="pieza" class="col-sm-6 col-form-label">PIEZAS</label>
+                            <div class="col-sm-12">
+                                <input type="number" class="form-control" name="pieza" id="pieza"
+                                    placeholder="..." required/>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-6 col-sm-6 col-12 mb-3">
+                            <label for="trazo" class="col-sm-6 col-form-label">TRAZO</label>
+                            <div class="col-sm-12">
+                                <input type="number" class="form-control" name="trazo" id="trazo"
+                                    placeholder="..." required/>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-6 col-sm-6 col-12 mb-3">
+                            <label for="lienzo" class="col-sm-6 col-form-label">LIENZOS</label>
+                            <div class="col-sm-12">
+                                <input type="text" class="form-control" name="lienzo" id="lienzo"
+                                    placeholder="..." required/>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <button type="submit" class="btn btn-success">Guardar</button>
+                    </div>
+                </form>
+                @endif
                 <div id="accordion">
                     <!--Inicio acordeon 1 -->
                     <div class="card">
@@ -1305,12 +1366,17 @@
                                         <input type="hidden" name="accion" value="">
                                         <div class="row">
                                             <div class="col-md-6 mb-3">
-                                                <label for="supervisor_corte" class="col-sm-6 col-form-label">Supervisor de corte:</label>
+                                                <label for="supervisor_corte" class="col-sm-6 col-form-label">Supervisor de Corte</label>
                                                 <div class="col-sm-12 d-flex align-items-center">
-                                                    <input type="text" class="form-control me-2" name="supervisor_corte"
-                                                        id="supervisor_corte" placeholder="No. Empleado"
-                                                        value="{{ isset($auditoriaFinal) ? $auditoriaFinal->supervisor_corte : '' }}"
-                                                        required />
+                                                    <select name="supervisor_corte" id="supervisor_corte" class="form-control"
+                                                        title="Por favor, selecciona una opción">
+                                                        <option value="">Selecciona una opción</option>
+                                                        @foreach ($CategoriaAuditor as $supervisor_corte)
+                                                            <option value="{{ $supervisor_corte->nombre }}"
+                                                                {{ isset($auditoriaFinal) && trim($auditoriaFinal->supervisor_corte) == trim($supervisor_corte->nombre) ? 'selected' : '' }}>
+                                                                {{$supervisor_corte->numero_empleado}} - {{ $supervisor_corte->nombre }}</option>
+                                                        @endforeach
+                                                    </select>
                                                 </div>
                                             </div>
                                             <div class="col-md-6 mb-3">

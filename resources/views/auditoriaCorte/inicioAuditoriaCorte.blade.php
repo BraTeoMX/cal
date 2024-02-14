@@ -115,19 +115,19 @@
                     </form>
                     <hr>
                     <div>
-                        {{-- Inicio de Acordeon 
+                        {{-- Inicio de Acordeon --}}
                         <div class="accordion" id="accordionExample1">
                             <div class="card">
                                 <div class="card-header" id="headingOne">
                                     <h2 class="mb-0">
-                                        <button class="btn btn-sucess btn-block" type="button" data-toggle="collapse"
+                                        <button class="btn btn-danger btn-block" type="button" data-toggle="collapse"
                                             data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                            ESTATUS: INICIADO
+                                            ESTATUS: NO INICIADO
                                         </button>
                                     </h2>
                                 </div>
 
-                                <div id="collapseOne" class="collapse" aria-labelledby="headingOne"
+                                <div id="collapseOne" class="collapse show" aria-labelledby="headingOne"
                                     data-parent="#accordionExample">
                                     <div class="card-body">
                                         <!-- Desde aquí inicia la edición del código para mostrar el contenido -->
@@ -143,7 +143,7 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    @foreach ($DatoAXIniciado as $inicio)
+                                                    @foreach ($DatoAXNoIniciado as $inicio)
                                                         <tr>
                                                             <td><a href="{{ route('auditoriaCorte.auditoriaMarcada', ['id' => $inicio->id]) }}" class="btn btn-info">Acceder</a></td>
                                                             <td>{{ $inicio->orden }}</td>
@@ -159,7 +159,6 @@
                                 </div>
                             </div>
                         </div>
-                        --}}
                         <!-- Fin del acordeón -->
                     </div>
                     <div>
@@ -175,7 +174,7 @@
                                     </h2>
                                 </div>
 
-                                <div id="collapseOne2" class="collapse" aria-labelledby="headingOne2"
+                                <div id="collapseOne2" class="collapse show" aria-labelledby="headingOne2"
                                     data-parent="#accordionExample2">
                                     <div class="card-body">
                                         <!-- Desde aquí inicia la edición del código para mostrar el contenido -->
@@ -215,7 +214,7 @@
                             <div class="card">
                                 <div class="card-header" id="headingOne3">
                                     <h2 class="mb-0">
-                                        <button class="btn btn-danger  btn-block" type="button" data-toggle="collapse"
+                                        <button class="btn btn-success  btn-block" type="button" data-toggle="collapse"
                                             data-target="#collapseOne3" aria-expanded="true" aria-controls="collapseOne3">
                                             ESTATUS: FINAL
                                         </button>

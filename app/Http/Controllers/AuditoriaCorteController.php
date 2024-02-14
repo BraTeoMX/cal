@@ -12,6 +12,7 @@ use App\Models\CategoriaTallaCantidad;
 use App\Models\CategoriaTamañoMuestra;
 use App\Models\CategoriaDefecto;
 use App\Models\CategoriaTipoDefecto;
+use App\Models\EncabezadoAuditoriaCorte;
 use App\Models\AuditoriaMarcada;
 use App\Models\AuditoriaTendido;
 use App\Models\Lectra;
@@ -42,6 +43,12 @@ class AuditoriaCorteController extends Controller
                 $query->whereNull('estatus')
                       ->orWhere('estatus', '');
             })->get(),
+            'DatoAXNoIniciado' => DatoAX::whereNotIn('estatus', ['fin'])
+                           ->where(function ($query) {
+                               $query->whereNull('estatus')
+                                     ->orWhere('estatus', '');
+                           })
+                           ->get(),
             'DatoAXProceso' => DatoAX::whereNotIn('estatus', ['fin'])
                            ->whereNotNull('estatus')
                            ->whereNotIn('estatus', [''])
@@ -61,6 +68,51 @@ class AuditoriaCorteController extends Controller
         ];
 
         return view('auditoriaCorte.inicioAuditoriaCorte', array_merge($categorias, ['mesesEnEspanol' => $mesesEnEspanol, 'activePage' => $activePage]));
+    }
+
+
+    public function formEncabezadoAuditoriaCorte(Request $request)
+    {
+        $activePage ='';
+        // Validar los datos del formulario si es necesario
+        $request->validate([
+            'color' => 'required',
+            'pieza' => 'required|numeric',
+            'trazo' => 'required|numeric',
+            'lienzo' => 'required',
+        ]);
+        //dd($request->all());
+        $activePage ='';
+        // Validar los datos del formulario si es necesario
+        // Obtener el ID seleccionado desde el formulario
+        $idSeleccionado = $request->input('id');
+        $orden = $request->input('orden');
+        // Verificar si ya existen datos para el dato_ax_id especificado
+        $existeRegistro = EncabezadoAuditoriaCorte::where('dato_ax_id', $idSeleccionado)->exists();
+
+        if ($existeRegistro) {
+            
+            return back()->with('warning', 'Ya existen datos para este registro.');
+        }
+
+        // Realizar la actualización en la base de datos
+        $auditoria= new EncabezadoAuditoriaCorte();
+        $auditoria->dato_ax_id = $idSeleccionado;
+        $auditoria->orden_id = $orden;
+        $auditoria->color = $request->input('color');
+        $auditoria->pieza = $request->input('pieza');
+        $auditoria->trazo = $request->input('trazo');
+        $auditoria->lienzo = $request->input('lienzo');
+        // Establecer fecha_inicio con la fecha y hora actual
+        $auditoria->fecha_inicio = Carbon::now()->format('Y-m-d H:i:s');
+        $auditoria->estatus = "estatusAuditoriaMarcada";
+        $auditoria->save();
+
+        $datoAX = DatoAX::findOrFail($idSeleccionado);
+        // Actualizar el valor de la columna deseada
+        $datoAX->estatus = 'estatusAuditoriaMarcada';
+        $datoAX->save();
+        return back()->with('success', 'Datos guardados correctamente.')->with('activePage', $activePage);
     }
 
     public function formAuditoriaCortes(Request $request)
