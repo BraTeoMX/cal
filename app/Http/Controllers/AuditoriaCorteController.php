@@ -75,6 +75,7 @@ class AuditoriaCorteController extends Controller
     {
         $activePage ='';
         // Validar los datos del formulario si es necesario
+        //dd($request->all());
         $request->validate([
             'color' => 'required',
             'pieza' => 'required|numeric',
@@ -88,11 +89,9 @@ class AuditoriaCorteController extends Controller
         $idSeleccionado = $request->input('id');
         $orden = $request->input('orden');
         // Verificar si ya existen datos para el dato_ax_id especificado
-        $existeRegistro = EncabezadoAuditoriaCorte::where('dato_ax_id', $idSeleccionado)->exists();
-
-        if ($existeRegistro) {
-            
-            return back()->with('warning', 'Ya existen datos para este registro.');
+        if (EncabezadoAuditoriaCorte::where('dato_ax_id', $idSeleccionado)->exists()) {
+            //dd($request->all());
+            return back()->with('sobre-escribir', 'Ya existen datos para este registro.');
         }
 
         // Realizar la actualización en la base de datos

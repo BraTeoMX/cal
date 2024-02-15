@@ -173,7 +173,9 @@
                         <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
                             <div class="card-body">
                                 {{-- Inicio cuerpo acordeon --}}
-                                @if ($datoAX->estatus == 'estatusAuditoriaMarcada')
+                                @if($datoAX->estatus == '' || $datoAX->estatus == NULL)
+                                    <p> - </p>
+                                @elseif ($datoAX->estatus == 'estatusAuditoriaMarcada') 
                                 <form method="POST"
                                     action="{{ route('auditoriaCorte.formAuditoriaMarcada', ['id' => $datoAX->id]) }}">
                                     @csrf
@@ -430,7 +432,7 @@
                                     </div>
                                 </form>
                                 {{-- Fin cuerpo acordeon --}}
-                                @else
+                                @elseif($datoAX->estatus == 'estatusAuditoriaTendido')
                                 <div class="row">
                                     <div class="col-md-6 mb-3">
                                         <label for="yarda_orden" class="col-sm-6 col-form-label">Yardas en la
