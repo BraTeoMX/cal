@@ -429,8 +429,159 @@
                                         @endif
                                     </div>
                                 </form>
-                                @endif
                                 {{-- Fin cuerpo acordeon --}}
+                                @else
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label for="yarda_orden" class="col-sm-6 col-form-label">Yardas en la
+                                            orden</label>
+                                        <div class="col-sm-12 d-flex align-items-center">
+                                            <div class="form-check form-check-inline">
+                                                <h4>{{ isset($auditoriaMarcada) ? $auditoriaMarcada->yarda_orden : '' }}</h4>
+                                            </div>
+                                            <div class="form-check form-check-inline">
+                                                @if(isset($auditoriaMarcada) && $auditoriaMarcada->yarda_orden_estatus == 1)
+                                                    <label class="label-paloma" for="yarda_orden_estatus1">✔</label>
+                                                @elseif(isset($auditoriaMarcada) && $auditoriaMarcada->yarda_orden_estatus == 0)
+                                                    <label class="label-tache" for="yarda_orden_estatus2">✖</label>
+                                                @endif
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="yarda_marcada" class="col-sm-6 col-form-label">Yardas en la
+                                            marcada</label>
+                                        <div class="col-sm-12 d-flex align-items-center">
+                                            <div class="form-check form-check-inline">
+                                                <h4>{{ isset($auditoriaMarcada) ? $auditoriaMarcada->yarda_marcada : '' }}</h4>
+                                            </div>
+                                            <div class="form-check form-check-inline">
+                                                @if(isset($auditoriaMarcada) && $auditoriaMarcada->yarda_marcada_estatus == 1)
+                                                    <label class="label-paloma" for="yarda_orden_estatus1">✔</label>
+                                                @elseif(isset($auditoriaMarcada) && $auditoriaMarcada->yarda_marcada_estatus == 0)
+                                                    <label class="label-tache" for="yarda_orden_estatus2">✖</label>
+                                                @endif
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="yarda_tendido" class="col-sm-6 col-form-label">Yardas en el
+                                            tendido</label>
+                                        <div class="col-sm-12 d-flex align-items-center">
+                                            <div class="form-check form-check-inline">
+                                                <h4>{{ isset($auditoriaMarcada) ? $auditoriaMarcada->yarda_tendido : '' }}</h4>
+                                            </div>
+                                            <div class="form-check form-check-inline">
+                                                @if(isset($auditoriaMarcada) && $auditoriaMarcada->yarda_tendido_estatus == 1)
+                                                    <label class="label-paloma" for="yarda_orden_estatus1">✔</label>
+                                                @elseif(isset($auditoriaMarcada) && $auditoriaMarcada->yarda_tendido_estatus == 0)
+                                                    <label class="label-tache" for="yarda_orden_estatus2">✖</label>
+                                                @endif
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <br>
+                                </div>
+                                <hr>
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label for="talla1" class="col-sm-3 col-form-label">Tallas</label>
+                                        <div class="col-sm-12 d-flex align-items-center">
+                                            @php
+                                            $total_tallas1 = [
+                                                $auditoriaMarcada->talla1 ?? '',
+                                                $auditoriaMarcada->talla2 ?? '',
+                                                $auditoriaMarcada->talla3 ?? '',
+                                                $auditoriaMarcada->talla4 ?? '',
+                                                $auditoriaMarcada->talla5 ?? '',
+                                            ];
+                                            @endphp
+                                            <input type="text" readonly value="{{ implode(' - ', array_filter($total_tallas1)) }}" class="form-control">
+                                        </div>
+                                        <div class="col-sm-12 d-flex align-items-center">
+                                            @php
+                                            $total_tallas2 = [
+                                                $auditoriaMarcada->talla6 ?? '',
+                                                $auditoriaMarcada->talla7 ?? '',
+                                                $auditoriaMarcada->talla8 ?? '',
+                                                $auditoriaMarcada->talla9 ?? '',
+                                                $auditoriaMarcada->talla10 ?? '',
+                                            ];
+                                            @endphp
+                                            <input type="text" readonly value="{{ implode(' -- ', array_filter($total_tallas2)) }}" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="bulto1" class="col-sm-3 col-form-label"># Bultos</label>
+                                        <div class="col-sm-12 d-flex align-items-center">
+                                            @php
+                                            $total_bultos1 = [
+                                                $auditoriaMarcada->bulto1 ?? '',
+                                                $auditoriaMarcada->bulto2 ?? '',
+                                                $auditoriaMarcada->bulto3 ?? '',
+                                                $auditoriaMarcada->bulto4 ?? '',
+                                                $auditoriaMarcada->bulto5 ?? '',
+                                            ];
+                                            @endphp
+                                            <input type="text" readonly value="{{ implode(' -- ', array_filter($total_bultos1)) }}" class="form-control">
+                                        </div>
+                                        <div class="col-sm-12 d-flex align-items-center">
+                                            @php
+                                            $total_bultos2 = [
+                                                $auditoriaMarcada->total_bulto1 ?? '',
+                                                $auditoriaMarcada->total_bulto2 ?? '',
+                                                $auditoriaMarcada->total_bulto3 ?? '',
+                                                $auditoriaMarcada->total_bulto4 ?? '',
+                                                $auditoriaMarcada->total_bulto5 ?? '',
+                                            ];
+                                            @endphp
+                                            <input type="text" readonly value="{{ implode(' -- ', array_filter($total_bultos2)) }}" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="total_pieza1" class="col-sm-3 col-form-label">Total piezas</label>
+                                        <div class="col-sm-6 d-flex align-items-center">
+                                            @php
+                                            $total_piezas1 = [
+                                                $auditoriaMarcada->total_pieza1 ?? '',
+                                                $auditoriaMarcada->total_pieza2 ?? '',
+                                                $auditoriaMarcada->total_pieza3 ?? '',
+                                                $auditoriaMarcada->total_pieza4 ?? '',
+                                                $auditoriaMarcada->total_pieza5 ?? '',
+                                            ];
+                                            @endphp
+                                            <input type="text" readonly value="{{ implode(' -- ', array_filter($total_piezas1)) }}" class="form-control">
+                                        </div>
+                                        <div class="col-sm-6 d-flex align-items-center">
+                                            @php
+                                            $total_piezas2 = [
+                                                $auditoriaMarcada->total_pieza6 ?? '',
+                                                $auditoriaMarcada->total_pieza7 ?? '',
+                                                $auditoriaMarcada->total_pieza8 ?? '',
+                                                $auditoriaMarcada->total_pieza9 ?? '',
+                                                $auditoriaMarcada->total_pieza10 ?? '',
+                                            ];
+                                            @endphp
+                                            <input type="text" readonly value="{{ implode(' -- ', array_filter($total_piezas2)) }}" class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label for="largo_trazo" class="col-sm-3 col-form-label">Largo Trazo </label>
+                                        <div class="col-sm-12 d-flex align-items-center">
+                                            <input type="text" readonly value="{{ isset($auditoriaMarcada) ? $auditoriaMarcada->largo_trazo : '' }}" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="ancho_trazo" class="col-sm-3 col-form-label">Ancho Trazo </label>
+                                        <div class="col-sm-12 d-flex align-items-center">
+                                            <input type="text" readonly value="{{ isset($auditoriaMarcada) ? $auditoriaMarcada->ancho_trazo : '' }}" class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
+                                @endif
                             </div>
                         </div>
                     </div>
