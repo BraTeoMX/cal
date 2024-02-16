@@ -153,6 +153,13 @@
                                     placeholder="..." required/>
                             </div>
                         </div>
+                        <div class="col-lg-3 col-md-6 col-sm-6 col-12 mb-3">
+                            <label for="evento" class="col-sm-6 col-form-label">CANTIDAD EVENTOS</label>
+                            <div class="col-sm-12">
+                                <input type="number" class="form-control" name="evento" id="lienzo"
+                                    placeholder="..." required/>
+                            </div>
+                        </div>
                     </div>
                     <div>
                         <button type="submit" class="btn btn-success">Guardar</button>
