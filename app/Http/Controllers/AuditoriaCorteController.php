@@ -54,6 +54,7 @@ class AuditoriaCorteController extends Controller
                            ->whereNotIn('estatus', [''])
                            ->get(),
             'DatoAXFin' => DatoAX::where('estatus', 'fin')->get(),
+            'EncabezadoAuditoriaCorte' => EncabezadoAuditoriaCorte::all(),
         ];
     }
 
@@ -70,7 +71,76 @@ class AuditoriaCorteController extends Controller
         return view('auditoriaCorte.inicioAuditoriaCorte', array_merge($categorias, ['mesesEnEspanol' => $mesesEnEspanol, 'activePage' => $activePage]));
     }
 
+    public function auditoriaCorte($id)
+    {
+        $activePage ='';
+        $categorias = $this->cargarCategorias();
+        // Obtener el dato con el id seleccionado y el valor de la columna "orden"
+        $datoAX = DatoAX::select('id','estatus', 'orden', 'cliente', 'estilo', 'material', 'color', 'pieza', 'trazo', 'lienzo')->find($id);
 
+        $mesesEnEspanol = [
+            'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'
+        ];
+        // Obtener el registro correspondiente en la tabla AuditoriaMarcada si existe
+        $encabezadoAuditoriaCorte = EncabezadoAuditoriaCorte::where('dato_ax_id', $id)->first();
+        $auditoriaMarcada = AuditoriaMarcada::where('dato_ax_id', $id)->first();
+        $auditoriaTendido = AuditoriaTendido::where('dato_ax_id', $id)->first();
+        $Lectra = Lectra::where('dato_ax_id', $id)->first();
+        $auditoriaBulto = AuditoriaBulto::where('dato_ax_id', $id)->first();
+        $auditoriaFinal = AuditoriaFinal::where('dato_ax_id', $id)->first();
+
+        // Determina si mostrar el botón "Finalizar" para cada formulario
+        $mostrarFinalizarMarcada = $auditoriaMarcada ? session('estatus_checked_AuditoriaMarcada') : false;
+        $mostrarFinalizarTendido = $auditoriaTendido ? session('estatus_checked_AuditoriaTendido') : false;
+        $mostrarFinalizarLectra = $Lectra ? session('estatus_checked_Lectra') : false;
+        $mostrarFinalizarBulto = $auditoriaBulto ? session('estatus_checked_AuditoriaBulto') : false;
+        $mostrarFinalizarFinal = $auditoriaFinal ? session('estatus_checked_AuditoriaFinal') : false;
+        return view('auditoriaCorte.auditoriaCorte', array_merge($categorias, [
+            'mesesEnEspanol' => $mesesEnEspanol, 
+            'activePage' => $activePage, 
+            'datoAX' => $datoAX, 
+            'auditoriaMarcada' => $auditoriaMarcada,
+            'auditoriaTendido' => $auditoriaTendido,
+            'Lectra' => $Lectra, 
+            'auditoriaBulto' => $auditoriaBulto, 
+            'auditoriaFinal' => $auditoriaFinal,
+            'mostrarFinalizarMarcada' => $mostrarFinalizarMarcada,
+            'mostrarFinalizarTendido' => $mostrarFinalizarTendido,
+            'mostrarFinalizarLectra' => $mostrarFinalizarLectra,
+            'mostrarFinalizarBulto' => $mostrarFinalizarBulto,
+            'mostrarFinalizarFinal' => $mostrarFinalizarFinal,
+            'encabezadoAuditoriaCorte' => $encabezadoAuditoriaCorte]));
+    }
+
+    public function formAuditoriaCortes(Request $request)
+    {
+        $activePage ='';
+        // Validar los datos del formulario si es necesario
+        $request->validate([
+            'seleccion' => 'required',
+            'color' => 'required',
+            'pieza' => 'required|numeric',
+            'trazo' => 'required|numeric',
+            'lienzo' => 'required',
+        ]);
+
+        // Obtener el ID seleccionado
+        $idSeleccionado = $request->input('seleccion');
+
+        // Realizar la actualización en la base de datos
+        $auditoria = DatoAX::find($idSeleccionado);
+        $auditoria->color = $request->input('color');
+        $auditoria->pieza = $request->input('pieza');
+        $auditoria->trazo = $request->input('trazo');
+        $auditoria->lienzo = $request->input('lienzo');
+        // Establecer fecha_inicio con la fecha y hora actual
+        $auditoria->fecha_inicio = Carbon::now()->format('Y-m-d H:i:s');
+        $auditoria->estatus = "estatusAuditoriaMarcada";
+        $auditoria->save();
+        return back()->with('success', 'Datos guardados correctamente.')->with('activePage', $activePage);
+    }
+
+    
     public function formEncabezadoAuditoriaCorte(Request $request)
     {
         $activePage ='';
@@ -114,72 +184,7 @@ class AuditoriaCorteController extends Controller
         return back()->with('success', 'Datos guardados correctamente.')->with('activePage', $activePage);
     }
 
-    public function formAuditoriaCortes(Request $request)
-    {
-        $activePage ='';
-        // Validar los datos del formulario si es necesario
-        $request->validate([
-            'seleccion' => 'required',
-            'color' => 'required',
-            'pieza' => 'required|numeric',
-            'trazo' => 'required|numeric',
-            'lienzo' => 'required',
-        ]);
-
-        // Obtener el ID seleccionado
-        $idSeleccionado = $request->input('seleccion');
-
-        // Realizar la actualización en la base de datos
-        $auditoria = DatoAX::find($idSeleccionado);
-        $auditoria->color = $request->input('color');
-        $auditoria->pieza = $request->input('pieza');
-        $auditoria->trazo = $request->input('trazo');
-        $auditoria->lienzo = $request->input('lienzo');
-        // Establecer fecha_inicio con la fecha y hora actual
-        $auditoria->fecha_inicio = Carbon::now()->format('Y-m-d H:i:s');
-        $auditoria->estatus = "estatusAuditoriaMarcada";
-        $auditoria->save();
-        return back()->with('success', 'Datos guardados correctamente.')->with('activePage', $activePage);
-    }
-
-    public function auditoriaMarcada($id)
-    {
-        $activePage ='';
-        $categorias = $this->cargarCategorias();
-        // Obtener el dato con el id seleccionado y el valor de la columna "orden"
-        $datoAX = DatoAX::select('id','estatus', 'orden', 'cliente', 'estilo', 'material', 'color', 'pieza', 'trazo', 'lienzo')->find($id);
-
-        $mesesEnEspanol = [
-            'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'
-        ];
-        // Obtener el registro correspondiente en la tabla AuditoriaMarcada si existe
-        $auditoriaMarcada = AuditoriaMarcada::where('dato_ax_id', $id)->first();
-        $auditoriaTendido = AuditoriaTendido::where('dato_ax_id', $id)->first();
-        $Lectra = Lectra::where('dato_ax_id', $id)->first();
-        $auditoriaBulto = AuditoriaBulto::where('dato_ax_id', $id)->first();
-        $auditoriaFinal = AuditoriaFinal::where('dato_ax_id', $id)->first();
-
-        // Determina si mostrar el botón "Finalizar" para cada formulario
-        $mostrarFinalizarMarcada = $auditoriaMarcada ? session('estatus_checked_AuditoriaMarcada') : false;
-        $mostrarFinalizarTendido = $auditoriaTendido ? session('estatus_checked_AuditoriaTendido') : false;
-        $mostrarFinalizarLectra = $Lectra ? session('estatus_checked_Lectra') : false;
-        $mostrarFinalizarBulto = $auditoriaBulto ? session('estatus_checked_AuditoriaBulto') : false;
-        $mostrarFinalizarFinal = $auditoriaFinal ? session('estatus_checked_AuditoriaFinal') : false;
-        return view('auditoriaCorte.auditoriaMarcada', array_merge($categorias, [
-            'mesesEnEspanol' => $mesesEnEspanol, 
-            'activePage' => $activePage, 
-            'datoAX' => $datoAX, 
-            'auditoriaMarcada' => $auditoriaMarcada,
-            'auditoriaTendido' => $auditoriaTendido,
-            'Lectra' => $Lectra, 
-            'auditoriaBulto' => $auditoriaBulto, 
-            'auditoriaFinal' => $auditoriaFinal,
-            'mostrarFinalizarMarcada' => $mostrarFinalizarMarcada,
-            'mostrarFinalizarTendido' => $mostrarFinalizarTendido,
-            'mostrarFinalizarLectra' => $mostrarFinalizarLectra,
-            'mostrarFinalizarBulto' => $mostrarFinalizarBulto,
-            'mostrarFinalizarFinal' => $mostrarFinalizarFinal,]));
-    }
+    
 
     public function formAuditoriaMarcada(Request $request)
     {

@@ -85,7 +85,7 @@ Route::get('/mostrarAuditoriaEtiquetas', [FormulariosCalidadController::class, '
 Route::get('/aseguramientoCalidad', [FormulariosCalidadController::class, 'aseguramientoCalidad'])->name('formulariosCalidad.aseguramientoCalidad');
 Route::post('/formAseguramientoCalidad', [FormulariosCalidadController::class, 'formAseguramientoCalidad'])->name('formulariosCalidad.formAseguramientoCalidad');
 Route::post('/formAuditoriaEtiquetas', [FormulariosCalidadController::class, 'formAuditoriaEtiquetas'])->name('formulariosCalidad.formAuditoriaEtiquetas');
-Route::post('/formAuditoriaCortes', [FormulariosCalidadController::class, 'formAuditoriaCortes'])->name('formulariosCalidad.formAuditoriaCortes');
+Route::post('/formAuditoriaCortes1', [FormulariosCalidadController::class, 'formAuditoriaCortes1'])->name('formulariosCalidad.formAuditoriaCortes1');
 Route::post('/formEvaluacionCorte', [FormulariosCalidadController::class, 'formEvaluacionCorte'])->name('formulariosCalidad.formEvaluacionCorte');
 //Apartado para el formulario para mostrar datos filtrados
 Route::get('/filtrarDatosEtiquetas', [FormulariosCalidadController::class, 'filtrarDatosEtiquetas'])->name('formulariosCalidad.filtrarDatosEtiquetas');
@@ -103,7 +103,7 @@ Route::post('/formControlCalidadEmpaque', [FormulariosCalidadController::class, 
 Route::get('/inicioAuditoriaCorte', [AuditoriaCorteController::class, 'inicioAuditoriaCorte'])->name('auditoriaCorte.inicioAuditoriaCorte'); 
 Route::post('/formAuditoriaCortes', [AuditoriaCorteController::class, 'formAuditoriaCortes'])->name('auditoriaCorte.formAuditoriaCortes');
 
-Route::get('/auditoriaMarcada/{id}', [AuditoriaCorteController::class, 'auditoriaMarcada'])->name('auditoriaCorte.auditoriaMarcada'); 
+Route::get('/auditoriaCorte/{id}', [AuditoriaCorteController::class, 'auditoriaCorte'])->name('auditoriaCorte.auditoriaCorte'); 
 Route::post('/formEncabezadoAuditoriaCorte', [AuditoriaCorteController::class, 'formEncabezadoAuditoriaCorte'])->name('auditoriaCorte.formEncabezadoAuditoriaCorte');
 Route::post('/formAuditoriaMarcada', [AuditoriaCorteController::class, 'formAuditoriaMarcada'])->name('auditoriaCorte.formAuditoriaMarcada');
 Route::post('/formAuditoriaTendido', [AuditoriaCorteController::class, 'formAuditoriaTendido'])->name('auditoriaCorte.formAuditoriaTendido');

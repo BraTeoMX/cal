@@ -87,16 +87,16 @@
                         <h4>Material: {{ $datoAX->material }}</h4>
                     </div>
                     <div class="col-lg-3 col-md-4 col-sm-6 col-12">
-                        <h4>Color: {{ $datoAX->color }}</h4>
+                        <h4>Color: {{ isset($encabezadoAuditoriaCorte) ? $encabezadoAuditoriaCorte->color : '' }}</h4>
                     </div>
                     <div class="col-lg-3 col-md-4 col-sm-6 col-12">
-                        <h4>Pieza: {{ $datoAX->pieza }}</h4>
+                        <h4>Color: {{ isset($encabezadoAuditoriaCorte) ? $encabezadoAuditoriaCorte->pieza : '' }}</h4>
                     </div>
                     <div class="col-lg-3 col-md-4 col-sm-6 col-12">
-                        <h4>Trazo: {{ $datoAX->trazo }}</h4>
+                        <h4>Color: {{ isset($encabezadoAuditoriaCorte) ? $encabezadoAuditoriaCorte->trazo : '' }}</h4>
                     </div>
                     <div class="col-lg-3 col-md-4 col-sm-6 col-12">
-                        <h4>Lienzo: {{ $datoAX->lienzo }}</h4>
+                        <h4>Color: {{ isset($encabezadoAuditoriaCorte) ? $encabezadoAuditoriaCorte->lienzo : '' }}</h4>
                     </div>
                 </div>
                 @else

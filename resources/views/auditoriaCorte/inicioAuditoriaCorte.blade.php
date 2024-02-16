@@ -73,7 +73,7 @@
                                                 <tbody>
                                                     @foreach ($DatoAXNoIniciado as $inicio)
                                                         <tr>
-                                                            <td><a href="{{ route('auditoriaCorte.auditoriaMarcada', ['id' => $inicio->id]) }}" class="btn btn-info">Acceder</a></td>
+                                                            <td><a href="{{ route('auditoriaCorte.auditoriaCorte', ['id' => $inicio->id]) }}" class="btn btn-info">Acceder</a></td>
                                                             <td>{{ $inicio->orden }}</td>
                                                             <td>{{ $inicio->estilo }}</td>
                                                             <td>{{ $inicio->cliente }}</td>
@@ -120,7 +120,7 @@
                                                 <tbody>
                                                     @foreach ($DatoAXProceso as $proceso)
                                                         <tr>
-                                                            <td><a href="{{ route('auditoriaCorte.auditoriaMarcada', ['id' => $proceso->id]) }}" class="btn btn-info">Acceder</a></td>
+                                                            <td><a href="{{ route('auditoriaCorte.auditoriaCorte', ['id' => $proceso->id]) }}" class="btn btn-info">Acceder</a></td>
                                                             <td>{{ $proceso->orden }}</td>
                                                             <td>{{ $proceso->estilo }}</td>
                                                             <td>{{ $proceso->cliente }}</td>
@@ -165,13 +165,13 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    @foreach ($DatoAXFin as $proceso)
+                                                    @foreach ($DatoAXFin as $fin)
                                                         <tr>
-                                                            <td><a href="{{ route('auditoriaCorte.inicioAuditoriaCorte') }}" class="btn btn-info">Acceder</a></td>
-                                                            <td>{{ $proceso->orden }}</td>
-                                                            <td>{{ $proceso->estilo }}</td>
-                                                            <td>{{ $proceso->cliente }}</td>
-                                                            <td>{{ $proceso->material }}</td>
+                                                            <td><a href="{{ route('auditoriaCorte.auditoriaCorte', ['id' => $fin->id]) }}" class="btn btn-info">Acceder</a></td>
+                                                            <td>{{ $fin->orden }}</td>
+                                                            <td>{{ $fin->estilo }}</td>
+                                                            <td>{{ $fin->cliente }}</td>
+                                                            <td>{{ $fin->material }}</td>
                                                         </tr>
                                                     @endforeach
                                                 </tbody>
