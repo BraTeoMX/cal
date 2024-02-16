@@ -106,31 +106,47 @@
                                     data-parent="#accordionExample2">
                                     <div class="card-body">
                                         <!-- Desde aquí inicia la edición del código para mostrar el contenido -->
-                                        <div class="table-responsive">
-                                            <table class="table">
-                                                <thead>
-                                                    <tr>
-                                                        <th>iniciar</th>
-                                                        <th>Orden</th>
-                                                        <th>Estilo</th>
-                                                        <th>Cliente</th>
-                                                        <th>Material</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    @foreach ($DatoAXProceso as $proceso)
-                                                        <tr>
-                                                            <td><a href="{{ route('auditoriaCorte.auditoriaCorte', ['id' => $proceso->id]) }}" class="btn btn-info">Acceder</a></td>
-                                                            <td>{{ $proceso->orden }}</td>
-                                                            <td>{{ $proceso->estilo }}</td>
-                                                            <td>{{ $proceso->cliente }}</td>
-                                                            <td>{{ $proceso->material }}</td>
-                                                        </tr>
-                                                    @endforeach
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
+                                        <div class="accordion" id="accordionExample">
+                                            @foreach ($DatoAXProceso as $proceso)
+                                            <div class="card">
+                                                <div class="card-header" id="heading{{ $proceso->orden }}">
+                                                    <h2 class="mb-0">
+                                                        <button class="btn btn-warning btn-block" type="button" data-toggle="collapse" data-target="#collapse{{ $proceso->orden }}" aria-expanded="true" aria-controls="collapse{{ $proceso->orden }}">
+                                                            {{ $proceso->orden }}
+                                                        </button>
+                                                    </h2>
+                                                </div>
+                                        
+                                                <div id="collapse{{ $proceso->orden }}" class="collapse" aria-labelledby="heading{{ $proceso->orden }}" data-parent="#accordionExample">
+                                                    <div class="card-body">
+                                                        <table class="table">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th>Acceso</th>
+                                                                    <th>Evento</th>
+                                                                    <th>Orden</th>
+                                                                    <th>Estilo</th>
+                                                                    <th>Cliente</th>
+                                                                    <th>Material</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <tr>
+                                                                    
+                                                                    <td>{{ $proceso->evento }}</td>
+                                                                    <td>{{ $proceso->orden }}</td>
+                                                                    <td>{{ $proceso->estilo }}</td>
+                                                                    <td>{{ $proceso->cliente }}</td>
+                                                                    <td>{{ $proceso->material }}</td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            @endforeach
+                                        </div>                                        
+                                    <!--Fin del cuerpo del acordeon-->
                                 </div>
                             </div>
                         </div>
@@ -158,6 +174,7 @@
                                                 <thead>
                                                     <tr>
                                                         <th>iniciar</th>
+                                                        <th>Evento</th>
                                                         <th>Orden</th>
                                                         <th>Estilo</th>
                                                         <th>Cliente</th>
@@ -168,6 +185,7 @@
                                                     @foreach ($DatoAXFin as $fin)
                                                         <tr>
                                                             <td><a href="{{ route('auditoriaCorte.auditoriaCorte', ['id' => $fin->id]) }}" class="btn btn-info">Acceder</a></td>
+                                                            <td>{{ $fin->evento}} </td>
                                                             <td>{{ $fin->orden }}</td>
                                                             <td>{{ $fin->estilo }}</td>
                                                             <td>{{ $fin->cliente }}</td>
@@ -177,6 +195,7 @@
                                                 </tbody>
                                             </table>
                                         </div>
+                                        <!--Fin del cuerpo del acordeon-->
                                     </div>
                                 </div>
                             </div>

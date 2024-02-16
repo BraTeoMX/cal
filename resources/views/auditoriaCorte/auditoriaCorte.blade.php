@@ -70,6 +70,11 @@
                 <div class="card-header card-header-primary">
                     <h3 class="card-title">CONTROL DE CALIDAD EN CORTE</h3>
                     <h3 id="estatusValue">Estatus: {{ $datoAX->estatus }}</h3>
+                    @if($datoAX->evento == NULL || $datoAX->evento == '')
+
+                    @else
+                    <h4>Evento: {{$auditoriaMarcada->evento}} / {{ $datoAX->evento }} </h4>
+                    @endif
                 </div>
                 <hr>
                 @if ($datoAX->estatus == 'estatusAuditoriaMarcada' || $datoAX->estatus == 'estatusAuditoriaTendido' || $datoAX->estatus == 'estatusLectra' || $datoAX->estatus == 'estatusAuditoriaBulto' || $datoAX->estatus == 'estatusAuditoriaFinal' || $datoAX->estatus == 'fin')

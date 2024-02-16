@@ -76,7 +76,7 @@ class AuditoriaCorteController extends Controller
         $activePage ='';
         $categorias = $this->cargarCategorias();
         // Obtener el dato con el id seleccionado y el valor de la columna "orden"
-        $datoAX = DatoAX::select('id','estatus', 'orden', 'cliente', 'estilo', 'material')->find($id);
+        $datoAX = DatoAX::select('id','estatus', 'orden', 'cliente', 'estilo', 'material', 'evento')->find($id);
 
         $mesesEnEspanol = [
             'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'
@@ -156,6 +156,19 @@ class AuditoriaCorteController extends Controller
         $datoAX->estatus = 'estatusAuditoriaMarcada';
         $datoAX->evento = $request->input('evento');
         $datoAX->save();
+
+        $datoAX = DatoAX::findOrFail($idSeleccionado);
+
+        // Generar múltiples registros en auditoria_marcadas según el valor de evento
+        for ($i = 0; $i < $request->input('evento'); $i++) {
+            $auditoriaMarcada = new AuditoriaMarcada();
+            $auditoriaMarcada->dato_ax_id = $idSeleccionado;
+            $auditoriaMarcada->orden_id = $orden;
+            $auditoriaMarcada->estatus = "proceso";
+            $auditoriaMarcada->evento = $i+1;
+            // Otros campos que necesites para cada registro...
+            $auditoriaMarcada->save();
+        }
         return back()->with('success', 'Datos guardados correctamente.')->with('activePage', $activePage);
     }
 
