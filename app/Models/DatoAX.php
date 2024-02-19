@@ -10,4 +10,9 @@ class DatoAX extends Model
     use HasFactory;
     protected $table = 'datos_ax';
     
+    public function auditoriasMarcadas()
+    {
+        return $this->hasMany(AuditoriaMarcada::class, 'orden_id', 'orden');
+    }
+    
 }

@@ -161,8 +161,11 @@
                         <div class="col-lg-3 col-md-6 col-sm-6 col-12 mb-3">
                             <label for="evento" class="col-sm-6 col-form-label">CANTIDAD EVENTOS</label>
                             <div class="col-sm-12">
-                                <input type="number" class="form-control" name="evento" id="lienzo"
-                                    placeholder="..." required/>
+                                <select class="form-control" name="evento" id="evento" required>
+                                    @for ($i = 1; $i <= 10; $i++)
+                                        <option value="{{ $i }}">{{ $i }}</option>
+                                    @endfor
+                                </select>
                             </div>
                         </div>
                     </div>
@@ -192,6 +195,7 @@
                                     action="{{ route('auditoriaCorte.formAuditoriaMarcada', ['id' => $datoAX->id]) }}">
                                     @csrf
                                     <input type="hidden" name="id" value="{{ $datoAX->id }}">
+                                    <input type="hidden" name="idAuditoriaMarcada" value="{{ $auditoriaMarcada->id }}">
                                     <input type="hidden" name="orden" value="{{ $datoAX->orden }}">
                                     {{-- Campo oculto para el boton Finalizar --}}
                                     <input type="hidden" name="accion" value="">

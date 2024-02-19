@@ -52,9 +52,11 @@ class AuditoriaCorteController extends Controller
             'DatoAXProceso' => DatoAX::whereNotIn('estatus', ['fin'])
                            ->whereNotNull('estatus')
                            ->whereNotIn('estatus', [''])
+                           ->with('auditoriasMarcadas')
                            ->get(),
             'DatoAXFin' => DatoAX::where('estatus', 'fin')->get(),
             'EncabezadoAuditoriaCorte' => EncabezadoAuditoriaCorte::all(),
+            'auditoriasMarcadas' => AuditoriaMarcada::all(),
         ];
     }
 
@@ -71,23 +73,23 @@ class AuditoriaCorteController extends Controller
         return view('auditoriaCorte.inicioAuditoriaCorte', array_merge($categorias, ['mesesEnEspanol' => $mesesEnEspanol, 'activePage' => $activePage]));
     }
 
-    public function auditoriaCorte($id)
+    public function auditoriaCorte($id, $orden)
     {
         $activePage ='';
         $categorias = $this->cargarCategorias();
         // Obtener el dato con el id seleccionado y el valor de la columna "orden"
-        $datoAX = DatoAX::select('id','estatus', 'orden', 'cliente', 'estilo', 'material', 'evento')->find($id);
-
+        $datoAX = DatoAX::select('id','estatus', 'orden', 'cliente', 'estilo', 'material', 'evento')->where('orden', $orden)->first();
+        //dd($datoAX);
         $mesesEnEspanol = [
             'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'
         ];
         // Obtener el registro correspondiente en la tabla AuditoriaMarcada si existe
-        $encabezadoAuditoriaCorte = EncabezadoAuditoriaCorte::where('dato_ax_id', $id)->first();
-        $auditoriaMarcada = AuditoriaMarcada::where('dato_ax_id', $id)->first();
-        $auditoriaTendido = AuditoriaTendido::where('dato_ax_id', $id)->first();
-        $Lectra = Lectra::where('dato_ax_id', $id)->first();
-        $auditoriaBulto = AuditoriaBulto::where('dato_ax_id', $id)->first();
-        $auditoriaFinal = AuditoriaFinal::where('dato_ax_id', $id)->first();
+        $encabezadoAuditoriaCorte = EncabezadoAuditoriaCorte::where('orden_id', $orden)->first();
+        $auditoriaMarcada = AuditoriaMarcada::where('id', $id)->first();
+        $auditoriaTendido = AuditoriaTendido::where('orden_id', $orden)->first();
+        $Lectra = Lectra::where('orden_id', $orden)->first();
+        $auditoriaBulto = AuditoriaBulto::where('orden_id', $orden)->first();
+        $auditoriaFinal = AuditoriaFinal::where('orden_id', $orden)->first();
 
         // Determina si mostrar el botón "Finalizar" para cada formulario
         $mostrarFinalizarMarcada = $auditoriaMarcada ? session('estatus_checked_AuditoriaMarcada') : false;
@@ -180,6 +182,8 @@ class AuditoriaCorteController extends Controller
         // Validar los datos del formulario si es necesario
         // Obtener el ID seleccionado desde el formulario
         $idSeleccionado = $request->input('id');
+        $idAuditoriaMarcada = $request->input('idAuditoriaMarcada');
+        //dd($idSeleccionado, $idAuditoriaMarcada);
         $orden = $request->input('orden');
         $accion = $request->input('accion'); // Obtener el valor del campo 'accion'
         // Verificar la acción y actualizar el campo 'estatus' solo si se hizo clic en el botón "Finalizar"
@@ -200,7 +204,7 @@ class AuditoriaCorteController extends Controller
 
         $request->session()->put('estatus_checked_AuditoriaMarcada', $allChecked);
         // Verificar si ya existe un registro con el mismo valor de orden_id
-        $existeOrden = AuditoriaMarcada::where('orden_id', $orden)->first();
+        $existeOrden = AuditoriaMarcada::where('id', $idAuditoriaMarcada)->first();
 
         // Si ya existe un registro con el mismo valor de orden_id, puedes mostrar un mensaje de error o tomar alguna otra acción
         if ($existeOrden) {
