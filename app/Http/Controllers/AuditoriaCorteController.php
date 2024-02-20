@@ -90,9 +90,18 @@ class AuditoriaCorteController extends Controller
         $Lectra = Lectra::where('orden_id', $orden)->first();
         $auditoriaBulto = AuditoriaBulto::where('orden_id', $orden)->first();
         $auditoriaFinal = AuditoriaFinal::where('orden_id', $orden)->first();
+        // apartado para validar los checbox
 
-        // Determina si mostrar el botón "Finalizar" para cada formulario
         $mostrarFinalizarMarcada = $auditoriaMarcada ? session('estatus_checked_AuditoriaMarcada') : false;
+        
+        // Verifica si los campos específicos son NULL
+        if (is_null($auditoriaMarcada->yarda_orden_estatus) &&
+            is_null($auditoriaMarcada->yarda_marcada_estatus) &&
+            is_null($auditoriaMarcada->yarda_tendido_estatus)) {
+            $mostrarFinalizarMarcada = false;
+        }
+        
+        //dd($auditoriaMarcada, $mostrarFinalizarMarcada);
         $mostrarFinalizarTendido = $auditoriaTendido ? session('estatus_checked_AuditoriaTendido') : false;
         $mostrarFinalizarLectra = $Lectra ? session('estatus_checked_Lectra') : false;
         $mostrarFinalizarBulto = $auditoriaBulto ? session('estatus_checked_AuditoriaBulto') : false;

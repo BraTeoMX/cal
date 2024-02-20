@@ -42,117 +42,137 @@
                 </div>
                 <div class="card-body">
                     <!--Desde aqui inicia la edicion del codigo para mostrar el contenido-->
-                    <div>
-                        {{-- Inicio de Acordeon --}}
-                        <div class="accordion" id="accordionExample1">
-                            <div class="card">
-                                <div class="card-header" id="headingOne">
-                                    <h2 class="mb-0">
-                                        <button class="btn btn-danger btn-block" type="button" data-toggle="collapse"
-                                            data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                            ESTATUS: NO INICIADO
-                                        </button>
-                                    </h2>
-                                </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            {{-- Inicio de Acordeon --}}
+                            <div class="accordion" id="accordionExample1">
+                                <div class="card">
+                                    <div class="card-header" id="headingOne">
+                                        <h2 class="mb-0">
+                                            <button class="btn btn-danger btn-block" type="button" data-toggle="collapse"
+                                                data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                                ESTATUS: NO INICIADO
+                                            </button>
+                                        </h2>
+                                    </div>
 
-                                <div id="collapseOne" class="collapse show" aria-labelledby="headingOne"
-                                    data-parent="#accordionExample">
-                                    <div class="card-body">
-                                        <!-- Desde aquí inicia la edición del código para mostrar el contenido -->
-                                        <div class="table-responsive" data-filter="false">
-                                            <table class="table">
-                                                <thead>
-                                                    <tr>
-                                                        <th>iniciar</th>
-                                                        <th>Orden</th>
-                                                        <th>Estilo</th>
-                                                        <th>Cliente</th>
-                                                        <th>Material</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    @foreach ($DatoAXNoIniciado as $inicio)
+                                    <div id="collapseOne" class="collapse show" aria-labelledby="headingOne"
+                                        data-parent="#accordionExample">
+                                        <div class="card-body">
+                                            <input type="text" id="searchInput" class="form-control" placeholder="Buscar por Orden">
+                                            <br>
+                                            <!-- Desde aquí inicia la edición del código para mostrar el contenido -->
+                                            <div class="table-responsive" data-filter="false">
+                                                <table class="table">
+                                                    <thead>
                                                         <tr>
-                                                            <td><a href="{{ route('auditoriaCorte.auditoriaCorte', ['id' => $inicio->id, 'orden' => $inicio->op]) }}" class="btn btn-info">Acceder</a></td>
-                                                            <td>{{ $inicio->op }}</td>
-                                                            <td>{{ $inicio->estilo }}</td>
-                                                            <td>{{ $inicio->planta }}</td>
-                                                            <td>{{ $inicio->temporada }}</td>
+                                                            <th>iniciar</th>
+                                                            <th>Orden</th>
+                                                            <th>Estilo</th>
                                                         </tr>
-                                                    @endforeach
-                                                </tbody>
-                                            </table>
+                                                    </thead>
+                                                    <tbody id="tablaBody">
+                                                        @foreach ($DatoAXNoIniciado as $inicio)
+                                                            <tr>
+                                                                <td><a href="{{ route('auditoriaCorte.auditoriaCorte', ['id' => $inicio->id, 'orden' => $inicio->op]) }}"
+                                                                        class="btn btn-info">Acceder</a></td>
+                                                                <td>{{ $inicio->op }}</td>
+                                                                <td>{{ $inicio->estilo }}</td>
+                                                            </tr>
+                                                        @endforeach
+                                                    </tbody>
+                                                </table>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
+                            <!-- Fin del acordeón -->
                         </div>
-                        <!-- Fin del acordeón -->
-                    </div>
-                    <div>
-                        {{-- Inicio de Acordeon --}}
-                        <div class="accordion" id="accordionExample2">
-                            <div class="card">
-                                <div class="card-header" id="headingOne2">
-                                    <h2 class="mb-0">
-                                        <button class="btn btn-warning btn-block" type="button" data-toggle="collapse"
-                                            data-target="#collapseOne2" aria-expanded="true" aria-controls="collapseOne2">
-                                            ESTATUS: EN PROCESO
-                                        </button>
-                                    </h2>
-                                </div>
+                        <div class="col-md-6">
+                            {{-- Inicio de Acordeon --}}
+                            <div class="accordion" id="accordionExample2">
+                                <div class="card">
+                                    <div class="card-header" id="headingOne2">
+                                        <h2 class="mb-0">
+                                            <button class="btn btn-warning btn-block" type="button" data-toggle="collapse"
+                                                data-target="#collapseOne2" aria-expanded="true"
+                                                aria-controls="collapseOne2">
+                                                ESTATUS: EN PROCESO
+                                            </button>
+                                        </h2>
+                                    </div>
 
-                                <div id="collapseOne2" class="collapse show" aria-labelledby="headingOne2"
-                                    data-parent="#accordionExample2">
-                                    <div class="card-body">
-                                        <!-- Desde aquí inicia la edición del código para mostrar el contenido -->
-                                        <div class="accordion" id="accordionExample">
-                                            @foreach ($DatoAXProceso as $proceso)
-                                            <div class="card">
-                                                <div class="card-header" id="heading{{ $proceso->op }}">
-                                                    <h2 class="mb-0">
-                                                        <button class="btn btn-warning btn-block" type="button" data-toggle="collapse" data-target="#collapse{{ $proceso->op }}" aria-expanded="true" aria-controls="collapse{{ $proceso->op }}">
-                                                            {{ $proceso->op }}
-                                                        </button>
-                                                    </h2>
-                                                </div>
-                                        
-                                                <div id="collapse{{ $proceso->op }}" class="collapse" aria-labelledby="heading{{ $proceso->op }}" data-parent="#accordionExample">
-                                                    <div class="card-body">
-                                                        <table class="table">
-                                                            <thead>
-                                                                <tr>
-                                                                    <th>Acceso</th>
-                                                                    <th>Evento</th>
-                                                                    <th>Orden</th>
-                                                                    <th>Estilo</th>
-                                                                    <th>Cliente</th>
-                                                                    <th>Material</th>
-                                                                </tr>
-                                                            </thead>
-                                                            <tbody>
-                                                                @foreach ($proceso->auditoriasMarcadas as $auditoriaMarcada)
-                                                                    <tr>
-                                                                        <td><a href="{{ route('auditoriaCorte.auditoriaCorte', ['id' => $auditoriaMarcada->id, 'orden' => $auditoriaMarcada->orden_id]) }}" class="btn btn-info">Acceder</a></td>
-                                                                        <td>{{ $auditoriaMarcada->evento }}</td>
-                                                                        <td>{{ $auditoriaMarcada->orden_id }}</td>
-                                                                        <td>{{ $proceso->estilo }}</td>
-                                                                        <td>{{ $proceso->cliente }}</td>
-                                                                        <td>{{ $proceso->material }}</td>
-                                                                    </tr>
-                                                                @endforeach
-                                                            </tbody>
-                                                        </table>
+                                    <div id="collapseOne2" class="collapse show" aria-labelledby="headingOne2"
+                                        data-parent="#accordionExample2">
+                                        <div class="card-body">
+                                            <input type="text" id="searchInputAcordeon" class="form-control" placeholder="Buscar por Proceso">
+                                            <!-- Desde aquí inicia la edición del código para mostrar el contenido -->
+                                            <div class="accordion" id="accordionExample">
+                                                @foreach ($DatoAXProceso as $proceso)
+                                                    <div class="card proceso-card" data-proceso="{{ $proceso->op }}">
+                                                        <div class="card-header" id="heading{{ $proceso->op }}">
+                                                            <h2 class="mb-0">
+                                                                <button class="btn btn-warning btn-block" type="button" data-toggle="collapse"
+                                                                    data-target="#collapse{{ $proceso->op }}" aria-expanded="true"
+                                                                    aria-controls="collapse{{ $proceso->op }}">
+                                                                    {{ $proceso->op }}
+                                                                </button>
+                                                            </h2>
+                                                        </div>
+                                            
+                                                        <div id="collapse{{ $proceso->op }}" class="collapse" aria-labelledby="heading{{ $proceso->op }}"
+                                                            data-parent="#accordionExample">
+                                                            <div class="card-body">
+                                                                <table class="table">
+                                                                    <thead>
+                                                                        <tr>
+                                                                            <th>Acceso</th>
+                                                                            <th>Evento</th>
+                                                                            <th>Estilo</th>
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody>
+                                                                        @foreach ($proceso->auditoriasMarcadas as $auditoriaMarcada)
+                                                                        <tr>
+                                                                            <td><a href="{{ route('auditoriaCorte.auditoriaCorte', ['id' => $auditoriaMarcada->id, 'orden' => $auditoriaMarcada->orden_id]) }}"
+                                                                                    class="btn btn-info">Acceder</a></td>
+                                                                            <td>{{ $auditoriaMarcada->evento }}</td>
+                                                                            <td>{{ $proceso->estilo }}</td>
+                                                                        </tr>
+                                                                        @endforeach
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+                                                        </div>
                                                     </div>
-                                                </div>
+                                                @endforeach
                                             </div>
-                                            @endforeach
-                                        </div>                                        
-                                    <!--Fin del cuerpo del acordeon-->
+                                            <!--Fin del cuerpo del acordeon-->
+                                        </div>
+                                        <script>
+                                            document.addEventListener("DOMContentLoaded", function() {
+                                                const searchInput = document.getElementById('searchInputAcordeon');
+                                                const procesoCards = document.querySelectorAll('.proceso-card');
+                                        
+                                                searchInput.addEventListener('input', function () {
+                                                    const busqueda = this.value.trim().toLowerCase();
+                                                    procesoCards.forEach(card => {
+                                                        const proceso = card.getAttribute('data-proceso').toLowerCase();
+                                                        if (proceso.includes(busqueda)) {
+                                                            card.style.display = 'block'; // Mostrar el acordeón
+                                                        } else {
+                                                            card.style.display = 'none'; // Ocultar el acordeón
+                                                        }
+                                                    });
+                                                });
+                                            });
+                                        </script>
+                                    </div>
                                 </div>
+                                <!-- Fin del acordeón -->
                             </div>
                         </div>
-                        <!-- Fin del acordeón -->
                     </div>
                     <div>
                         {{-- Inicio de Acordeon --}}
@@ -179,15 +199,14 @@
                                                         <th>Orden</th>
                                                         <th>Estilo</th>
                                                         <th>Planta</th>
-                                                        <th>Temporada</th>
-
                                                     </tr>
                                                 </thead>
                                                 <tbody>
                                                     @foreach ($DatoAXFin as $fin)
                                                         <tr>
-                                                            <td><a href="{{ route('auditoriaCorte.auditoriaCorte', ['id' => $fin->id, 'orden' => $fin->op]) }}" class="btn btn-info">Acceder</a></td>
-                                                            <td>{{ $fin->op}} </td>
+                                                            <td><a href="{{ route('auditoriaCorte.auditoriaCorte', ['id' => $fin->id, 'orden' => $fin->op]) }}"
+                                                                    class="btn btn-info">Acceder</a></td>
+                                                            <td>{{ $fin->op }} </td>
                                                             <td>{{ $fin->estilo }}</td>
                                                             <td>{{ $fin->planta }}</td>
                                                             <td>{{ $fin->temporada }}</td>
@@ -206,5 +225,22 @@
                 </div>
             </div>
         </div>
+        <script>
+            const searchInput = document.getElementById('searchInput');
+            const tablaBody = document.getElementById('tablaBody');
+            const filas = tablaBody.getElementsByTagName('tr');
+        
+            searchInput.addEventListener('input', function () {
+                const busqueda = this.value.toLowerCase();
+                for (const fila of filas) {
+                    const orden = fila.getElementsByTagName('td')[1].innerText.toLowerCase();
+                    if (orden.includes(busqueda)) {
+                        fila.style.display = '';
+                    } else {
+                        fila.style.display = 'none';
+                    }
+                }
+            });
+        </script>
     </div>
 @endsection
