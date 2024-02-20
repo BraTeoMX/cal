@@ -176,22 +176,21 @@
                                                 <thead>
                                                     <tr>
                                                         <th>iniciar</th>
-                                                        <th>Evento</th>
                                                         <th>Orden</th>
                                                         <th>Estilo</th>
-                                                        <th>Cliente</th>
-                                                        <th>Material</th>
+                                                        <th>Planta</th>
+                                                        <th>Temporada</th>
+
                                                     </tr>
                                                 </thead>
                                                 <tbody>
                                                     @foreach ($DatoAXFin as $fin)
                                                         <tr>
                                                             <td><a href="{{ route('auditoriaCorte.auditoriaCorte', ['id' => $fin->id, 'orden' => $fin->op]) }}" class="btn btn-info">Acceder</a></td>
-                                                            <td>{{ $fin->evento}} </td>
-                                                            <td>{{ $fin->orden }}</td>
+                                                            <td>{{ $fin->op}} </td>
                                                             <td>{{ $fin->estilo }}</td>
-                                                            <td>{{ $fin->cliente }}</td>
-                                                            <td>{{ $fin->material }}</td>
+                                                            <td>{{ $fin->planta }}</td>
+                                                            <td>{{ $fin->temporada }}</td>
                                                         </tr>
                                                     @endforeach
                                                 </tbody>

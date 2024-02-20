@@ -163,9 +163,15 @@ class AuditoriaCorteController extends Controller
             $auditoriaMarcada->estatus = "proceso";
             $auditoriaMarcada->evento = $i+1;
             // Otros campos que necesites para cada registro...
+            
             $auditoriaMarcada->save();
+            if ($i === 0) {
+                $idEvento1 = $auditoriaMarcada->id;
+            }
         }
-        return back()->with('success', 'Datos guardados correctamente.')->with('activePage', $activePage);
+        dd($idEvento1);
+
+        return redirect()->route('auditoriaCorte.auditoriaCorte', ['id' => $idEvento1, 'orden' => $orden])->with('success', 'Datos guardados correctamente.')->with('activePage', $activePage);
     }
 
     
@@ -189,6 +195,10 @@ class AuditoriaCorteController extends Controller
             // Actualizar el valor de la columna deseada
             $auditoria->estatus = 'estatusAuditoriaTendido';
             $auditoria->save();
+            $auditoriaMarcadaEstatus = AuditoriaMarcada::where('id', $idAuditoriaMarcada)->first();
+            $auditoriaMarcadaEstatus->estatus = 'estatusAuditoriaTendido';
+            // Asegúrate de llamar a save() en la variable actualizada
+            $auditoriaMarcadaEstatus->save();
             return back()->with('cambio-estatus', 'Se Cambio a estatus: AUDITORIA DE TENDIDO.')->with('activePage', $activePage);
         }
 
@@ -245,51 +255,6 @@ class AuditoriaCorteController extends Controller
             return back()->with('sobre-escribir', 'Actualilzacion realizada con exito');
         }
 
-        // Realizar la actualización en la base de datos usando el modelo AuditoriaMarcada
-        $auditoria = new AuditoriaMarcada(); // Crear una nueva instancia del modelo
-        $auditoria->dato_ax_id = $idSeleccionado; // Asignar el ID obtenido desde la vista
-        $auditoria->orden_id = $orden; // Aquí asumiendo que la columna en la tabla auditoria_marcadas se llama "orden_id"
-        $auditoria->estatus = "proceso";
-        $auditoria->yarda_orden = $request->input('yarda_orden');
-        $auditoria->yarda_orden_estatus = $request->input('yarda_orden_estatus');
-        $auditoria->yarda_marcada = $request->input('yarda_marcada');
-        $auditoria->yarda_marcada_estatus = $request->input('yarda_marcada_estatus');
-        $auditoria->yarda_tendido = $request->input('yarda_tendido');
-        $auditoria->yarda_tendido_estatus = $request->input('yarda_tendido_estatus');
-        $auditoria->talla1 = $request->input('talla1');
-        $auditoria->talla2 = $request->input('talla2');
-        $auditoria->talla3 = $request->input('talla3');
-        $auditoria->talla4 = $request->input('talla4');
-        $auditoria->talla5 = $request->input('talla5');
-        $auditoria->talla6 = $request->input('talla6');
-        $auditoria->talla7 = $request->input('talla7');
-        $auditoria->talla8 = $request->input('talla8');
-        $auditoria->talla9 = $request->input('talla9');
-        $auditoria->talla10 = $request->input('talla10');
-        $auditoria->bulto1 = $request->input('bulto1');
-        $auditoria->bulto2 = $request->input('bulto2');
-        $auditoria->bulto3 = $request->input('bulto3');
-        $auditoria->bulto4 = $request->input('bulto4');
-        $auditoria->bulto5 = $request->input('bulto5');
-        $auditoria->bulto6 = $request->input('bulto6');
-        $auditoria->bulto7 = $request->input('bulto7');
-        $auditoria->bulto8 = $request->input('bulto8');
-        $auditoria->bulto9 = $request->input('bulto9');
-        $auditoria->bulto10 = $request->input('bulto10');
-        $auditoria->total_pieza1 = $request->input('total_pieza1');
-        $auditoria->total_pieza2 = $request->input('total_pieza2');
-        $auditoria->total_pieza3 = $request->input('total_pieza3');
-        $auditoria->total_pieza4 = $request->input('total_pieza4');
-        $auditoria->total_pieza5 = $request->input('total_pieza5');
-        $auditoria->total_pieza6 = $request->input('total_pieza6');
-        $auditoria->total_pieza7 = $request->input('total_pieza7');
-        $auditoria->total_pieza8 = $request->input('total_pieza8');
-        $auditoria->total_pieza9 = $request->input('total_pieza9');
-        $auditoria->total_pieza10 = $request->input('total_pieza10');
-        $auditoria->largo_trazo =  $request->input('largo_trazo');
-        $auditoria->ancho_trazo = $request->input('ancho_trazo');
-        
-        $auditoria->save();
         return back()->with('success', 'Datos guardados correctamente.')->with('activePage', $activePage);
     }
 

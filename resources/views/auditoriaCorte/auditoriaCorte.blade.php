@@ -207,7 +207,7 @@
                                 {{-- Inicio cuerpo acordeon --}}
                                 @if($datoAX->estatus == '' || $datoAX->estatus == NULL)
                                     <p> - </p>
-                                @elseif ($datoAX->estatus == 'estatusAuditoriaMarcada') 
+                                @elseif ($datoAX->estatus == 'estatusAuditoriaMarcada' || $auditoriaMarcada->estatus == 'proceso') 
                                 <form method="POST"
                                     action="{{ route('auditoriaCorte.formAuditoriaMarcada', ['id' => $datoAX->id]) }}">
                                     @csrf
@@ -465,7 +465,7 @@
                                     </div>
                                 </form>
                                 {{-- Fin cuerpo acordeon --}}
-                                @elseif($datoAX->estatus == 'estatusAuditoriaTendido')
+                                @elseif($datoAX->estatus == 'estatusAuditoriaTendido' && $auditoriaMarcada->estatus == 'estatusAuditoriaTendido')
                                 <div class="row">
                                     <div class="col-md-6 mb-3">
                                         <label for="yarda_orden" class="col-sm-6 col-form-label">Yardas en la
@@ -634,7 +634,7 @@
                         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
                             <div class="card-body">
                                 {{-- Inicio cuerpo acordeon --}}
-                                @if ($datoAX->estatus == 'estatusAuditoriaTendido')
+                                @if ($datoAX->estatus == 'estatusAuditoriaTendido' && $auditoriaMarcada->estatus == 'estatusAuditoriaTendido')
                                 <form method="POST"
                                     action="{{ route('auditoriaCorte.formAuditoriaTendido', ['id' => $datoAX->id]) }}"> 
                                     @csrf
@@ -1663,6 +1663,7 @@
         <script>
             // Obtenemos el valor del estatus desde el HTML generado por PHP en Laravel
             var estatus = "{{ $datoAX->estatus }}";
+            var estatusAuditoriaMarcadaEvento = "{{ $auditoriaMarcada->estatus }}"
             const estatusTextos = {
                 'estatusAuditoriaMarcada': 'Auditoria de Marcada',
                 'estatusAuditoriaTendido': 'Auditoria de Tendido',
@@ -1689,10 +1690,17 @@
                         break;
                     case "estatusAuditoriaTendido":
                         // Abre el acordeón 2
-                        document.getElementById("collapseTwo").classList.add("show");
-                        document.getElementById("btnTwo").classList.remove("btn-info");
-                        document.getElementById("btnTwo").classList.add("btn-primary");
-                        break;
+                        if (estatusAuditoriaMarcadaEvento === "estatusAuditoriaTendido") {
+                            // Abre el acordeón 2
+                            document.getElementById("collapseTwo").classList.add("show");
+                            document.getElementById("btnTwo").classList.remove("btn-info");
+                            document.getElementById("btnTwo").classList.add("btn-primary");
+                        } else {
+                            document.getElementById("collapseOne").classList.add("show");
+                            document.getElementById("btnOne").classList.remove("btn-info");
+                            document.getElementById("btnOne").classList.add("btn-primary");
+                        }
+                    break;
                     case "estatusLectra":
                         // Abre el acordeón 3
                         document.getElementById("collapseThree").classList.add("show");
