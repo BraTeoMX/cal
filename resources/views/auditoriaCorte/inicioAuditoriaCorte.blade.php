@@ -73,11 +73,11 @@
                                                 <tbody>
                                                     @foreach ($DatoAXNoIniciado as $inicio)
                                                         <tr>
-                                                            <td><a href="{{ route('auditoriaCorte.auditoriaCorte', ['id' => $inicio->id, 'orden' => $inicio->orden]) }}" class="btn btn-info">Acceder</a></td>
-                                                            <td>{{ $inicio->orden }}</td>
+                                                            <td><a href="{{ route('auditoriaCorte.auditoriaCorte', ['id' => $inicio->id, 'orden' => $inicio->op]) }}" class="btn btn-info">Acceder</a></td>
+                                                            <td>{{ $inicio->op }}</td>
                                                             <td>{{ $inicio->estilo }}</td>
-                                                            <td>{{ $inicio->cliente }}</td>
-                                                            <td>{{ $inicio->material }}</td>
+                                                            <td>{{ $inicio->planta }}</td>
+                                                            <td>{{ $inicio->temporada }}</td>
                                                         </tr>
                                                     @endforeach
                                                 </tbody>
@@ -109,15 +109,15 @@
                                         <div class="accordion" id="accordionExample">
                                             @foreach ($DatoAXProceso as $proceso)
                                             <div class="card">
-                                                <div class="card-header" id="heading{{ $proceso->orden }}">
+                                                <div class="card-header" id="heading{{ $proceso->op }}">
                                                     <h2 class="mb-0">
-                                                        <button class="btn btn-warning btn-block" type="button" data-toggle="collapse" data-target="#collapse{{ $proceso->orden }}" aria-expanded="true" aria-controls="collapse{{ $proceso->orden }}">
-                                                            {{ $proceso->orden }}
+                                                        <button class="btn btn-warning btn-block" type="button" data-toggle="collapse" data-target="#collapse{{ $proceso->op }}" aria-expanded="true" aria-controls="collapse{{ $proceso->op }}">
+                                                            {{ $proceso->op }}
                                                         </button>
                                                     </h2>
                                                 </div>
                                         
-                                                <div id="collapse{{ $proceso->orden }}" class="collapse" aria-labelledby="heading{{ $proceso->orden }}" data-parent="#accordionExample">
+                                                <div id="collapse{{ $proceso->op }}" class="collapse" aria-labelledby="heading{{ $proceso->op }}" data-parent="#accordionExample">
                                                     <div class="card-body">
                                                         <table class="table">
                                                             <thead>
@@ -186,7 +186,7 @@
                                                 <tbody>
                                                     @foreach ($DatoAXFin as $fin)
                                                         <tr>
-                                                            <td><a href="{{ route('auditoriaCorte.auditoriaCorte', ['id' => $fin->id, 'orden' => $fin->orden]) }}" class="btn btn-info">Acceder</a></td>
+                                                            <td><a href="{{ route('auditoriaCorte.auditoriaCorte', ['id' => $fin->id, 'orden' => $fin->op]) }}" class="btn btn-info">Acceder</a></td>
                                                             <td>{{ $fin->evento}} </td>
                                                             <td>{{ $fin->orden }}</td>
                                                             <td>{{ $fin->estilo }}</td>

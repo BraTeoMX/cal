@@ -78,7 +78,7 @@ class AuditoriaCorteController extends Controller
         $activePage ='';
         $categorias = $this->cargarCategorias();
         // Obtener el dato con el id seleccionado y el valor de la columna "orden"
-        $datoAX = DatoAX::select('id','estatus', 'orden', 'cliente', 'estilo', 'material', 'evento')->where('orden', $orden)->first();
+        $datoAX = DatoAX::where('op', $orden)->first();
         //dd($datoAX);
         $mesesEnEspanol = [
             'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'
@@ -120,14 +120,6 @@ class AuditoriaCorteController extends Controller
     {
         $activePage ='';
         // Validar los datos del formulario si es necesario
-        //dd($request->all());
-        $request->validate([
-            'color' => 'required',
-            'pieza' => 'required|numeric',
-            'trazo' => 'required|numeric',
-            'lienzo' => 'required',
-        ]);
-        //dd($request->all());
         $activePage ='';
         // Validar los datos del formulario si es necesario
         // Obtener el ID seleccionado desde el formulario
@@ -143,6 +135,8 @@ class AuditoriaCorteController extends Controller
         $auditoria= new EncabezadoAuditoriaCorte();
         $auditoria->dato_ax_id = $idSeleccionado;
         $auditoria->orden_id = $orden;
+        $auditoria->cliente = $request->input('cliente');
+        $auditoria->material = $request->input('material');
         $auditoria->color = $request->input('color');
         $auditoria->pieza = $request->input('pieza');
         $auditoria->trazo = $request->input('trazo');

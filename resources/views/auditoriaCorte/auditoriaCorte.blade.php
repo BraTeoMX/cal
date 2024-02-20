@@ -80,19 +80,22 @@
                 @if ($datoAX->estatus == 'estatusAuditoriaMarcada' || $datoAX->estatus == 'estatusAuditoriaTendido' || $datoAX->estatus == 'estatusLectra' || $datoAX->estatus == 'estatusAuditoriaBulto' || $datoAX->estatus == 'estatusAuditoriaFinal' || $datoAX->estatus == 'fin')
                 <div class="row">
                     <div class="col-lg-3 col-md-4 col-sm-6 col-12">
-                        <h4>Orden: {{ $datoAX->orden }}</h4>
-                    </div>
-                    <div class="col-lg-3 col-md-4 col-sm-6 col-12">
-                        <h4>Cliente: {{ $datoAX->cliente }}</h4>
+                        <h4>Orden: {{ $datoAX->op }}</h4>
                     </div>
                     <div class="col-lg-3 col-md-4 col-sm-6 col-12">
                         <h4>Estilo: {{ $datoAX->estilo }}</h4>
                     </div>
                     <div class="col-lg-3 col-md-4 col-sm-6 col-12">
-                        <h4>Material: {{ $datoAX->material }}</h4>
+                        <h4>Planta: {{ $datoAX->planta }}</h4>
                     </div>
                     <div class="col-lg-3 col-md-4 col-sm-6 col-12">
-                        <h4>Color: {{ isset($encabezadoAuditoriaCorte) ? $encabezadoAuditoriaCorte->color : '' }}</h4>
+                        <h4>Temporada: {{ $datoAX->temporada }}</h4>
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-sm-6 col-12">
+                        <h4>Cliente: {{ isset($encabezadoAuditoriaCorte) ? $encabezadoAuditoriaCorte->cliente : '' }}</h4>
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-sm-6 col-12">
+                        <h4>Material: {{ isset($encabezadoAuditoriaCorte) ? $encabezadoAuditoriaCorte->material : '' }}</h4>
                     </div>
                     <div class="col-lg-3 col-md-4 col-sm-6 col-12">
                         <h4>Color: {{ isset($encabezadoAuditoriaCorte) ? $encabezadoAuditoriaCorte->pieza : '' }}</h4>
@@ -107,34 +110,48 @@
                 @else
                 <div class="row">
                     <div class="col-lg-3 col-md-4 col-sm-6 col-12">
-                        <h4>Orden: {{ $datoAX->orden }}</h4>
+                        <h4>Orden: {{ $datoAX->op }}</h4>
                     </div>
                     <div class="col-lg-3 col-md-4 col-sm-6 col-12">
-                        <h4>Cliente: {{ $datoAX->cliente }}</h4>
+                        <h4>Estlo: {{ $datoAX->estilo }}</h4>
                     </div>
                     <div class="col-lg-3 col-md-4 col-sm-6 col-12">
-                        <h4>Estilo: {{ $datoAX->estilo }}</h4>
+                        <h4>Planta: {{ $datoAX->planta }}</h4>
                     </div>
                     <div class="col-lg-3 col-md-4 col-sm-6 col-12">
-                        <h4>Material: {{ $datoAX->material }}</h4>
+                        <h4>Temporada: {{ $datoAX->temporada }}</h4>
                     </div>
                 </div>
                 <form method="POST" action="{{ route('auditoriaCorte.formEncabezadoAuditoriaCorte') }}">
                     @csrf
                     <input type="hidden" name="id" value="{{ $datoAX->id }}">
-                    <input type="hidden" name="orden" value="{{ $datoAX->orden }}">
+                    <input type="hidden" name="orden" value="{{ $datoAX->op }}">
                     <!-- Desde aquí inicia la edición del código para mostrar el contenido -->
                     <div class="row">
                         <div class="col-lg-3 col-md-6 col-sm-6 col-12 mb-3">
-                            <label for="color" class="col-sm-6 col-form-label">COLOR</label>
+                            <label for="cliente" class="col-sm-6 col-form-label">Cliente</label>
                             <div class="col-sm-12 d-flex align-items-center">
-                                <select name="color" id="color" class="form-control"
+                                <select name="cliente" id="cliente" class="form-control"
                                     title="Por favor, selecciona una opción" required>
                                     <option value="">Selecciona una opción</option>
-                                    @foreach ($CategoriaColor as $color)
-                                        <option value="{{ $color->nombre }}">{{ $color->nombre }}</option>
+                                    @foreach ($CategoriaCliente as $cliente)
+                                        <option value="{{ $cliente->nombre }}">{{ $cliente->nombre }}</option>
                                     @endforeach
                                 </select>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-6 col-sm-6 col-12 mb-3">
+                            <label for="material" class="col-sm-6 col-form-label">Material</label>
+                            <div class="col-sm-12">
+                                <input type="text" class="form-control" name="material" id="material"
+                                    placeholder="nombre del material" required/>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-6 col-sm-6 col-12 mb-3">
+                            <label for="color" class="col-sm-6 col-form-label">Color</label>
+                            <div class="col-sm-12">
+                                <input type="text" class="form-control" name="color" id="color"
+                                    placeholder="codigo del color" required/>
                             </div>
                         </div>
                         <div class="col-lg-3 col-md-6 col-sm-6 col-12 mb-3">
@@ -159,7 +176,7 @@
                             </div>
                         </div>
                         <div class="col-lg-3 col-md-6 col-sm-6 col-12 mb-3">
-                            <label for="evento" class="col-sm-6 col-form-label">CANTIDAD EVENTOS</label>
+                            <label for="evento" class="col-sm-9 col-form-label">CANTIDAD EVENTOS</label>
                             <div class="col-sm-12">
                                 <select class="form-control" name="evento" id="evento" required>
                                     @for ($i = 1; $i <= 10; $i++)
