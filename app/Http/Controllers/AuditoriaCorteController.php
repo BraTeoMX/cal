@@ -86,16 +86,16 @@ class AuditoriaCorteController extends Controller
         // Obtener el registro correspondiente en la tabla AuditoriaMarcada si existe
         $encabezadoAuditoriaCorte = EncabezadoAuditoriaCorte::where('orden_id', $orden)->first();
         $auditoriaMarcada = AuditoriaMarcada::where('id', $id)->first();
-        $auditoriaTendido = AuditoriaTendido::where('orden_id', $orden)->first();
-        $Lectra = Lectra::where('orden_id', $orden)->first();
-        $auditoriaBulto = AuditoriaBulto::where('orden_id', $orden)->first();
-        $auditoriaFinal = AuditoriaFinal::where('orden_id', $orden)->first();
+        $auditoriaTendido = AuditoriaTendido::where('id', $id)->first();
+        $Lectra = Lectra::where('id', $id)->first();
+        $auditoriaBulto = AuditoriaBulto::where('id', $id)->first();
+        $auditoriaFinal = AuditoriaFinal::where('id', $id)->first();
         // apartado para validar los checbox
 
         $mostrarFinalizarMarcada = $auditoriaMarcada ? session('estatus_checked_AuditoriaMarcada') : false;
         
         // Verifica si los campos específicos son NULL
-        if (is_null($auditoriaMarcada->yarda_orden_estatus) &&
+        if ($auditoriaMarcada && is_null($auditoriaMarcada->yarda_orden_estatus) &&
             is_null($auditoriaMarcada->yarda_marcada_estatus) &&
             is_null($auditoriaMarcada->yarda_tendido_estatus)) {
             $mostrarFinalizarMarcada = false;
@@ -162,7 +162,6 @@ class AuditoriaCorteController extends Controller
         $datoAX->evento = $request->input('evento');
         $datoAX->save();
 
-        $datoAX = DatoAX::findOrFail($idSeleccionado);
 
         // Generar múltiples registros en auditoria_marcadas según el valor de evento
         for ($i = 0; $i < $request->input('evento'); $i++) {
@@ -177,8 +176,37 @@ class AuditoriaCorteController extends Controller
             if ($i === 0) {
                 $idEvento1 = $auditoriaMarcada->id;
             }
+
+            $auditoriaTendido = new AuditoriaTendido();
+            $auditoriaTendido->dato_ax_id = $idSeleccionado;
+            $auditoriaTendido->orden_id = $orden;
+            $auditoriaTendido->estatus = "proceso";
+            $auditoriaTendido->evento = $i+1;
+            $auditoriaTendido->save();
+
+            $lectra = new Lectra();
+            $lectra->dato_ax_id = $idSeleccionado;
+            $lectra->orden_id = $orden;
+            $lectra->estatus = "proceso";
+            $lectra->evento = $i+1;
+            $lectra->save();
+
+            $auditoriaBulto = new AuditoriaBulto();
+            $auditoriaBulto->dato_ax_id = $idSeleccionado;
+            $auditoriaBulto->orden_id = $orden;
+            $auditoriaBulto->estatus = "proceso";
+            $auditoriaBulto->evento = $i+1;
+            $auditoriaBulto->save();
+
+            $auditoriaFinal = new AuditoriaFinal();
+            $auditoriaFinal->dato_ax_id = $idSeleccionado;
+            $auditoriaFinal->orden_id = $orden;
+            $auditoriaFinal->estatus = "proceso";
+            $auditoriaFinal->evento = $i+1;
+            $auditoriaFinal->save();
+
         }
-        dd($idEvento1);
+        //dd($idEvento1);
 
         return redirect()->route('auditoriaCorte.auditoriaCorte', ['id' => $idEvento1, 'orden' => $orden])->with('success', 'Datos guardados correctamente.')->with('activePage', $activePage);
     }
@@ -273,6 +301,7 @@ class AuditoriaCorteController extends Controller
         // Validar los datos del formulario si es necesario
         // Obtener el ID seleccionado desde el formulario
         $idSeleccionado = $request->input('id');
+        $idAuditoriaTendido = $request->input('idAuditoriaTendido');
         $orden = $request->input('orden');
         $accion = $request->input('accion'); // Obtener el valor del campo 'accion'
         //dd($accion);
@@ -284,6 +313,11 @@ class AuditoriaCorteController extends Controller
             // Actualizar el valor de la columna deseada
             $auditoria->estatus = 'estatusLectra';
             $auditoria->save();
+
+            $auditoriaTendido = AuditoriaTendido::where('id', $idAuditoriaTendido)->first();
+            $auditoriaTendido->estatus = 'estatusLectra';
+            // Asegúrate de llamar a save() en la variable actualizada
+            $auditoriaTendido->save();
             return back()->with('cambio-estatus', 'Se Cambio a estatus: LECTRA.')->with('activePage', $activePage);
         }
 
@@ -303,7 +337,8 @@ class AuditoriaCorteController extends Controller
 
         $request->session()->put('estatus_checked_AuditoriaTendido', $allChecked);
         // Verificar si ya existe un registro con el mismo valor de orden_id
-        $existeOrden = AuditoriaTendido::where('orden_id', $orden)->first();
+        $existeOrden = AuditoriaTendido::where('id', $idAuditoriaTendido)->first();
+        //dd($existeOrden);
 
         // Si ya existe un registro con el mismo valor de orden_id, puedes mostrar un mensaje de error o tomar alguna otra acción
         if ($existeOrden) {
@@ -340,48 +375,10 @@ class AuditoriaCorteController extends Controller
             //$existeOrden->libera_tendido = $request->input('libera_tendido');
 
             $existeOrden->save();
-            
+            //dd($existeOrden);
             return back()->with('sobre-escribir', 'Actualilzacion realizada con exito');
         }
 
-        // Realizar la actualización en la base de datos usando el modelo AuditoriaTendido
-        $auditoria = new AuditoriaTendido(); // Crear una nueva instancia del modelo
-        $auditoria->dato_ax_id = $idSeleccionado; // Asignar el ID obtenido desde la vista
-        $auditoria->orden_id = $orden; // Aquí asumiendo que la columna en la tabla auditoria_marcadas se llama "orden_id"
-        $auditoria->estatus = "proceso";
-        $auditoria->nombre = $request->input('nombre');
-        $auditoria->mesa = $request->input('mesa');
-        $auditoria->auditor = $request->input('auditor');
-        $auditoria->codigo_material = $request->input('codigo_material');
-        $auditoria->codigo_material_estatus = $request->input('codigo_material_estatus');
-        $auditoria->codigo_color = $request->input('codigo_color');
-        $auditoria->codigo_color_estatus = $request->input('codigo_color_estatus');
-        $auditoria->informacion_trazo = $request->input('informacion_trazo');
-        $auditoria->informacion_trazo_estatus = $request->input('informacion_trazo_estatus');
-        $auditoria->cantidad_lienzo = $request->input('cantidad_lienzo');
-        $auditoria->cantidad_lienzo_estatus = $request->input('cantidad_lienzo_estatus');
-        $auditoria->longitud_tendido = $request->input('longitud_tendido');
-        $auditoria->longitud_tendido_estatus = $request->input('longitud_tendido_estatus');
-        $auditoria->ancho_tendido = $request->input('ancho_tendido');
-        $auditoria->ancho_tendido_estatus = $request->input('ancho_tendido_estatus');
-        $auditoria->material_relajado = $request->input('material_relajado');
-        $auditoria->material_relajado_estatus = $request->input('material_relajado_estatus');
-        $auditoria->empalme = $request->input('empalme');
-        $auditoria->empalme_estatus = $request->input('empalme_estatus');
-        $auditoria->cara_material = $request->input('cara_material');
-        $auditoria->cara_material_estatus = $request->input('cara_material_estatus');
-        $auditoria->tono = $request->input('tono');
-        $auditoria->tono_estatus = $request->input('tono_estatus');
-        $auditoria->alineacion_tendido = $request->input('alineacion_tendido');
-        $auditoria->alineacion_tendido_estatus = $request->input('alineacion_tendido_estatus');
-        $auditoria->arruga_tendido = $request->input('arruga_tendido');
-        $auditoria->arruga_tendido_estatus = $request->input('arruga_tendido_estatus');
-        $auditoria->defecto_material = $request->input('defecto_material');
-        $auditoria->defecto_material_estatus = $request->input('defecto_material_estatus');
-        $auditoria->accion_correctiva = $request->input('accion_correctiva');
-        //$auditoria->libera_tendido = $request->input('libera_tendido');
-        
-        $auditoria->save();
         return back()->with('success', 'Datos guardados correctamente.')->with('activePage', $activePage);
     }
 
@@ -391,6 +388,7 @@ class AuditoriaCorteController extends Controller
         // Validar los datos del formulario si es necesario
         // Obtener el ID seleccionado desde el formulario
         $idSeleccionado = $request->input('id');
+        $idLectra = $request->input('idLectra');
         $orden = $request->input('orden');
         $accion = $request->input('accion'); // Obtener el valor del campo 'accion'
 
@@ -401,6 +399,11 @@ class AuditoriaCorteController extends Controller
             // Actualizar el valor de la columna deseada
             $auditoria->estatus = 'estatusAuditoriaBulto';
             $auditoria->save();
+
+            $lectra = Lectra::where('id', $idLectra)->first();
+            $lectra->estatus = 'estatusAuditoriaBulto';
+            // Asegúrate de llamar a save() en la variable actualizada
+            $lectra->save();
             return back()->with('cambio-estatus', 'Se Cambio a estatus: AUDITORIA EN BULTOS.')->with('activePage', $activePage);
         }
 
@@ -410,7 +413,8 @@ class AuditoriaCorteController extends Controller
 
         $request->session()->put('estatus_checked_Lectra', $allChecked);
         // Verificar si ya existe un registro con el mismo valor de orden_id
-        $existeOrden = Lectra::where('orden_id', $orden)->first();
+        $existeOrden = Lectra::where('id', $idLectra)->first();
+        //dd($existeOrden);
 
         // Si ya existe un registro con el mismo valor de orden_id, puedes mostrar un mensaje de error o tomar alguna otra acción
         if ($existeOrden) {
@@ -433,25 +437,6 @@ class AuditoriaCorteController extends Controller
             return back()->with('sobre-escribir', 'Actualilzacion realizada con exito');
         }
 
-        // Realizar la actualización en la base de datos usando el modelo AuditoriaTendido
-        $auditoria = new Lectra(); // Crear una nueva instancia del modelo
-        $auditoria->dato_ax_id = $idSeleccionado; // Asignar el ID obtenido desde la vista
-        $auditoria->orden_id = $orden; // Aquí asumiendo que la columna en la tabla auditoria_marcadas se llama "orden_id"
-        $auditoria->estatus = "proceso";
-        $auditoria->nombre = $request->input('nombre');
-        $auditoria->mesa = $request->input('mesa');
-        $auditoria->auditor = $request->input('auditor');
-        $auditoria->simetria_pieza = $request->input('simetria_pieza');
-        $auditoria->simetria_pieza_estatus = $request->input('simetria_pieza_estatus');
-        $auditoria->pieza_completa = $request->input('pieza_completa');
-        $auditoria->pieza_completa_estatus = $request->input('pieza_completa_estatus');
-        $auditoria->pieza_contrapatron = $request->input('pieza_contrapatron');
-        $auditoria->pieza_contrapatron_estatus = $request->input('pieza_contrapatron_estatus');
-        $auditoria->pieza_inspeccionada = $request->input('pieza_inspeccionada');
-        $auditoria->defecto = $request->input('defecto');
-        $auditoria->porcentaje = $request->input('porcentaje');
-        
-        $auditoria->save();
         return back()->with('success', 'Datos guardados correctamente.')->with('activePage', $activePage);
     }
 
@@ -461,6 +446,7 @@ class AuditoriaCorteController extends Controller
         // Validar los datos del formulario si es necesario
         // Obtener el ID seleccionado desde el formulario
         $idSeleccionado = $request->input('id');
+        $idBulto = $request->input('idBulto');
         $orden = $request->input('orden');
         $accion = $request->input('accion'); // Obtener el valor del campo 'accion'
         //dd($request->input());
@@ -471,6 +457,11 @@ class AuditoriaCorteController extends Controller
             // Actualizar el valor de la columna deseada
             $auditoria->estatus = 'estatusAuditoriaFinal';
             $auditoria->save();
+
+            $auditoriaBulto = Lectra::where('id', $idBulto)->first();
+            $auditoriaBulto->estatus = 'estatusAuditoriaFinal';
+            // Asegúrate de llamar a save() en la variable actualizada
+            $auditoriaBulto->save();
             return back()->with('cambio-estatus', 'Se Cambio a estatus: AUDITORIA FINAL.')->with('activePage', $activePage);
         }
 
@@ -483,8 +474,8 @@ class AuditoriaCorteController extends Controller
         $request->session()->put('estatus_checked_AuditoriaBulto', $allChecked);
 
         // Verificar si ya existe un registro con el mismo valor de orden_id
-        $existeOrden = AuditoriaBulto::where('orden_id', $orden)->first();
-
+        $existeOrden = AuditoriaBulto::where('id', $idBulto)->first();
+        //dd($existeOrden);
         // Si ya existe un registro con el mismo valor de orden_id, puedes mostrar un mensaje de error o tomar alguna otra acción
         if ($existeOrden) {
             $existeOrden->nombre = $request->input('nombre');
@@ -503,30 +494,10 @@ class AuditoriaCorteController extends Controller
 
         
             $existeOrden->save();
-            
+            //dd($existeOrden);
             return back()->with('sobre-escribir', 'Actualilzacion realizada con exito');
         }
 
-        // Realizar la actualización en la base de datos usando el modelo AuditoriaBulto
-        $auditoria = new AuditoriaBulto(); // Crear una nueva instancia del modelo
-        $auditoria->dato_ax_id = $idSeleccionado; // Asignar el ID obtenido desde la vista
-        $auditoria->orden_id = $orden; // Aquí asumiendo que la columna en la tabla auditoria_marcadas se llama "orden_id"
-        $auditoria->estatus = "proceso";
-        $auditoria->nombre = $request->input('nombre');
-        $auditoria->mesa = $request->input('mesa');
-        $auditoria->auditor = $request->input('auditor');
-        $auditoria->cantidad_bulto = $request->input('cantidad_bulto');
-        $auditoria->cantidad_bulto_estatus = $request->input('cantidad_bulto_estatus');
-        $auditoria->pieza_paquete = $request->input('pieza_paquete');
-        $auditoria->pieza_paquete_estatus = $request->input('pieza_paquete_estatus');
-        $auditoria->ingreso_ticket = $request->input('ingreso_ticket');
-        $auditoria->ingreso_ticket_estatus = $request->input('ingreso_ticket_estatus');
-        $auditoria->sellado_paquete = $request->input('sellado_paquete');
-        $auditoria->sellado_paquete_estatus = $request->input('sellado_paquete_estatus');
-        $auditoria->defecto = $request->input('defecto');
-        $auditoria->porcentaje = $request->input('porcentaje');
-        
-        $auditoria->save();
         return back()->with('success', 'Datos guardados correctamente.')->with('activePage', $activePage);
     }
 
@@ -536,6 +507,7 @@ class AuditoriaCorteController extends Controller
         // Validar los datos del formulario si es necesario
         // Obtener el ID seleccionado desde el formulario
         $idSeleccionado = $request->input('id');
+        $idAuditoriaFinal = $request->input('idAuditoriaFinal');
         $orden = $request->input('orden');
         $accion = $request->input('accion'); // Obtener el valor del campo 'accion'
 
@@ -546,14 +518,18 @@ class AuditoriaCorteController extends Controller
             // Actualizar el valor de la columna deseada
             $auditoria->estatus = 'fin';
             $auditoria->save();
-            return back()->with('cambio-estatus', 'Se Cambio a estatus: AUDITORIA FINAL.')->with('activePage', $activePage);
+            $auditoriaFinal = AuditoriaFinal::where('id', $idAuditoriaFinal)->first();
+            $auditoriaFinal->estatus = 'fin';
+            // Asegúrate de llamar a save() en la variable actualizada
+            $auditoriaFinal->save();
+            return back()->with('cambio-estatus', 'Fin 👋.')->with('activePage', $activePage);
         }
         // Verificar si todos los checkboxes tienen el valor de "1"
         $allChecked = $request->input('estatus') == 1;
         // Guardar el estado del checkbox en la sesión
         $request->session()->put('estatus_checked_AuditoriaFinal', $allChecked);
         // Verificar si ya existe un registro con el mismo valor de orden_id
-        $existeOrden = AuditoriaFinal::where('orden_id', $orden)->first();
+        $existeOrden = AuditoriaFinal::where('id', $idAuditoriaFinal)->first();
 
         // Si ya existe un registro con el mismo valor de orden_id, puedes mostrar un mensaje de error o tomar alguna otra acción
         if ($existeOrden) {
@@ -562,19 +538,11 @@ class AuditoriaCorteController extends Controller
             $existeOrden->estatus = $request->input('estatus');
             
             $existeOrden->save();
+            //dd($existeOrden);
             
             return back()->with('sobre-escribir', 'Actualilzacion realizada con exito');
         }
 
-        // Realizar la actualización en la base de datos usando el modelo AuditoriaFinal
-        $auditoria = new AuditoriaFinal(); // Crear una nueva instancia del modelo
-        $auditoria->dato_ax_id = $idSeleccionado; // Asignar el ID obtenido desde la vista
-        $auditoria->orden_id = $orden; // Aquí asumiendo que la columna en la tabla auditoria_marcadas se llama "orden_id"
-        $auditoria->supervisor_corte = $request->input('supervisor_corte');
-        $auditoria->supervisor_linea = $request->input('supervisor_linea');
-        $auditoria->estatus = $request->input('estatus');
-
-        $auditoria->save();
         return back()->with('success', 'Datos guardados correctamente.')->with('activePage', $activePage);
     }
 

@@ -639,6 +639,7 @@
                                     action="{{ route('auditoriaCorte.formAuditoriaTendido', ['id' => $datoAX->id]) }}"> 
                                     @csrf
                                     <input type="hidden" name="id" value="{{ $datoAX->id }}">
+                                    <input type="hidden" name="idAuditoriaTendido" value="{{ $auditoriaTendido->id }}">
                                     <input type="hidden" name="orden" value="{{ $datoAX->orden }}">
                                     {{-- Campo oculto para el boton Finalizar --}}
                                     <input type="hidden" name="accion" value="">
@@ -1120,6 +1121,7 @@
                                     action="{{ route('auditoriaCorte.formLectra', ['id' => $datoAX->id]) }}">
                                     @csrf
                                     <input type="hidden" name="id" value="{{ $datoAX->id }}">
+                                    <input type="hidden" name="idLectra" value="{{ $Lectra->id }}">
                                     <input type="hidden" name="orden" value="{{ $datoAX->orden }}">
                                     {{-- Campo oculto para el boton Finalizar --}}
                                     <input type="hidden" name="accion" value="">
@@ -1324,6 +1326,7 @@
                                     action="{{ route('auditoriaCorte.formAuditoriaBulto', ['id' => $datoAX->id]) }}">
                                     @csrf
                                     <input type="hidden" name="id" value="{{ $datoAX->id }}">
+                                    <input type="hidden" name="idBulto" value="{{ $auditoriaBulto->id }}">
                                     <input type="hidden" name="orden" value="{{ $datoAX->orden }}">
                                     {{-- Campo oculto para el boton Finalizar --}}
                                     <input type="hidden" name="accion" value="">
@@ -1547,6 +1550,7 @@
                                         action="{{ route('auditoriaCorte.formAuditoriaFinal', ['id' => $datoAX->id]) }}">
                                         @csrf
                                         <input type="hidden" name="id" value="{{ $datoAX->id }}">
+                                        <input type="hidden" name="idAuditoriaFinal" value="{{ $auditoriaFinal->id }}">
                                         <input type="hidden" name="orden" value="{{ $datoAX->orden }}">
                                         {{-- Campo oculto para el boton Finalizar --}}
                                         <input type="hidden" name="accion" value="">
@@ -1663,7 +1667,10 @@
         <script>
             // Obtenemos el valor del estatus desde el HTML generado por PHP en Laravel
             var estatus = "{{ $datoAX->estatus }}";
-            var estatusAuditoriaMarcadaEvento = "{{ $auditoriaMarcada->estatus }}"
+            var estatusAuditoriaMarcadaEvento = @json(optional($auditoriaMarcada)->estatus);
+            var estatusAuditoriaTendidoEvento = @json(optional($auditoriaTendido)->estatus);
+            var estatusLectraEvento = @json(optional($Lectra)->estatus);
+            var estatusAuditoriaBultoEvento = @json(optional($auditoriaBulto)->estatus);
             const estatusTextos = {
                 'estatusAuditoriaMarcada': 'Auditoria de Marcada',
                 'estatusAuditoriaTendido': 'Auditoria de Tendido',
@@ -1703,21 +1710,42 @@
                     break;
                     case "estatusLectra":
                         // Abre el acordeón 3
+                        if(estatusAuditoriaTendidoEvento === "estatusLectra"){ 
                         document.getElementById("collapseThree").classList.add("show");
                         document.getElementById("btnThree").classList.remove("btn-info");
                         document.getElementById("btnThree").classList.add("btn-primary");
+                        }else{ 
+                            // Abre el acordeón 2
+                            document.getElementById("collapseTwo").classList.add("show");
+                            document.getElementById("btnTwo").classList.remove("btn-info");
+                            document.getElementById("btnTwo").classList.add("btn-primary");
+                        }
                         break;
                     case "estatusAuditoriaBulto":
+                        if(estatusLectraEvento === "estatusLectra"){ 
                         // Abre el acordeón 4
                         document.getElementById("collapseFour").classList.add("show");
                         document.getElementById("btnFour").classList.remove("btn-info");
                         document.getElementById("btnFour").classList.add("btn-primary");
+                        }else{
+                            // Abre el acordeón 3
+                            document.getElementById("collapseThree").classList.add("show");
+                            document.getElementById("btnThree").classList.remove("btn-info");
+                            document.getElementById("btnThree").classList.add("btn-primary");
+                        }
                         break;
                     case "estatusAuditoriaFinal":
+                        if(){ 
                         // Abre el acordeón 5
                         document.getElementById("collapseFive").classList.add("show");
                         document.getElementById("btnFive").classList.remove("btn-info");
                         document.getElementById("btnFive").classList.add("btn-primary");
+                        }else{
+                            // Abre el acordeón 4
+                            document.getElementById("collapseFour").classList.add("show");
+                            document.getElementById("btnFour").classList.remove("btn-info");
+                            document.getElementById("btnFour").classList.add("btn-primary");
+                        }
                         break;
                     default:
                         console.log("El valor de estatus no coincide con ninguna opción válida para abrir un acordeón.");
